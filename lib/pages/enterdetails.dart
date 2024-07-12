@@ -212,7 +212,7 @@ class _EnterdetailsState extends State<Enterdetails> {
                           popup = false;
                           setState(() {});
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.close,
                           color: Colors.white,
                         )),
@@ -230,8 +230,10 @@ class _EnterdetailsState extends State<Enterdetails> {
                         fixedSize: const Size(330, 24),
                         backgroundColor: const Color.fromRGBO(4, 183, 159, 1)),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Otppage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Otppage()));
                     },
                     child: const Center(
                         child: Text(

@@ -45,6 +45,7 @@ class _HomepageState extends State<Homepage>
 
   @override
   Widget build(BuildContext context) {
+    var Width = MediaQuery.of(context).size.width;
     return Scaffold(
       bottomNavigationBar: MotionTabBar(
         controller:
@@ -86,7 +87,7 @@ class _HomepageState extends State<Homepage>
         // controller: _tabController,
         controller: _motionTabBarController,
         children: <Widget>[
-          homepage(Date, finaldata),
+          homepage(Date, finaldata, Width),
           const Tickethistory(),
           const Profilepage()
         ],
@@ -94,7 +95,7 @@ class _HomepageState extends State<Homepage>
     );
   }
 
-  Widget homepage(date, finaldata) {
+  Widget homepage(date, finaldata, width) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
       body: SingleChildScrollView(
@@ -172,8 +173,8 @@ class _HomepageState extends State<Homepage>
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                       )),
+                  width > 400 ? calendar1() : calendar()
 
-                  calendar(),
                   // Positioned(
                   //     top: 37,
                   //     left: 270,
@@ -413,6 +414,30 @@ class _HomepageState extends State<Homepage>
       child: ConstrainedBox(
         constraints: BoxConstraints.tightFor(
             width: MediaQuery.of(context).size.width - 50),
+        child: HorizontalCalendar(
+          date: DateTime.now(),
+          initialDate: DateTime.now(),
+          textColor: Colors.black,
+          backgroundColor: Colors.white,
+          selectedColor: const Color.fromRGBO(70, 149, 184, 1),
+          // showMonth: true,
+          locale: Localizations.localeOf(context),
+          onDateSelected: (date) {
+            _pickDate(date.toString());
+            setState(() {});
+          },
+        ),
+      ),
+    );
+  }
+
+  calendar1() {
+    return Positioned(
+      bottom: 50,
+      left: 20,
+      child: ConstrainedBox(
+        constraints: BoxConstraints.tightFor(
+            width: MediaQuery.of(context).size.width - 50, height: 70),
         child: HorizontalCalendar(
           date: DateTime.now(),
           initialDate: DateTime.now(),
