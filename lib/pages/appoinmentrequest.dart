@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, sort_child_properties_last
 
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +76,7 @@ class Appoinmentrequest extends StatelessWidget {
             ),
             custom_container(context),
             comment_container(context),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -90,8 +90,8 @@ class Appoinmentrequest extends StatelessWidget {
             SizedBox(
               height: (height / 2) - 390,
             ),
-            Center(
-              child: const BlinkText('Slide to Complete',
+            const Center(
+              child: BlinkText('Slide to Complete',
                   style: TextStyle(fontSize: 14.0, color: Colors.black),
                   endColor: Colors.grey,
                   duration: Duration(seconds: 2)),
@@ -100,8 +100,10 @@ class Appoinmentrequest extends StatelessWidget {
               onPanUpdate: (details) {
                 // Swiping in left direction.
                 if (details.delta.dx > 0) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Enterdetails()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Enterdetails()));
                 }
               },
               child: Container(
@@ -113,7 +115,7 @@ class Appoinmentrequest extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "SERVICE COMPLETED",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
@@ -122,7 +124,7 @@ class Appoinmentrequest extends StatelessWidget {
                     ],
                   ),
                 )),
-                color: Color.fromRGBO(70, 149, 184, 1),
+                color: const Color.fromRGBO(70, 149, 184, 1),
               ),
             ),
           ],
