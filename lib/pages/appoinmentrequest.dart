@@ -2,9 +2,8 @@
 
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
-import 'package:herd_service/pages/Homepage.dart';
+
 import 'package:herd_service/pages/enterdetails.dart';
-import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class Appoinmentrequest extends StatelessWidget {
   const Appoinmentrequest({super.key});
