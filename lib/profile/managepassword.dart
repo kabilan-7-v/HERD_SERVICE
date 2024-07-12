@@ -8,38 +8,40 @@ class Managepassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(children: [
-      const SizedBox(
-        height: 50,
-      ),
-      const Row(
-        children: [
-          BackButton(),
-          SizedBox(
-            width: 10,
-          ),
-          Text(
-            "Manage Password",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          )
-        ],
-      ),
-      const SizedBox(
-        height: 20,
-      ),
-      Custom_Textfield(
-          context, const Icon(Icons.lock_outlined), "Enter Current Password"),
-      Custom_Textfield(
-          context, const Icon(Icons.lock_outlined), "New Password"),
-      Custom_Textfield(
-          context, const Icon(Icons.lock_outlined), "confirm Password"),
-      const SizedBox(
-        height: 55,
-      ),
-      click_button(
-        context,
-      ),
-    ]));
+        body: SingleChildScrollView(
+      child: Column(children: [
+        const SizedBox(
+          height: 50,
+        ),
+        const Row(
+          children: [
+            BackButton(),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Manage Password",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Custom_Textfield(
+            context, const Icon(Icons.lock_outlined), "Enter Current Password"),
+        Custom_Textfield(
+            context, const Icon(Icons.lock_outlined), "New Password"),
+        Custom_Textfield(
+            context, const Icon(Icons.lock_outlined), "confirm Password"),
+        const SizedBox(
+          height: 55,
+        ),
+        click_button(
+          context,
+        ),
+      ]),
+    ));
   }
 
   Widget click_button(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/customer_utility/customercard.dart';
+import 'package:herd_service/pages/appoinmentrequest.dart';
 
 class Customercontainer extends StatefulWidget {
   final Customercard card;
@@ -85,7 +86,15 @@ class _CustomercontainerState extends State<Customercontainer> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width / 2.8,
                             ),
-                            Icon(Icons.more_horiz)
+                            InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Appoinmentrequest()));
+                                },
+                                child: Icon(Icons.more_horiz)),
                           ],
                         ),
                         Row(

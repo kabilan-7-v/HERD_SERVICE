@@ -104,7 +104,6 @@ class LoginWithPassword extends StatelessWidget {
             fixedSize: Size(520, 34),
             backgroundColor: Color.fromRGBO(70, 149, 184, 1)),
         onPressed: () {},
-        // ignore: prefer_const_constructors
         child: Center(
             child: Text(
           "SIGN IN",

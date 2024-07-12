@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/profile/managepassword.dart';
+import 'package:herd_service/profile/preferences.dart';
 
 class Settingspage extends StatelessWidget {
   const Settingspage({super.key});
@@ -31,8 +32,11 @@ class Settingspage extends StatelessWidget {
             context, MaterialPageRoute(builder: (context) => Managepassword()));
       }),
       line(context),
-      listofprofile("Preferences", "Manage Preferences",
-          "assets/icons/person_2.png", () {}),
+      listofprofile(
+          "Preferences", "Manage Preferences", "assets/icons/person_2.png", () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Preferences()));
+      }),
       line(context),
       listofprofile("Logout", "", "assets/icons/logout.png", () {}),
       line(context),
