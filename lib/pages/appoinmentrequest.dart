@@ -15,6 +15,7 @@ class Appoinmentrequest extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Stack(
               children: [
@@ -87,7 +88,7 @@ class Appoinmentrequest extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: (height / 2) - 390,
+              height: (height / 18),
             ),
             const Center(
               child: BlinkText('Slide to Complete',
