@@ -135,14 +135,14 @@ class Profilepage extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.close,
                             size: 18,
                           ),
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     const Text(
