@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/customer_utility/customercard.dart';
+import 'package:herd_service/pages/ticketshow.dart';
 
 class Tickethistory extends StatelessWidget {
   const Tickethistory({
@@ -45,63 +46,69 @@ class Tickethistory extends StatelessWidget {
   }
 
   ticketcard(data, BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            const SizedBox(
-              width: 30,
-            ),
-            Text(
-              "[" + data.name + "],",
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const SizedBox(
-              width: 30,
-            ),
-            Text(data.address),
-            const Spacer(),
-            Text(
-              data.iscompleted == true ? "Completed" : "Cancel",
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            data.iscompleted == true
-                ? Image.asset("assets/icons/complete.png")
-                : Image.asset("assets/icons/cancel.png"),
-            const SizedBox(
-              width: 20,
-            )
-          ],
-        ),
-        Row(
-          children: [
-            const SizedBox(
-              width: 30,
-            ),
-            Image.asset("assets/icons/currency_rupee (1).png"),
-            Text(data.cost),
-          ],
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        Image.asset("assets/icons/Line 70.png"),
-        // Container(
-        //   height: 2,
-        //   width: MediaQuery.of(context).size.width - 40,
-        //   color: ,
-        // )
-        const SizedBox(
-          height: 16,
-        )
-      ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Ticketshow()));
+      },
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const SizedBox(
+                width: 30,
+              ),
+              Text(
+                "[" + data.name + "],",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const SizedBox(
+                width: 30,
+              ),
+              Text(data.address),
+              const Spacer(),
+              Text(
+                data.iscompleted == true ? "Completed" : "Cancel",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              data.iscompleted == true
+                  ? Image.asset("assets/icons/complete.png")
+                  : Image.asset("assets/icons/cancel.png"),
+              const SizedBox(
+                width: 20,
+              )
+            ],
+          ),
+          Row(
+            children: [
+              const SizedBox(
+                width: 30,
+              ),
+              Image.asset("assets/icons/currency_rupee (1).png"),
+              Text(data.cost),
+            ],
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Image.asset("assets/icons/Line 70.png"),
+          // Container(
+          //   height: 2,
+          //   width: MediaQuery.of(context).size.width - 40,
+          //   color: ,
+          // )
+          const SizedBox(
+            height: 16,
+          )
+        ],
+      ),
     );
   }
 }

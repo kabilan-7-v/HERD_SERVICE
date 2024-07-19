@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:herd_service/pages/tickethistory.dart';
 import 'package:herd_service/profile/about.dart';
 import 'package:herd_service/profile/notification.dart';
 import 'package:herd_service/profile/profile.dart';
@@ -52,7 +53,12 @@ class Profilepage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            listofprofile("Ticket History", "assets/icons/history.png", () {}),
+            listofprofile("Ticket History", "assets/icons/history.png", () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Tickethistory()));
+            }),
             line(context),
             listofprofile("Notification", "assets/icons/notifications.png", () {
               Navigator.push(
