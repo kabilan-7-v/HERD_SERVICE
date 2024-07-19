@@ -19,7 +19,7 @@ class _CustomercontainerState extends State<Customercontainer> {
         Container(
             width: MediaQuery.of(context).size.width - 40,
             height: 140,
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
                 // ignore: prefer_const_literals_to_create_immutables
                 color: Colors.white,
@@ -37,8 +37,48 @@ class _CustomercontainerState extends State<Customercontainer> {
                   children: [
                     const Spacer(),
                     (widget.card.priority) == true
-                        ? Image.asset("assets/icons/midbox.png")
-                        : Image.asset("assets/icons/Lowbox.png"),
+                        ? Container(
+                            width: 43,
+                            height: 22,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                border: Border.all(
+                                  width: 2,
+                                  color: const Color.fromRGBO(242, 160, 36, 1),
+                                  style: BorderStyle.solid,
+                                ),
+                                color: Colors.white),
+                            child: const Center(
+                                child: Text(
+                              "Mid",
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Color.fromRGBO(242, 160, 36, 1),
+                                  fontWeight: FontWeight.bold),
+                            )),
+                          )
+                        : Container(
+                            width: 43,
+                            height: 22,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                border: Border.all(
+                                  width: 2,
+                                  color: const Color.fromRGBO(0, 105, 61, 1),
+                                  style: BorderStyle.solid,
+                                ),
+                                color: Colors.white),
+                            child: const Center(
+                                child: Text(
+                              "Mid",
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Color.fromRGBO(0, 105, 61, 1),
+                                  fontWeight: FontWeight.bold),
+                            )),
+                          ),
                     const SizedBox(
                       width: 5,
                     )
@@ -47,12 +87,12 @@ class _CustomercontainerState extends State<Customercontainer> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 80,
                     ),
                     Text(
                       widget.card.name,
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                      style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -66,14 +106,14 @@ class _CustomercontainerState extends State<Customercontainer> {
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Image.asset("assets/icons/schedule (1).png"),
                         ),
-                        Text(
+                        const Text(
                           "Just Now",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 12),
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 13,
                     ),
                     Column(
@@ -84,7 +124,7 @@ class _CustomercontainerState extends State<Customercontainer> {
                           children: [
                             Text(widget.card.address),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width / 2.8,
+                              width: MediaQuery.of(context).size.width / 3.1,
                             ),
                             InkWell(
                                 onTap: () {
@@ -92,9 +132,9 @@ class _CustomercontainerState extends State<Customercontainer> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              Appoinmentrequest()));
+                                              const Appoinmentrequest()));
                                 },
-                                child: Icon(Icons.more_horiz)),
+                                child: const Icon(Icons.more_horiz)),
                           ],
                         ),
                         Row(
@@ -102,7 +142,7 @@ class _CustomercontainerState extends State<Customercontainer> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset("assets/icons/call.png"),
-                            SizedBox(
+                            const SizedBox(
                               width: 3,
                             ),
                             Text(widget.card.phonenumber),
@@ -114,7 +154,7 @@ class _CustomercontainerState extends State<Customercontainer> {
                                 width: 15,
                                 child: Image.asset(
                                     "assets/icons/calendar_month.png")),
-                            SizedBox(
+                            const SizedBox(
                               width: 3,
                             ),
                             Text(widget.card.date),
@@ -126,7 +166,7 @@ class _CustomercontainerState extends State<Customercontainer> {
                 )
               ],
             )),
-        SizedBox(
+        const SizedBox(
           height: 15,
         )
       ],

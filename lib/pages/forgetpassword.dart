@@ -7,35 +7,40 @@ class Forgetpasswordpage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 43,
-          ),
-          Stack(
-            children: [
-              Image.asset("assets/img/background_doctor_blue.png"),
-              Positioned(
-                  top: 10,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 43,
+            ),
+            Stack(
+              children: [
+                Image.asset("assets/img/background_doctor_blue.png"),
+                Positioned(
+                    top: 10,
+                    left: 80,
+                    child: Image.asset("assets/img/doctor.png")),
+                const Positioned(
+                  bottom: 40,
                   left: 80,
-                  child: Image.asset("assets/img/doctor.png")),
-              Positioned(
-                bottom: 40,
-                left: 80,
-                child: Text(
-                  "FORGET PASSWORD",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  child: Text(
+                    "FORGET PASSWORD",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Custom_Textfield(context, Image.asset("assets/icons/person_2.png"),
-              "Enter Registered Mail"),
-          SizedBox(
-            height: 120,
-          ),
-          click_button(context),
-        ],
+              ],
+            ),
+            Custom_Textfield(context, Image.asset("assets/icons/person_2.png"),
+                "Enter Registered Mail"),
+            const SizedBox(
+              height: 120,
+            ),
+            click_button(context),
+          ],
+        ),
       ),
     ));
   }
@@ -43,7 +48,7 @@ class Forgetpasswordpage extends StatelessWidget {
   Widget Custom_Textfield(BuildContext context, icon, hinttext) {
     return Center(
       child: Container(
-        margin: EdgeInsets.all(9),
+        margin: const EdgeInsets.all(9),
         decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.circular(8)),
@@ -68,7 +73,8 @@ class Forgetpasswordpage extends StatelessWidget {
         onTap: () {},
         child: Text(
           text,
-          style: TextStyle(fontSize: 15, color: Color.fromRGBO(0, 176, 254, 1)),
+          style: const TextStyle(
+              fontSize: 15, color: Color.fromRGBO(0, 176, 254, 1)),
         ));
   }
 
@@ -80,10 +86,10 @@ class Forgetpasswordpage extends StatelessWidget {
           width: MediaQuery.of(context).size.width - 50, height: 50),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            fixedSize: Size(520, 34),
-            backgroundColor: Color.fromRGBO(70, 149, 184, 1)),
+            fixedSize: const Size(520, 34),
+            backgroundColor: const Color.fromRGBO(70, 149, 184, 1)),
         onPressed: () {},
-        child: Center(
+        child: const Center(
             child: Text(
           "Send",
           style: TextStyle(

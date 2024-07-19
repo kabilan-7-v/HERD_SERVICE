@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:herd_service/pages/adddetails.dart';
 import 'package:herd_service/pages/otppage.dart';
 
 class Enterdetails extends StatefulWidget {
@@ -99,6 +100,37 @@ class _EnterdetailsState extends State<Enterdetails> {
                   ),
                   InkWell(
                     onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Adddetails()));
+                    },
+                    child: Container(
+                      height: 60,
+                      width: MediaQuery.of(context).size.width / 1.8,
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(70, 149, 184, 1),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const Center(
+                              child: Text(
+                            "Add Details",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          )),
+                          Image.asset("assets/img/upload_2.png")
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () {
                       setState(() {
                         popup = true;
                       });
@@ -192,6 +224,7 @@ class _EnterdetailsState extends State<Enterdetails> {
                     decoration: const BoxDecoration(
                         color: Color.fromRGBO(70, 149, 184, 1),
                         // color: Colors.black,
+
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10),
@@ -199,11 +232,28 @@ class _EnterdetailsState extends State<Enterdetails> {
                             bottomRight: Radius.elliptical(170, 70))),
                   ),
                   Positioned(
-                    top: 50,
-                    left: 20,
-                    child: Image.asset(
-                        "assets/img/Are you Sure! You need to upload the Details_.png"),
-                  ),
+                      top: 50,
+                      left: 20,
+                      child: Column(
+                        children: [
+                          Text(
+                            "Are You Sure!",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.white,
+                                decorationColor:
+                                    Color.fromRGBO(70, 149, 184, 1)),
+                          ),
+                          Text(
+                            "You need to upload the Details?",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.white,
+                                decorationColor:
+                                    Color.fromRGBO(70, 149, 184, 1)),
+                          ),
+                        ],
+                      )),
                   Positioned(
                     top: 20,
                     right: 10,

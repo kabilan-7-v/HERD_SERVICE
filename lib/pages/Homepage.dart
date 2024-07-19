@@ -5,6 +5,7 @@ import 'package:herd_service/customer_utility/customercard.dart';
 import 'package:herd_service/customer_utility/customercontainer.dart';
 import 'package:herd_service/pages/profilepage.dart';
 import 'package:herd_service/pages/tickethistory.dart';
+import 'package:herd_service/profile/notification.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:intl/intl.dart';
 
@@ -21,6 +22,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage>
     with SingleTickerProviderStateMixin {
   MotionTabBarController? _motionTabBarController;
+  bool accept = true;
   DateTime? selectedDate;
 
   String finaldata = DateFormat('MMMM d, yyyy').format(DateTime.now());
@@ -41,7 +43,7 @@ class _HomepageState extends State<Homepage>
     _motionTabBarController!.dispose();
   }
 
-  String Date = "25 Jun 20024, 8am";
+  String Date = "25 Jun 2024, 8am";
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +89,7 @@ class _HomepageState extends State<Homepage>
         // controller: _tabController,
         controller: _motionTabBarController,
         children: <Widget>[
-          homepage(Date, finaldata, Width),
+          homepage(Date, finaldata, Width, accept),
           const Tickethistory(),
           const Profilepage()
         ],
@@ -95,7 +97,7 @@ class _HomepageState extends State<Homepage>
     );
   }
 
-  Widget homepage(date, finaldata, width) {
+  Widget homepage(date, finaldata, width, accept) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
       body: SingleChildScrollView(
@@ -106,16 +108,29 @@ class _HomepageState extends State<Homepage>
               const SizedBox(
                 height: 80,
               ),
-              const Row(
+              Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
-                  Text(
+                  const Text(
                     "Welcome Back!",
                     style: TextStyle(
                         color: Color.fromRGBO(132, 146, 190, 1), fontSize: 16),
                   ),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const Notificationpage()));
+                      },
+                      icon: const Icon(Icons.notifications)),
+                  const SizedBox(
+                    width: 20,
+                  )
                 ],
               ),
               const Row(
@@ -132,18 +147,21 @@ class _HomepageState extends State<Homepage>
               const SizedBox(
                 height: 30,
               ),
-              const Row(
+              Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
-                  Text(
-                    "Current Request",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
+                  accept
+                      ? const Text(
+                          "Current Request",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        )
+                      : const SizedBox()
                 ],
               ),
-              appoinment_Request(Date),
+              accept ? appoinment_Request(Date) : const SizedBox(),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
@@ -298,7 +316,7 @@ class _HomepageState extends State<Homepage>
             ),
             const SizedBox(
               height: 20,
-              width: 50,
+              width: 60,
             ),
             const Text(
               "AJAY KUMAR (608MRC)",
@@ -308,9 +326,28 @@ class _HomepageState extends State<Homepage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  width: 10,
+                  width: 20,
                 ),
-                Image.asset("assets/icons/mid.png"),
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(
+                        width: 3,
+                        color: const Color.fromRGBO(242, 160, 36, 1),
+                        style: BorderStyle.solid,
+                      ),
+                      color: Colors.white),
+                  child: const Center(
+                      child: Text(
+                    "Mid",
+                    style: TextStyle(
+                        color: Color.fromRGBO(242, 160, 36, 1),
+                        fontWeight: FontWeight.bold),
+                  )),
+                ),
+                // Image.asset("assets/icons/mid.png"),
                 const SizedBox(
                   width: 30,
                 ),
@@ -384,7 +421,12 @@ class _HomepageState extends State<Homepage>
                             fixedSize: const Size(150, 34),
                             backgroundColor:
                                 const Color.fromRGBO(70, 149, 184, 1)),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            accept = false;
+                            setState(() {});
+                          });
+                        },
                         child: const Text(
                           "ACCEPT",
                           style: TextStyle(color: Colors.white),

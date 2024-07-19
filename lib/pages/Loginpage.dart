@@ -12,52 +12,59 @@ class Loginpage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 43,
-          ),
-          Stack(
-            children: [
-              Image.asset("assets/img/background_doctor_blue.png"),
-              Positioned(
-                  top: 10,
-                  left: 80,
-                  child: Image.asset("assets/img/doctor.png")),
-              Positioned(
-                bottom: 65,
-                left: 150,
-                child: Text(
-                  "LOGIN",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Column(
+          children: [
+            SizedBox(
+              height: 43,
+            ),
+            Stack(
+              children: [
+                Image.asset("assets/img/background_doctor_blue.png"),
+                Positioned(
+                    top: 10,
+                    left: 80,
+                    child: Image.asset("assets/img/doctor.png")),
+                Positioned(
+                  bottom: 65,
+                  left: 150,
+                  child: Text(
+                    "LOGIN",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Custom_Textfield(context, Image.asset("assets/icons/person_2.png"),
-              "Enter User ID"),
-          Custom_Textfield(
-              context, Image.asset("assets/icons/lock.png"), "Enter Password"),
-          SizedBox(
-            height: 10,
-          ),
-          click_text("Instead sign in using email/Phone Number", () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginWithPassword()));
-          }),
-          SizedBox(
-            height: 10,
-          ),
-          Center(
-              child: click_text("Forget Password", () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Forgetpasswordpage()));
-          })),
-          SizedBox(
-            height: 50,
-          ),
-          click_button(context),
-        ],
+              ],
+            ),
+            Custom_Textfield(context, Image.asset("assets/icons/person_2.png"),
+                "Enter User ID"),
+            Custom_Textfield(context, Image.asset("assets/icons/lock.png"),
+                "Enter Password"),
+            SizedBox(
+              height: 10,
+            ),
+            click_text("Instead sign in using email/Phone Number", () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginWithPassword()));
+            }),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+                child: click_text("Forget Password", () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Forgetpasswordpage()));
+            })),
+            SizedBox(
+              height: 50,
+            ),
+            click_button(context),
+          ],
+        ),
       ),
     ));
   }

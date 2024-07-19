@@ -67,6 +67,9 @@ class Profilepage extends StatelessWidget {
                       builder: (context) => const Notificationpage()));
             }),
             line(context),
+            listofprofile(
+                "Medicine", "assets/icons/medical_services.png", () {}),
+            line(context),
             listofprofile("Settings", "assets/icons/settings.png", () {
               Navigator.push(
                   context,
