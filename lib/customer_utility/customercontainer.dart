@@ -72,7 +72,7 @@ class _CustomercontainerState extends State<Customercontainer> {
                                 color: Colors.white),
                             child: const Center(
                                 child: Text(
-                              "Mid",
+                              "Low",
                               style: TextStyle(
                                   fontSize: 11,
                                   color: Color.fromRGBO(0, 105, 61, 1),

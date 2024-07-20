@@ -99,6 +99,9 @@ class _OtppageState extends State<Otppage> {
               const SizedBox(
                 height: 140,
               ),
+              SizedBox(
+                height: 100,
+              ),
               isbutton == true ? click_button(context) : const SizedBox()
             ]),
           )),

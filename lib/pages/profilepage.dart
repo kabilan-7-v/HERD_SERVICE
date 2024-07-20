@@ -53,14 +53,14 @@ class Profilepage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            listofprofile("Ticket History", "assets/icons/history.png", () {
+            listofprofile("Ticket History", Icons.timer_outlined, () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const Tickethistory()));
             }),
             line(context),
-            listofprofile("Notification", "assets/icons/notifications.png", () {
+            listofprofile("Notification", Icons.notifications_active, () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -68,16 +68,16 @@ class Profilepage extends StatelessWidget {
             }),
             line(context),
             listofprofile(
-                "Medicine", "assets/icons/medical_services.png", () {}),
+                "Medicine", Icons.medical_information_outlined, () {}),
             line(context),
-            listofprofile("Settings", "assets/icons/settings.png", () {
+            listofprofile("Settings", Icons.settings, () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const Settingspage()));
             }),
             line(context),
-            listofprofile("About", "assets/icons/report.png", () {
+            listofprofile("About", Icons.info_outlined, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Aboutpage()));
             }),
@@ -91,7 +91,7 @@ class Profilepage extends StatelessWidget {
     );
   }
 
-  Widget listofprofile(String text, String imageurl, ontap) {
+  Widget listofprofile(String text, IconData icon, ontap) {
     return InkWell(
       onTap: ontap,
       child: Padding(
@@ -103,7 +103,10 @@ class Profilepage extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            Image.asset(imageurl),
+            Icon(
+              icon,
+              size: 30,
+            ),
             const SizedBox(
               width: 10,
             ),

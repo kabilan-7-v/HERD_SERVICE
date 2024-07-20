@@ -1,3 +1,5 @@
+import 'package:herd_service/pages/appoinmentrequest.dart';
+
 class Customercard {
   final String name;
   final String address;
@@ -44,4 +46,22 @@ List<Ticket_history> tickethistory = [
   Ticket_history("AJAY KUMAR", "POLLACHI", "800", false),
   Ticket_history("AJAY KUMAR", "POLLACHI", "800", true),
   Ticket_history("AJAY KUMAR", "POLLACHI", "800", false),
+];
+
+class current_request {
+  final String name;
+  final String vllc;
+  final String street;
+  final bool priroity;
+  final String state;
+  current_request(this.name, this.priroity, this.vllc, this.street, this.state);
+}
+
+List<current_request> current_request_list = [
+  current_request("AJAY KUMAR (608MRC)", true, "POLLACHI",
+      ":04,ABC Street,Pollachi,CBE", "Tamil Nadu,TN-630 000,"),
+  current_request("AJAY KUMAR (608MRC)", false, "POLLACHI",
+      ":04,ABC Street,Pollachi,CBE", "Tamil Nadu,TN-630 000,"),
+  // current_request("AJAY KUMAR", "POLLACHI", "800", false),
+  // current_request("AJAY KUMAR", "POLLACHI", "800", true),
 ];

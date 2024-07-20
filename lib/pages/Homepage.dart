@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/customer_utility/customercard.dart';
 import 'package:herd_service/customer_utility/customercontainer.dart';
+import 'package:herd_service/pages/appoinmentrequest.dart';
 import 'package:herd_service/pages/profilepage.dart';
 import 'package:herd_service/pages/tickethistory.dart';
 import 'package:herd_service/profile/notification.dart';
@@ -161,7 +162,17 @@ class _HomepageState extends State<Homepage>
                       : const SizedBox()
                 ],
               ),
-              accept ? appoinment_Request(Date) : const SizedBox(),
+              accept
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: current_request_list.length,
+                      itemBuilder: (context, ind) {
+                        var res = current_request_list[ind];
+                        return appoinment_Request(date, res.priroity, res.name,
+                            res.vllc, res.street, res.state);
+                      })
+                  : const SizedBox(),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
@@ -192,45 +203,6 @@ class _HomepageState extends State<Homepage>
                             fontSize: 22, fontWeight: FontWeight.bold),
                       )),
                   width > 400 ? calendar1() : calendar()
-
-                  // Positioned(
-                  //     top: 37,
-                  //     left: 270,
-                  //     child: InkWell(
-                  //         onTap: () async {
-                  //           final DateTime? picked = await showDatePicker(
-                  //               context: context,
-                  //               initialDate: DateTime.now(),
-                  //               firstDate: DateTime(2020),
-                  //               lastDate: DateTime(2030),
-                  //               helpText: 'Select a date',
-                  //               cancelText: 'CANCEL',
-                  //               confirmText: 'OK',
-                  //               initialEntryMode: DatePickerEntryMode.calendar,
-                  //               builder: (context, child) {
-                  //                 return Theme(
-                  //                   data: ThemeData(
-                  //                       colorScheme: ColorScheme.fromSeed(
-                  //                     surfaceBright: Colors.white,
-                  //                     secondary: Colors.white,
-                  //                     brightness: Brightness.light,
-                  //                     tertiary: Colors.white,
-                  //                     surfaceTint: Colors.white,
-                  //                     surfaceContainer: Colors.white,
-                  //                     primaryContainer: Colors.white,
-                  //                     seedColor: Colors.white,
-                  //                     primary: Colors.black,
-                  //                   )),
-                  //                   child: child!,
-                  //                 );
-                  //               });
-                  //           if (picked != null)
-                  //             setState(() {
-                  //               finaldata = picked;
-                  //             });
-                  //         },
-                  //         child:
-                  //             Image.asset("assets/icons/calendar_month.png"))),
                 ]),
               ),
               Center(
@@ -247,7 +219,7 @@ class _HomepageState extends State<Homepage>
     );
   }
 
-  Widget appoinment_Request(date) {
+  Widget appoinment_Request(date, priority, String name, vllc, street, state) {
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width - 30,
@@ -318,8 +290,8 @@ class _HomepageState extends State<Homepage>
               height: 20,
               width: 60,
             ),
-            const Text(
-              "AJAY KUMAR (608MRC)",
+            Text(
+              name,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Row(
@@ -328,25 +300,45 @@ class _HomepageState extends State<Homepage>
                 const SizedBox(
                   width: 20,
                 ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(
-                        width: 3,
-                        color: const Color.fromRGBO(242, 160, 36, 1),
-                        style: BorderStyle.solid,
+                priority == true
+                    ? Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                              width: 3,
+                              color: const Color.fromRGBO(242, 160, 36, 1),
+                              style: BorderStyle.solid,
+                            ),
+                            color: Colors.white),
+                        child: Center(
+                            child: Text(
+                          priority == true ? "Mid" : "Low",
+                          style: TextStyle(
+                              color: Color.fromRGBO(242, 160, 36, 1),
+                              fontWeight: FontWeight.bold),
+                        )),
+                      )
+                    : Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                              width: 3,
+                              color: const Color.fromRGBO(0, 105, 61, 1),
+                              style: BorderStyle.solid,
+                            ),
+                            color: Colors.white),
+                        child: Center(
+                            child: Text(
+                          priority == true ? "Mid" : "Low",
+                          style: TextStyle(
+                              color: Color.fromRGBO(0, 105, 61, 1),
+                              fontWeight: FontWeight.bold),
+                        )),
                       ),
-                      color: Colors.white),
-                  child: const Center(
-                      child: Text(
-                    "Mid",
-                    style: TextStyle(
-                        color: Color.fromRGBO(242, 160, 36, 1),
-                        fontWeight: FontWeight.bold),
-                  )),
-                ),
                 // Image.asset("assets/icons/mid.png"),
                 const SizedBox(
                   width: 30,
@@ -358,13 +350,13 @@ class _HomepageState extends State<Homepage>
                       height: 7,
                     ),
                     RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                           text: "VLLC:",
                           style: TextStyle(
                               fontWeight: FontWeight.w400, color: Colors.black),
                           children: [
                             TextSpan(
-                              text: "Pollachi",
+                              text: vllc,
                               style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black),
@@ -375,13 +367,13 @@ class _HomepageState extends State<Homepage>
                       height: 4,
                     ),
                     RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                           text: "NO:",
                           style: TextStyle(
                               fontWeight: FontWeight.w400, color: Colors.black),
                           children: [
                             TextSpan(
-                              text: "04,ABC Street,Pollachi,CBE",
+                              text: street,
                               style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black),
@@ -391,7 +383,7 @@ class _HomepageState extends State<Homepage>
                     const SizedBox(
                       height: 4,
                     ),
-                    const Text("Tamil Nadu,TN-636 000,")
+                    Text(state)
                   ],
                 )
               ],
