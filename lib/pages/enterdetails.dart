@@ -1,8 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:herd_service/pages/adddetails.dart';
 import 'package:herd_service/pages/otppage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Enterdetails extends StatefulWidget {
   const Enterdetails({super.key});
@@ -16,6 +19,17 @@ class _EnterdetailsState extends State<Enterdetails> {
   final TextEditingController bullTypeController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   bool popup = false;
+  File? imageFile;
+
+  selectFile() async {
+    XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (file != null) {
+      setState(() {
+        imageFile = File(file.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,35 +61,49 @@ class _EnterdetailsState extends State<Enterdetails> {
                   const SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    height: 220,
-                    width: MediaQuery.of(context).size.width - 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Image.asset("assets/img/add_photo_alternate.png"),
-                        Container(
-                          height: 35,
-                          decoration: const BoxDecoration(
-                              color: Color.fromRGBO(70, 149, 184, 1),
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(9),
-                                  bottomRight: Radius.circular(9))),
-                          width: MediaQuery.of(context).size.width - 40,
-                          child: const Center(
-                            child: Text(
-                              "Capture & Upload a Straw Photo",
-                              style: TextStyle(color: Colors.white),
+                  InkWell(
+                    onTap: () {
+                      selectFile();
+                    },
+                    child: Container(
+                      height: 220,
+                      width: MediaQuery.of(context).size.width - 40,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          imageFile == null ? SizedBox() : SizedBox(),
+                          imageFile == null
+                              ? Image.asset(
+                                  "assets/img/add_photo_alternate.png")
+                              : SizedBox(
+                                  height: 185,
+                                  width: MediaQuery.of(context).size.width - 40,
+                                  child: Image.file(
+                                    imageFile!,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                          Container(
+                            height: 35,
+                            decoration: const BoxDecoration(
+                                color: Color.fromRGBO(70, 149, 184, 1),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(9),
+                                    bottomRight: Radius.circular(9))),
+                            width: MediaQuery.of(context).size.width - 40,
+                            child: const Center(
+                              child: Text(
+                                "Capture & Upload a Straw Photo",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   buildTextField(

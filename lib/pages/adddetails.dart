@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -68,10 +69,10 @@ class _AdddetailsState extends State<Adddetails> {
                             child: Image.asset(
                                 "assets/icons/medical_services.png"),
                           ),
-                          Container(
+                          const SizedBox(
                             height: 50,
                             width: 150,
-                            child: const TextField(
+                            child: TextField(
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "Search Medicine",
@@ -488,7 +489,7 @@ class _AdddetailsState extends State<Adddetails> {
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       )),
-                      Image.asset("assets/img/upload_2.png")
+                      Image.asset("assets/img/upload_2.png"),
                     ],
                   ),
                 ),
@@ -506,28 +507,27 @@ class _AdddetailsState extends State<Adddetails> {
   }) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          fillColor: Colors.black,
+          labelText: "Price",
+          // label: Container(),
+          labelStyle: TextStyle(color: Colors.black),
+
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+              borderRadius: BorderRadius.circular(5)),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+              borderRadius: BorderRadius.circular(5)),
+          hintText: hintText,
+          prefixIcon: Icon(icon),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+            borderRadius: BorderRadius.circular(8.0),
           ),
-          const SizedBox(height: 8),
-          TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              hintText: hintText,
-              prefixIcon: Icon(icon),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -38,14 +38,22 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_otp_text_field: ^1.1.0+2
   motion_tab_bar: ^2.0.4
+  
  
   horizontal_calendar: ^1.1.2
+  image_picker: ^1.1.2
   intl: 
   swipeable_page_route: ^0.4.3
+ 
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/img/doctor.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
