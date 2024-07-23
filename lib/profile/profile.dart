@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:herd_service/customer_utility/customercard.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -31,11 +33,12 @@ class Profile extends StatelessWidget {
             "25DCOMI",
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
-          const Text(
-            "Dr.k.Ram Kumar",
+          Text(
+            (context.watch<userprofiledetails>().username),
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
-          listofprofile("Name", "k.Ram Kumar", Icons.person_2_outlined, () {}),
+          listofprofile("Name", context.watch<userprofiledetails>().username,
+              Icons.person_2_outlined, () {}),
           line(context),
           listofprofile("Phone Number", "96334567802", Icons.phone, () {}),
           line(context),

@@ -1,11 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:herd_service/customer_utility/customercard.dart';
 import 'package:herd_service/pages/tickethistory.dart';
 import 'package:herd_service/profile/about.dart';
 import 'package:herd_service/profile/notification.dart';
 import 'package:herd_service/profile/profile.dart';
 import 'package:herd_service/profile/settings.dart';
+import 'package:provider/provider.dart';
 
 class Profilepage extends StatelessWidget {
   const Profilepage({super.key});
@@ -35,11 +37,11 @@ class Profilepage extends StatelessWidget {
                       boxShadow: const [
                         BoxShadow(color: Colors.grey, blurRadius: 4)
                       ]),
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Dr.k.Ram Kumar MD.MS",
+                        context.watch<userprofiledetails>().username,
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),

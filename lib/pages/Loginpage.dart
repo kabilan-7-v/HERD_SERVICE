@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:herd_service/pages/Homepage.dart';
 import 'package:herd_service/pages/forgetpassword.dart';
 import 'package:herd_service/pages/login_with_password.dart';
+import 'package:herd_service/server/test.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
@@ -16,6 +17,8 @@ class _LoginpageState extends State<Loginpage> {
   final GlobalKey<FormState> _key = GlobalKey();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final ScrollController _scrollcontroller = ScrollController();
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -27,6 +30,7 @@ class _LoginpageState extends State<Loginpage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
+      controller: _scrollcontroller,
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -112,7 +116,12 @@ class _LoginpageState extends State<Loginpage> {
             if (value!.isEmpty) return errormessage;
             return null;
           },
-          onTapOutside: (event) {},
+          onTap: () async {
+            await Future.delayed(Duration(milliseconds: 300));
+
+            _scrollcontroller.animateTo(400,
+                duration: Duration(milliseconds: 100), curve: Curves.linear);
+          },
           decoration: InputDecoration(
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
@@ -143,10 +152,19 @@ class _LoginpageState extends State<Loginpage> {
         style: ElevatedButton.styleFrom(
             fixedSize: Size(520, 34),
             backgroundColor: Color.fromRGBO(70, 149, 184, 1)),
-        onPressed: () {
+        onPressed: () async {
+          print(await postdata());
+          await fetchdata(_emailController.text);
           if (!_key.currentState!.validate()) return;
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Homepage()));
+
+          if (await fetchdata(_emailController.text)) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Homepage()));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("Invalid Email or Password"),
+            ));
+          }
         },
         child: Center(
             child: Text(

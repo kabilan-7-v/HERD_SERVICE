@@ -1,10 +1,12 @@
-// ignore_for_file: non_constant_identifier_names, sort_child_properties_last
+// ignore_for_file: non_constant_identifier_names, sort_child_properties_last, deprecated_member_use
 
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 import 'package:herd_service/pages/enterdetails.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Appoinmentrequest extends StatelessWidget {
   const Appoinmentrequest({super.key});
@@ -83,9 +85,13 @@ class Appoinmentrequest extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                socialMedia(Bootstrap.whatsapp),
-                socialMedia(Bootstrap.send),
-                socialMedia(Bootstrap.telephone),
+                socialMedia(Bootstrap.whatsapp, () {
+                  whatsapp();
+                }),
+                socialMedia(Bootstrap.send, () async {}),
+                socialMedia(Bootstrap.telephone, () async {
+                  await _callNumber("7010185919");
+                }),
               ],
             ),
             SizedBox(
@@ -290,45 +296,66 @@ class Appoinmentrequest extends StatelessWidget {
     );
   }
 
-  socialMedia(BootstrapIconData icon) {
-    return Stack(
-      children: [
-        Container(
-          height: 60,
-          width: 60,
-          decoration: BoxDecoration(
-            // border: Border.all(),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 0.5,
-                color: Colors.black.withOpacity(0.2),
-              )
-            ],
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
+  socialMedia(BootstrapIconData icon, ontap) {
+    return InkWell(
+      onTap: ontap,
+      child: Stack(
+        children: [
+          Container(
+            height: 60,
+            width: 60,
+            decoration: BoxDecoration(
+              // border: Border.all(),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 0.5,
+                  color: Colors.black.withOpacity(0.2),
+                )
+              ],
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
           ),
-        ),
-        Positioned(
-          top: 5,
-          left: 5,
-          child: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                // border: Border.all(),
-                color: Color.fromRGBO(70, 149, 184, 1),
-                borderRadius: BorderRadius.circular(45),
-              )),
-        ),
-        Positioned(
-          top: 17,
-          left: 18,
-          child: Icon(
-            icon,
-            color: Colors.white,
+          Positioned(
+            top: 5,
+            left: 5,
+            child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  // border: Border.all(),
+                  color: Color.fromRGBO(70, 149, 184, 1),
+                  borderRadius: BorderRadius.circular(45),
+                )),
           ),
-        )
-      ],
+          Positioned(
+            top: 17,
+            left: 18,
+            child: Icon(
+              icon,
+              color: Colors.white,
+            ),
+          )
+        ],
+      ),
     );
+  }
+
+  _callNumber(String phoneNumber) async {
+    String number = phoneNumber;
+    await FlutterPhoneDirectCaller.callNumber(number);
+  }
+
+  whatsapp() async {
+    var contact = "+91 9976082664";
+    var androidUrl = "whatsapp://send?phone=$contact&text=Hi, I need some help";
+    // var iosUrl =
+    //     "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help')}";
+
+    try {
+      await launchUrl(Uri.parse(androidUrl));
+    } on Exception {
+      print("object");
+    }
   }
 }

@@ -51,7 +51,7 @@ class Notificationpage extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                Image.asset("assets/icons/notifications_unread.png"),
+                Icon(Icons.notification_add_outlined),
                 const SizedBox(
                   width: 9,
                 ),

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/customer_utility/customercard.dart';
 import 'package:herd_service/customer_utility/customercontainer.dart';
-import 'package:herd_service/pages/appoinmentrequest.dart';
+
 import 'package:herd_service/pages/profilepage.dart';
 import 'package:herd_service/pages/tickethistory.dart';
 import 'package:herd_service/profile/notification.dart';
@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
+import 'package:provider/provider.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -25,6 +26,8 @@ class _HomepageState extends State<Homepage>
   MotionTabBarController? _motionTabBarController;
   bool accept = true;
   DateTime? selectedDate;
+  final ScrollController _controller = ScrollController();
+  List<Customercard> res = customercard;
 
   String finaldata = DateFormat('MMMM d, yyyy').format(DateTime.now());
   @override
@@ -90,7 +93,7 @@ class _HomepageState extends State<Homepage>
         // controller: _tabController,
         controller: _motionTabBarController,
         children: <Widget>[
-          homepage(Date, finaldata, Width, accept),
+          homepage(context, Date, finaldata, Width, accept),
           const Tickethistory(),
           const Profilepage()
         ],
@@ -98,10 +101,11 @@ class _HomepageState extends State<Homepage>
     );
   }
 
-  Widget homepage(date, finaldata, width, accept) {
+  Widget homepage(BuildContext context, date, finaldata, width, accept) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
       body: SingleChildScrollView(
+        controller: _controller,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,43 +138,44 @@ class _HomepageState extends State<Homepage>
                   )
                 ],
               ),
-              const Row(
+              Row(
                 children: [
                   SizedBox(
                     width: 20,
                   ),
                   Text(
-                    "Dr.k.Ram Kumar",
+                    context.watch<userprofiledetails>().username,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                 ],
               ),
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  accept
-                      ? const Text(
+              accept
+                  ? Row(
+                      children: [
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        const Text(
                           "Current Request",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         )
-                      : const SizedBox()
-                ],
-              ),
+                      ],
+                    )
+                  : SizedBox(),
               accept
                   ? ListView.builder(
+                      padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: current_request_list.length,
                       itemBuilder: (context, ind) {
                         var res = current_request_list[ind];
                         return appoinment_Request(date, res.priroity, res.name,
-                            res.vllc, res.street, res.state);
+                            res.vllc, res.street, res.state, ind);
                       })
                   : const SizedBox(),
               const Padding(
@@ -209,9 +214,9 @@ class _HomepageState extends State<Homepage>
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: customercard.length,
+                    itemCount: res.length,
                     itemBuilder: (context, index) {
-                      return Customercontainer(card: customercard[index]);
+                      return Customercontainer(card: res[index]);
                     }),
               )
             ]),
@@ -219,7 +224,8 @@ class _HomepageState extends State<Homepage>
     );
   }
 
-  Widget appoinment_Request(date, priority, String name, vllc, street, state) {
+  Widget appoinment_Request(
+      date, priority, String name, vllc, street, state, int index) {
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width - 30,
@@ -400,7 +406,12 @@ class _HomepageState extends State<Homepage>
                             fixedSize: const Size(150, 34),
                             backgroundColor:
                                 const Color.fromRGBO(235, 239, 250, 1)),
-                        onPressed: () {},
+                        onPressed: () {
+                          current_request_list.removeAt(index);
+                          setState(() {
+                            accept = false;
+                          });
+                        },
                         child: const Text(
                           "DECLINE",
                           style: TextStyle(color: Colors.black),
@@ -414,10 +425,15 @@ class _HomepageState extends State<Homepage>
                             backgroundColor:
                                 const Color.fromRGBO(70, 149, 184, 1)),
                         onPressed: () {
-                          setState(() {
+                          var res = current_request_list.removeAt(index);
+                          customercard.insert(
+                              0,
+                              Customercard(res.name, res.vllc, "089786w445",
+                                  date, res.priroity, 3));
+                          if (current_request_list.isEmpty) {
                             accept = false;
-                            setState(() {});
-                          });
+                          }
+                          setState(() {});
                         },
                         child: const Text(
                           "ACCEPT",
@@ -458,6 +474,7 @@ class _HomepageState extends State<Homepage>
           locale: Localizations.localeOf(context),
           onDateSelected: (date) {
             _pickDate(date.toString());
+            custom_sorting(date.toString());
             setState(() {});
           },
         ),
@@ -487,5 +504,42 @@ class _HomepageState extends State<Homepage>
         ),
       ),
     );
+  }
+
+  custom_sorting(String calcendardate) {
+    List<Customercard> lst = [];
+    List temp = [];
+    print(calcendardate.substring(5, 7));
+    int whole_date = int.parse(calcendardate.substring(0, 4) +
+        calcendardate.substring(5, 6) +
+        (int.parse(calcendardate.substring(6, 7))).toString() +
+        calcendardate.substring(8, 10));
+    print(whole_date);
+    for (var i in customercard) {
+      if (i.date_sort <= whole_date) {
+        temp.add(i.date_sort);
+      }
+    }
+    temp.sort((a, b) => -a.compareTo(b));
+    Set seen = {};
+
+    for (var i in temp) {
+      for (var j in customercard) {
+        if (i == j.date_sort && !seen.contains(j)) {
+          lst.add(j);
+          seen.add(j);
+        }
+      }
+    }
+
+    setState(() {
+      res = lst;
+    });
+  }
+
+  DateTime parseCustomDate(String dateString) {
+    // Define the format pattern matching your input string
+    final DateFormat formatter = DateFormat('MMMM dd,yyyy/h.mm a');
+    return formatter.parse(dateString);
   }
 }
