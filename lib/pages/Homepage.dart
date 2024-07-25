@@ -466,7 +466,7 @@ class _HomepageState extends State<Homepage>
             width: MediaQuery.of(context).size.width - 50),
         child: HorizontalCalendar(
           date: DateTime.now(),
-          initialDate: DateTime.now(),
+          initialDate: DateTime.parse("2024-07-23"),
           textColor: Colors.black,
           backgroundColor: Colors.white,
           selectedColor: const Color.fromRGBO(70, 149, 184, 1),

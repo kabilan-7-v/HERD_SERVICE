@@ -21,12 +21,12 @@ Future<bool> fetchdata(email) async {
 
 Future postdata() async {
   final url = Uri.parse("https://reqres.in/api/users");
-  final data = {"name": "morpheus", "job": "leader", "email": "kabilan"};
+  // final data = {"name": "morpheus", "job": "leader", "email": "kabilan"};
 
-  final res = http.post(
-    url,
-    body: data,
-  );
+  // final res = http.post(
+  //   url,
+  //   body: data,
+  // );
   print(jsonDecode((await http.get(url)).body));
 
   return true;

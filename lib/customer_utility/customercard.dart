@@ -93,7 +93,7 @@ class userprofiledetails extends ChangeNotifier {
       this.username = "Dr.k.Ram kumar MD.MS"});
 
   void change_username(name) {
-    var username = name;
+    // var username = name;
 
     notifyListeners();
   }

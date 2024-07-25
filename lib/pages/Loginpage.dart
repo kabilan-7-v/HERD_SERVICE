@@ -60,21 +60,13 @@ class _LoginpageState extends State<Loginpage> {
                   ),
                 ],
               ),
-              Custom_Textfield(
-                  context,
-                  Image.asset("assets/icons/person_2.png"),
-                  "Enter User ID",
-                  "Please Enter User ID",
-                  _emailController),
+              Custom_Textfield(context, Icon(Icons.person_2_outlined),
+                  "Enter User ID", "Please Enter User ID", _emailController),
               SizedBox(
                 height: 20,
               ),
-              Custom_Textfield(
-                  context,
-                  Image.asset("assets/icons/lock.png"),
-                  "Enter Password",
-                  "Please Enter Password",
-                  _passwordController),
+              Custom_Textfield(context, Icon(Icons.lock), "Enter Password",
+                  "Please Enter Password", _passwordController),
               SizedBox(
                 height: 10,
               ),
@@ -153,9 +145,11 @@ class _LoginpageState extends State<Loginpage> {
             fixedSize: Size(520, 34),
             backgroundColor: Color.fromRGBO(70, 149, 184, 1)),
         onPressed: () async {
-          print(await postdata());
-          await fetchdata(_emailController.text);
+          // print(await postdata());
+          // await fetchdata(_emailController.text);
           if (!_key.currentState!.validate()) return;
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Homepage()));
 
           if (await fetchdata(_emailController.text)) {
             Navigator.push(

@@ -111,14 +111,14 @@ flutter_launcher_icons:
   image_path: "assets/img/doctor.png"
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/icons/doctor.png
+  image: assets/img/doctor.jpeg
   android: true
   ios: true
   android_gravity: center
   android_12:
-    image: assets/icons/doctor.png
+    image: assets/img/doctor.jpeg
     color: "#ffffff"
 
     icon_background_color: "#ffffff"
-    image_dark: assets/icons/doctor.png
+    image_dark: assets/img/doctor.jpeg
     icon_background_color_dark: "#ffffff"
