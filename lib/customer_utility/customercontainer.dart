@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:herd_service/customer_utility/customercard.dart';
+import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/pages/appoinmentrequest.dart';
 
 class Customercontainer extends StatefulWidget {

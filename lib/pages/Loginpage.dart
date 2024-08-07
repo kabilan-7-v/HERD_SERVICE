@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:herd_service/pages/Homepage.dart';
 import 'package:herd_service/pages/forgetpassword.dart';
 import 'package:herd_service/pages/login_with_password.dart';
-import 'package:herd_service/server/test.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
@@ -150,15 +149,6 @@ class _LoginpageState extends State<Loginpage> {
           if (!_key.currentState!.validate()) return;
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Homepage()));
-
-          if (await fetchdata(_emailController.text)) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Homepage()));
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Invalid Email or Password"),
-            ));
-          }
         },
         child: Center(
             child: Text(

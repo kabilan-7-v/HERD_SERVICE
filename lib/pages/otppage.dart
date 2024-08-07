@@ -11,6 +11,7 @@ class Otppage extends StatefulWidget {
 
 class _OtppageState extends State<Otppage> {
   bool isbutton = false;
+  int count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -184,10 +185,10 @@ class _OtppageState extends State<Otppage> {
                                   // Add your upload logic here
 
                                   succes();
-                                  await Future.delayed(Duration(seconds: 2));
-                                  int count = 0;
-                                  Navigator.popUntil(
-                                      context, (route) => count++ == 5);
+                                  // await Future.delayed(Duration(seconds: 2));
+                                  // int count = 0;
+                                  // Navigator.popUntil(
+                                  //     context, (route) => count++ == 5);
                                   /////// go to stack first index /////
                                   // Navigator.popUntil(
                                   //   context, (route) => route.isFirst);
@@ -229,12 +230,22 @@ class _OtppageState extends State<Otppage> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
-            height: 200,
+            height: 250,
             width: 450,
             padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Row(
+                  children: [
+                    Spacer(),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.popUntil(context, (route) => count++ == 5);
+                        },
+                        icon: Icon(Icons.close)),
+                  ],
+                ),
                 SizedBox(
                     width: 70,
                     height: 60,

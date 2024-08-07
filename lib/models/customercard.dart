@@ -91,10 +91,4 @@ class userprofiledetails extends ChangeNotifier {
       this.phoneno = "",
       this.address = "",
       this.username = "Dr.k.Ram kumar MD.MS"});
-
-  void change_username(name) {
-    // var username = name;
-
-    notifyListeners();
-  }
 }
