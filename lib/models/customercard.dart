@@ -92,3 +92,12 @@ class userprofiledetails extends ChangeNotifier {
       this.address = "",
       this.username = "Dr.k.Ram kumar MD.MS"});
 }
+
+class Switchon extends ChangeNotifier {
+  bool data;
+  Switchon({this.data = true});
+  changedate() {
+    data = !data;
+    notifyListeners();
+  }
+}

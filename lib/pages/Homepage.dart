@@ -509,7 +509,7 @@ class _HomepageState extends State<Homepage>
   custom_sorting(String calcendardate) {
     List<Customercard> lst = [];
     List temp = [];
-    print(calcendardate.substring(5, 7));
+    // print(calcendardate.substring(5, 7));
     int whole_date = int.parse(calcendardate.substring(0, 4) +
         calcendardate.substring(5, 6) +
         (int.parse(calcendardate.substring(6, 7))).toString() +
