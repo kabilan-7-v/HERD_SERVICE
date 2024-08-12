@@ -4,8 +4,12 @@ import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/pages/Loginpage.dart';
 import 'package:provider/provider.dart';
 
+import 'package:intl/date_symbol_data_local.dart';
+
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting().then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (create) => userprofiledetails()),
-        ChangeNotifierProvider(create: (create) => Switchon())
+        ChangeNotifierProvider(create: (create) => Login_email())
       ],
       child: MaterialApp(
         builder: (context, child) {

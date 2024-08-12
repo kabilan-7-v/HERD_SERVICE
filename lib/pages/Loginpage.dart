@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:herd_service/pages/Homepage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:herd_service/blocs/app_bloc.dart';
+import 'package:herd_service/blocs/app_events.dart';
 import 'package:herd_service/pages/forgetpassword.dart';
 import 'package:herd_service/pages/login_with_password.dart';
+import 'package:herd_service/server/api.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
@@ -27,73 +30,81 @@ class _LoginpageState extends State<Loginpage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SingleChildScrollView(
-      controller: _scrollcontroller,
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: Form(
-          key: _key,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 43,
-              ),
-              Stack(
-                children: [
-                  Image.asset("assets/img/background_doctor_blue.png"),
-                  Positioned(
-                      top: 10,
-                      left: 80,
-                      child: Image.asset("assets/img/doctor.png")),
-                  Positioned(
-                    bottom: 65,
-                    left: 150,
-                    child: Text(
-                      "LOGIN",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+    return BlocProvider(
+      create: (context) =>
+          UserBloc(RepositoryProvider.of<UserRespository>(context))
+            ..add(LoadUserEvent()),
+      child: Scaffold(
+          body: SingleChildScrollView(
+        controller: _scrollcontroller,
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Form(
+            key: _key,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 43,
+                ),
+                Stack(
+                  children: [
+                    Image.asset("assets/img/background_doctor_blue.png"),
+                    Positioned(
+                        top: 10,
+                        left: 80,
+                        child: Image.asset("assets/img/doctor.png")),
+                    Positioned(
+                      bottom: 65,
+                      left: 150,
+                      child: Text(
+                        "LOGIN",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Custom_Textfield(context, Icon(Icons.person_2_outlined),
-                  "Enter User ID", "Please Enter User ID", _emailController),
-              SizedBox(
-                height: 20,
-              ),
-              Custom_Textfield(context, Icon(Icons.lock), "Enter Password",
-                  "Please Enter Password", _passwordController),
-              SizedBox(
-                height: 10,
-              ),
-              click_text("Instead sign in using email/Phone Number", () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LoginWithPassword()));
-              }),
-              SizedBox(
-                height: 10,
-              ),
-              Center(
-                  child: click_text("Forget Password", () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Forgetpasswordpage()));
-              })),
-              SizedBox(
-                height: 50,
-              ),
-              click_button(context),
-            ],
+                  ],
+                ),
+                Custom_Textfield(context, Icon(Icons.person_2_outlined),
+                    "Enter User ID", "Please Enter User ID", _emailController),
+                SizedBox(
+                  height: 20,
+                ),
+                Custom_Textfield(context, Icon(Icons.lock), "Enter Password",
+                    "Please Enter Password", _passwordController),
+                SizedBox(
+                  height: 10,
+                ),
+                click_text("Instead sign in using email/Phone Number", () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginWithPassword()));
+                }),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                    child: click_text("Forget Password", () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Forgetpasswordpage()));
+                })),
+                SizedBox(
+                  height: 50,
+                ),
+                click_button(context),
+                SizedBox(
+                  height: 40,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 
   Widget Custom_Textfield(
@@ -144,11 +155,13 @@ class _LoginpageState extends State<Loginpage> {
             fixedSize: Size(520, 34),
             backgroundColor: Color.fromRGBO(70, 149, 184, 1)),
         onPressed: () async {
+          if (!_key.currentState!.validate()) return;
+
           // print(await postdata());
           // await fetchdata(_emailController.text);
-          if (!_key.currentState!.validate()) return;
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Homepage()));
+
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => Homepage()));
         },
         child: Center(
             child: Text(

@@ -9,7 +9,6 @@ import 'package:herd_service/profile/about.dart';
 import 'package:herd_service/profile/notification.dart';
 import 'package:herd_service/profile/profile.dart';
 import 'package:herd_service/profile/settings.dart';
-import 'package:intl/intl.dart';
 
 import 'package:provider/provider.dart';
 

@@ -93,11 +93,11 @@ class userprofiledetails extends ChangeNotifier {
       this.username = "Dr.k.Ram kumar MD.MS"});
 }
 
-class Switchon extends ChangeNotifier {
-  bool data;
-  Switchon({this.data = true});
-  changedate() {
-    data = !data;
+class Login_email extends ChangeNotifier {
+  bool Validate = false;
+  Login_email({this.Validate = false});
+  Loginupdate_email(Val) {
+    Validate = Val;
     notifyListeners();
   }
 }

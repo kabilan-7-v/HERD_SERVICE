@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:herd_service/models/customercard.dart';
+// import 'package:herd_service/models/customercard.dart';nn
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class Alertservices extends StatefulWidget {
   const Alertservices({super.key});
