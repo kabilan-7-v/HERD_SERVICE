@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class userprofiledetails extends ChangeNotifier {
-  final String username;
-  final String type_of_user;
-  final String email;
-  final String phoneno;
-  final String address;
+  String username;
+  String type_of_user;
+  String email;
+  String phoneno;
+  String address;
 
   userprofiledetails(
       {this.type_of_user = ".",
@@ -13,4 +13,13 @@ class userprofiledetails extends ChangeNotifier {
       this.phoneno = "",
       this.address = "",
       this.username = "Dr.k.Ram kumar MD.MS"});
+
+  change_user_profile(name, usertype, useremail, phno, useraddress) {
+    username = name;
+    type_of_user = usertype;
+    email = useremail;
+    phoneno = phno;
+    address = useraddress;
+    ChangeNotifier();
+  }
 }

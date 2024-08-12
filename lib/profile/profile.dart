@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:herd_service/models/customercard.dart';
+
+import 'package:herd_service/models/homemodel.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:herd_service/models/customercard.dart';
+import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/pages/Alertservices.dart';
 import 'package:herd_service/pages/tickethistory.dart';
 import 'package:herd_service/profile/about.dart';

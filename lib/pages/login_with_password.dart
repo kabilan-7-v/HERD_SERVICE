@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herd_service/models/customercard.dart';
+
+import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Homepage.dart';
 
 import 'package:herd_service/pages/Loginpage.dart';
@@ -155,20 +155,24 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
         style: ElevatedButton.styleFrom(
             fixedSize: Size(520, 34),
             backgroundColor: Color.fromRGBO(70, 149, 184, 1)),
-        onPressed: () {
+        onPressed: () async {
           if (!_key.currentState!.validate()) return;
 
           // Use `listen: false` here to avoid the error
 
-          final validate =
-              Provider.of<Login_email>(context, listen: false).Validate;
-
-          Login_with_email_or_phone(
+          await Login_with_email_or_phone(
               context, _emailController.text, _passwordController.text);
+          final validate =
+              await Provider.of<Login_email>(context, listen: false).Validate;
 
           if (validate) {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => Homepage()));
+          } else {
+            // Handle validation failure (e.g., show a message)
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Login failed. Please try again.')),
+            );
           }
         },
         child: Center(

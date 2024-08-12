@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:herd_service/blocs/app_bloc.dart';
 import 'package:herd_service/blocs/app_events.dart';
+import 'package:herd_service/models/loginmodels.dart';
+import 'package:herd_service/pages/Homepage.dart';
 import 'package:herd_service/pages/forgetpassword.dart';
 import 'package:herd_service/pages/login_with_password.dart';
 import 'package:herd_service/server/api.dart';
+import 'package:provider/provider.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
@@ -17,13 +20,14 @@ class Loginpage extends StatefulWidget {
 
 class _LoginpageState extends State<Loginpage> {
   final GlobalKey<FormState> _key = GlobalKey();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _id = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final ScrollController _scrollcontroller = ScrollController();
+  bool isloading = false;
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _id.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -67,7 +71,7 @@ class _LoginpageState extends State<Loginpage> {
                   ],
                 ),
                 Custom_Textfield(context, Icon(Icons.person_2_outlined),
-                    "Enter User ID", "Please Enter User ID", _emailController),
+                    "Enter User ID", "Please Enter User ID", _id),
                 SizedBox(
                   height: 20,
                 ),
@@ -77,7 +81,7 @@ class _LoginpageState extends State<Loginpage> {
                   height: 10,
                 ),
                 click_text("Instead sign in using email/Phone Number", () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => LoginWithPassword()));
@@ -87,7 +91,7 @@ class _LoginpageState extends State<Loginpage> {
                 ),
                 Center(
                     child: click_text("Forget Password", () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => Forgetpasswordpage()));
@@ -156,19 +160,37 @@ class _LoginpageState extends State<Loginpage> {
             backgroundColor: Color.fromRGBO(70, 149, 184, 1)),
         onPressed: () async {
           if (!_key.currentState!.validate()) return;
+          setState(() {
+            isloading = true;
+          });
+          // Call the login method and wait for it to complete
+          await Login_with_Uid(context, _id.text, _passwordController.text);
 
-          // print(await postdata());
-          // await fetchdata(_emailController.text);
+          // Fetch the updated validation state
+          final validate =
+              Provider.of<Login_id>(context, listen: false).Validate;
 
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => Homepage()));
+          // Now check the validation and navigate accordingly
+          if (validate) {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => Homepage()));
+          } else {
+            // Handle validation failure (e.g., show a message)
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Login failed. Please try again.')),
+            );
+          }
         },
         child: Center(
-            child: Text(
-          "SIGN IN",
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-        )),
+            child: isloading == false
+                ? Text(
+                    "SIGN IN",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  )
+                : CircularProgressIndicator()),
       ),
     );
   }

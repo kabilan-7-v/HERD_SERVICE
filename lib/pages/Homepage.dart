@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/customer_utility/customercontainer.dart';
+import 'package:herd_service/models/homemodel.dart';
 
 import 'package:herd_service/pages/profilepage.dart';
 import 'package:herd_service/pages/tickethistory.dart';
