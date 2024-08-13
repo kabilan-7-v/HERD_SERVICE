@@ -7,7 +7,6 @@ import 'package:herd_service/models/homemodel.dart';
 
 import 'package:herd_service/pages/profilepage.dart';
 import 'package:herd_service/pages/tickethistory.dart';
-import 'package:herd_service/profile/notification.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:intl/intl.dart';
 
@@ -26,6 +25,8 @@ class _HomepageState extends State<Homepage>
     with SingleTickerProviderStateMixin {
   MotionTabBarController? _motionTabBarController;
   bool accept = true;
+  int counter = 0;
+
   DateTime? selectedDate;
   final ScrollController _controller = ScrollController();
   List<Customercard> res = customercard;
@@ -104,6 +105,56 @@ class _HomepageState extends State<Homepage>
 
   Widget homepage(BuildContext context, date, finaldata, width, accept) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Welcome Back!",
+          style:
+              TextStyle(color: Color.fromRGBO(132, 146, 190, 1), fontSize: 16),
+        ),
+        backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+        actions: <Widget>[
+          // Using Stack to show Notification Badge
+          new Stack(
+            children: <Widget>[
+              const SizedBox(
+                width: 20,
+              ),
+              new IconButton(
+                  icon: Icon(Icons.notifications),
+                  onPressed: () {
+                    setState(() {
+                      counter = 0;
+                    });
+                  }),
+              counter != 0
+                  ? new Positioned(
+                      right: 11,
+                      top: 11,
+                      child: new Container(
+                        padding: EdgeInsets.all(2),
+                        decoration: new BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        constraints: BoxConstraints(
+                          minWidth: 14,
+                          minHeight: 14,
+                        ),
+                        child: Text(
+                          '$counter',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 8,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                  : new Container()
+            ],
+          ),
+        ],
+      ),
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
       body: SingleChildScrollView(
         controller: _controller,
@@ -111,32 +162,11 @@ class _HomepageState extends State<Homepage>
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 80,
-              ),
               Row(
                 children: [
                   const SizedBox(
                     width: 20,
                   ),
-                  const Text(
-                    "Welcome Back!",
-                    style: TextStyle(
-                        color: Color.fromRGBO(132, 146, 190, 1), fontSize: 16),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const Notificationpage()));
-                      },
-                      icon: const Icon(Icons.notifications)),
-                  const SizedBox(
-                    width: 20,
-                  )
                 ],
               ),
               Row(
@@ -210,6 +240,9 @@ class _HomepageState extends State<Homepage>
                       )),
                   width > 400 ? calendar1() : calendar()
                 ]),
+              ),
+              SizedBox(
+                height: 20,
               ),
               Center(
                 child: ListView.builder(

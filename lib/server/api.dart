@@ -71,16 +71,17 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
 
     if (response.statusCode == 200) {
       await context.read<Login_id>().Loginupdate_id(true, false, false);
-      print(response.body);
       var res = jsonDecode(response.body);
-      print(res["Doctor_id"]);
-
       await context.read<userprofiledetails>().change_user_profile(
-          res["Name"], "", res["email"], res["phno"], res["Location"]);
+          res["Name"].toString(),
+          res["phno"].toString(),
+          res["email"].toString(),
+          res["phno"].toString(),
+          res["Location"].toString());
     } else if (response.statusCode == 404) {
       await context.read<Login_id>().Loginupdate_id(false, true, false);
       print(response.body);
-      print("Email not Match");
+      print("uid not Match");
     } else if (response.statusCode == 401) {
       await context.read<Login_id>().Loginupdate_id(false, false, true);
       print("Password not Match");
@@ -91,6 +92,42 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
     print("Error: " + e.toString());
   }
 }
+
+Login_with_phone(BuildContext context, String phone, String pass) async {
+  final String url = "http://103.120.176.156:8803/doctor/loginphno";
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({"phno": phone, "password": pass}),
+    );
+    // print(response.body);
+    if (response.statusCode == 200) {
+      await context.read<Login_phone>().Loginupdate_phone(true, false, false);
+      var res = jsonDecode(response.body);
+      await context.read<userprofiledetails>().change_user_profile(
+          res["Name"].toString(),
+          res["phno"].toString(),
+          res["email"].toString(),
+          res["phno"].toString(),
+          res["Location"].toString());
+    } else if (response.statusCode == 404) {
+      await context.read<Login_phone>().Loginupdate_phone(false, true, false);
+      print(response.body);
+      print("Phone number not match");
+    } else if (response.statusCode == 401) {
+      await context.read<Login_phone>().Loginupdate_phone(false, false, true);
+      print("Password not Match");
+    } else {
+      print("Request failed with status: ${response.statusCode}");
+    }
+  } catch (e) {
+    print("Error: " + e.toString());
+  }
+}
+
 
 
 // import 'dart:convert';

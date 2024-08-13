@@ -23,6 +23,8 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
   final TextEditingController _passwordController = TextEditingController();
   final ScrollController _scrollcontroller = ScrollController();
   bool isloading = false;
+  bool phonecheck = false;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -158,33 +160,60 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
         onPressed: () async {
           if (!_key.currentState!.validate()) return;
 
+          print("awerzextrfycgvhkbj lk;lqwrzextrcfgvjhjwzrdxfghg jnsdf");
+
           // Use `listen: false` here to avoid the error
           setState(() {
             isloading = true;
           });
-          await Login_with_email_or_phone(
-              context, _emailController.text, _passwordController.text);
-          final validate =
-              await Provider.of<Login_email>(context, listen: false).Validate;
+          if (!custom_phoneno_checker(_emailController.text)) {
+            await Login_with_email_or_phone(
+                context, _emailController.text, _passwordController.text);
+            final validate =
+                await Provider.of<Login_email>(context, listen: false).Validate;
+            if (validate) {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Homepage()));
+            } else {
+              if (Provider.of<Login_email>(context, listen: false)
+                  .emailchecker) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(
+                          'Please enter the correct Email or Phonenumber')),
+                );
+              } else if (Provider.of<Login_email>(context, listen: false)
+                  .passwordchecker) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Please enter correct password')),
+                );
+              }
+            }
+          } else {
+            await Login_with_phone(
+                context, _emailController.text, _passwordController.text);
+            final validate =
+                await Provider.of<Login_phone>(context, listen: false).Validate;
+            if (validate) {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Homepage()));
+            } else {
+              if (Provider.of<Login_phone>(context, listen: false)
+                  .phonechecker) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Please check the phonenumber')),
+                );
+              } else if (Provider.of<Login_phone>(context, listen: false)
+                  .passwordchecker) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Please enter correct password')),
+                );
+              }
+            }
+          }
           setState(() {
             isloading = false;
           });
-
-          if (validate) {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Homepage()));
-          } else {
-            if (Provider.of<Login_email>(context, listen: false).emailchecker) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Please check the id')),
-              );
-            } else if (Provider.of<Login_email>(context, listen: false)
-                .passwordchecker) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Please enter correct password')),
-              );
-            }
-          }
         },
         child: Center(
             child: isloading == false
@@ -198,5 +227,18 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
                 : CircularProgressIndicator()),
       ),
     );
+  }
+
+  custom_phoneno_checker(String text) {
+    String seen = "1234567890";
+    if (text.length < 10 || text.length > 10) {
+      return false;
+    }
+    for (int i = 0; i < text.length; i++) {
+      if (!seen.contains(text[i])) {
+        return false;
+      }
+    }
+    return true;
   }
 }

@@ -33,3 +33,19 @@ class Login_id extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class Login_phone extends ChangeNotifier {
+  bool Validate = false;
+  bool phonechecker = false;
+  bool passwordchecker = false;
+  Login_phone(
+      {this.Validate = false,
+      this.phonechecker = false,
+      this.passwordchecker = false});
+  Loginupdate_phone(Val, phn, pass) {
+    Validate = Val;
+    phonechecker = phn;
+    passwordchecker = pass;
+    notifyListeners();
+  }
+}

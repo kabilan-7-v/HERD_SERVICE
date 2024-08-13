@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Customercard {
   final String name;
   final String address;

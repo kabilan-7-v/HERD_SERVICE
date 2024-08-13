@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (create) => userprofiledetails()),
         ChangeNotifierProvider(create: (create) => Login_email()),
         ChangeNotifierProvider(create: (create) => Login_id()),
+        ChangeNotifierProvider(create: (create) => Login_phone()),
       ],
       child: MaterialApp(
         builder: (context, child) {

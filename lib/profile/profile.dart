@@ -41,9 +41,14 @@ class Profile extends StatelessWidget {
           listofprofile("Name", context.watch<userprofiledetails>().username,
               Icons.person_2_outlined, () {}),
           line(context),
-          listofprofile("Phone Number", "96334567802", Icons.phone, () {}),
+          listofprofile(
+              "Phone Number",
+              Provider.of<userprofiledetails>(context).phoneno,
+              Icons.phone,
+              () {}),
           line(context),
-          listofprofile("Mail ID", "abcdoctor@gmail.com", Icons.mail, () {}),
+          listofprofile("Mail ID", context.watch<userprofiledetails>().email,
+              Icons.mail, () {}),
           line(context),
           listofprofile(
               "Member Since", "Octomber 2023", Bootstrap.trophy, () {}),

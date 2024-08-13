@@ -20,6 +20,6 @@ class userprofiledetails extends ChangeNotifier {
     email = useremail;
     phoneno = phno;
     address = useraddress;
-    ChangeNotifier();
+    notifyListeners();
   }
 }
