@@ -22,7 +22,7 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final ScrollController _scrollcontroller = ScrollController();
-
+  bool isloading = false;
   @override
   void dispose() {
     _emailController.dispose();
@@ -159,28 +159,43 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
           if (!_key.currentState!.validate()) return;
 
           // Use `listen: false` here to avoid the error
-
+          setState(() {
+            isloading = true;
+          });
           await Login_with_email_or_phone(
               context, _emailController.text, _passwordController.text);
           final validate =
               await Provider.of<Login_email>(context, listen: false).Validate;
+          setState(() {
+            isloading = false;
+          });
 
           if (validate) {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => Homepage()));
           } else {
-            // Handle validation failure (e.g., show a message)
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Login failed. Please try again.')),
-            );
+            if (Provider.of<Login_email>(context, listen: false).emailchecker) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Please check the id')),
+              );
+            } else if (Provider.of<Login_email>(context, listen: false)
+                .passwordchecker) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Please enter correct password')),
+              );
+            }
           }
         },
         child: Center(
-            child: Text(
-          "SIGN IN",
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-        )),
+            child: isloading == false
+                ? Text(
+                    "SIGN IN",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  )
+                : CircularProgressIndicator()),
       ),
     );
   }

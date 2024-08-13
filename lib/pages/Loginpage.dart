@@ -120,6 +120,7 @@ class _LoginpageState extends State<Loginpage> {
           controller: _controller,
           validator: (value) {
             if (value!.isEmpty) return errormessage;
+
             return null;
           },
           onTap: () async {
@@ -165,6 +166,9 @@ class _LoginpageState extends State<Loginpage> {
           });
           // Call the login method and wait for it to complete
           await Login_with_Uid(context, _id.text, _passwordController.text);
+          setState(() {
+            isloading = false;
+          });
 
           // Fetch the updated validation state
           final validate =
@@ -175,11 +179,18 @@ class _LoginpageState extends State<Loginpage> {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => Homepage()));
           } else {
-            // Handle validation failure (e.g., show a message)
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Login failed. Please try again.')),
-            );
+            if (Provider.of<Login_id>(context, listen: false).emailchecker) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Please check the id')),
+              );
+            } else if (Provider.of<Login_id>(context, listen: false)
+                .passwordchecker) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Please enter correct password')),
+              );
+            }
           }
+          // Handle validation failure (e.g., show a message)
         },
         child: Center(
             child: isloading == false

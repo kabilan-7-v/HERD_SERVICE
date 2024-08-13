@@ -43,10 +43,12 @@ Login_with_email_or_phone(
       body: jsonEncode({"email": email, "password": pass}),
     );
     if (response.statusCode == 200) {
-      await context.read<Login_email>().Loginupdate_email(true);
+      await context.read<Login_email>().Loginupdate_email(true, false, false);
     } else if (response.statusCode == 404) {
+      await context.read<Login_email>().Loginupdate_email(false, true, false);
       print("Email not Match");
     } else if (response.statusCode == 401) {
+      await context.read<Login_email>().Loginupdate_email(false, false, true);
       print("Password not Match");
     } else {
       print("Request failed with status: ${response.statusCode}");
@@ -68,7 +70,7 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
     );
 
     if (response.statusCode == 200) {
-      await context.read<Login_id>().Loginupdate_id(true);
+      await context.read<Login_id>().Loginupdate_id(true, false, false);
       print(response.body);
       var res = jsonDecode(response.body);
       print(res["Doctor_id"]);
@@ -76,9 +78,11 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
       await context.read<userprofiledetails>().change_user_profile(
           res["Name"], "", res["email"], res["phno"], res["Location"]);
     } else if (response.statusCode == 404) {
+      await context.read<Login_id>().Loginupdate_id(false, true, false);
       print(response.body);
       print("Email not Match");
     } else if (response.statusCode == 401) {
+      await context.read<Login_id>().Loginupdate_id(false, false, true);
       print("Password not Match");
     } else {
       print("Request failed with status: ${response.statusCode}");
