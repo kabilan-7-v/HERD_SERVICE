@@ -9,7 +9,24 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Appoinmentrequest extends StatelessWidget {
-  const Appoinmentrequest({super.key});
+  const Appoinmentrequest(
+      {super.key,
+      required this.date,
+      required this.name,
+      required this.priority,
+      required this.vllc,
+      required this.street,
+      required this.comment,
+      required this.time,
+      required this.phonenumber});
+  final String date;
+  final String time;
+  final String name;
+  final bool priority;
+  final String vllc;
+  final String street;
+  final String comment;
+  final String phonenumber;
 
   @override
   Widget build(BuildContext context) {
@@ -35,30 +52,30 @@ class Appoinmentrequest extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                const Positioned(
-                  top: 65,
+                Positioned(
+                  top: 60,
                   left: 60,
                   child: Text(
                     "Appointment Request",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontSize: 22),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   bottom: 120,
                   left: 100,
                   child: Text(
-                    "25 JUN 20024,",
+                    date,
                     style: TextStyle(
                         fontSize: 22,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   bottom: 90,
                   left: 100,
                   child: Text(
-                    "8am-10am",
+                    time,
                     style: TextStyle(
                         fontSize: 22,
                         color: Colors.white,
@@ -67,16 +84,27 @@ class Appoinmentrequest extends StatelessWidget {
                 )
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              child: Text(
-                "Mid Priority",
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                    color: Color.fromRGBO(176, 107, 5, 1)),
-              ),
-            ),
+            priority == true
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child: Text(
+                      "Mid Priority",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Color.fromRGBO(176, 107, 5, 1)),
+                    ),
+                  )
+                : const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child: Text(
+                      "Low Priority",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Color.fromRGBO(176, 107, 5, 1)),
+                    ),
+                  ),
             custom_container(context),
             comment_container(context),
             const SizedBox(
@@ -90,7 +118,7 @@ class Appoinmentrequest extends StatelessWidget {
                 }),
                 socialMedia(Bootstrap.send, () async {}),
                 socialMedia(Bootstrap.telephone, () async {
-                  await _callNumber("7010185919");
+                  await _callNumber(phonenumber);
                 }),
               ],
             ),
@@ -152,7 +180,7 @@ class Appoinmentrequest extends StatelessWidget {
           boxShadow: const [
             BoxShadow(color: Colors.grey, blurRadius: 3),
           ]),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
@@ -160,14 +188,14 @@ class Appoinmentrequest extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.all(1.0),
-            child: const Row(
+            child: Row(
               children: [
                 SizedBox(
                   width: 20,
                 ),
                 Text.rich(TextSpan(children: [
                   TextSpan(
-                      text: "AJAY KUMAR",
+                      text: name,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   TextSpan(text: "(608MRC)")
@@ -182,7 +210,7 @@ class Appoinmentrequest extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text("VLCC: Pollachi"),
+                Text("VLCC: $vllc"),
               ],
             ),
           ),
@@ -193,7 +221,7 @@ class Appoinmentrequest extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text("NO:04, ABC Street, Pollachi, CBE "),
+                Text(street),
               ],
             ),
           ),
@@ -225,7 +253,7 @@ class Appoinmentrequest extends StatelessWidget {
           boxShadow: const [
             BoxShadow(color: Colors.grey, blurRadius: 3),
           ]),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
@@ -254,7 +282,7 @@ class Appoinmentrequest extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text("Hello, Dr. Ram,"),
+                Text(comment),
               ],
             ),
           ),

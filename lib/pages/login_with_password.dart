@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:herd_service/models/loginmodels.dart';
-import 'package:herd_service/pages/Homepage.dart';
+import 'package:herd_service/pages/commonpage.dart';
 
 import 'package:herd_service/pages/Loginpage.dart';
 import 'package:herd_service/pages/forgetpassword.dart';
-import 'package:herd_service/server/api.dart';
+import 'package:herd_service/server/Login_api.dart';
 import 'package:provider/provider.dart';
 
 class LoginWithPassword extends StatefulWidget {
@@ -172,8 +172,8 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
             final validate =
                 await Provider.of<Login_email>(context, listen: false).Validate;
             if (validate) {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Homepage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => Commonpage()));
             } else {
               if (Provider.of<Login_email>(context, listen: false)
                   .emailchecker) {
@@ -195,8 +195,8 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
             final validate =
                 await Provider.of<Login_phone>(context, listen: false).Validate;
             if (validate) {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Homepage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => Commonpage()));
             } else {
               if (Provider.of<Login_phone>(context, listen: false)
                   .phonechecker) {

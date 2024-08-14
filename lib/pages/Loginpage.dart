@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:herd_service/blocs/app_bloc.dart';
 import 'package:herd_service/blocs/app_events.dart';
 import 'package:herd_service/models/loginmodels.dart';
-import 'package:herd_service/pages/Homepage.dart';
+import 'package:herd_service/pages/commonpage.dart';
 import 'package:herd_service/pages/forgetpassword.dart';
 import 'package:herd_service/pages/login_with_password.dart';
-import 'package:herd_service/server/api.dart';
+import 'package:herd_service/server/Login_api.dart';
 import 'package:provider/provider.dart';
 
 class Loginpage extends StatefulWidget {
@@ -177,7 +177,7 @@ class _LoginpageState extends State<Loginpage> {
           // Now check the validation and navigate accordingly
           if (validate) {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Homepage()));
+                context, MaterialPageRoute(builder: (context) => Commonpage()));
           } else {
             if (Provider.of<Login_id>(context, listen: false).emailchecker) {
               ScaffoldMessenger.of(context).showSnackBar(

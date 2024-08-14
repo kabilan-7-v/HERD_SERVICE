@@ -79,8 +79,12 @@ class Tickethistory extends StatelessWidget {
                 width: 5,
               ),
               data.iscompleted == true
-                  ? Image.asset("assets/icons/complete.png")
-                  : Image.asset("assets/icons/cancel.png"),
+                  ? Icon(
+                      Icons.verified_rounded,
+                      color: Colors.green,
+                    )
+                  // ? Image.asset("assets/icons/complete.png")
+                  : custom_checker(Colors.red),
               const SizedBox(
                 width: 20,
               )
@@ -108,6 +112,25 @@ class Tickethistory extends StatelessWidget {
             height: 16,
           )
         ],
+      ),
+    );
+  }
+
+  custom_checker(color) {
+    return Container(
+      height: 20,
+      width: 20,
+      decoration: BoxDecoration(
+        color: color,
+        // border: Border.all(),
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: Icon(
+          Icons.close,
+          color: Colors.white,
+          size: 15,
+        ),
       ),
     );
   }

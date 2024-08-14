@@ -127,29 +127,3 @@ Login_with_phone(BuildContext context, String phone, String pass) async {
     print("Error: " + e.toString());
   }
 }
-
-
-
-// import 'dart:convert';
-
-// import 'package:blog_explorer/models/blogdetails.dart';
-// import 'package:http/http.dart' as http;
-
-// class UserRespository {
-//   String url = 'https://intent-kit-16.hasura.app/api/rest/blogs';
-//   final String adminSecret =
-//       '32qR4KmXOIpsGPQKMqEJHGJS27G5s7HdSKO3gdtQd2kv5e852SiYwWNfxkZOBuQ6';
-//   getuser() async {
-//     final response = await http.get(Uri.parse(url), headers: {
-//       'x-hasura-admin-secret': adminSecret,
-//     });
-//     if (response.statusCode == 200) {
-//       final List res = jsonDecode(response.body)["blogs"];
-//       print(res);
-//       print(res.map(((e) => UserModel.fromJson(e))).toList());
-//       return res.map(((e) => UserModel.fromJson(e))).toList();
-//     } else {
-//       throw Exception(response.reasonPhrase);
-//     }
-//   }
-// }

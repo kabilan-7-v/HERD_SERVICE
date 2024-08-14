@@ -1,17 +1,12 @@
-// ignore_for_file: avoid_unnecessary_containers, non_constant_identifier_names
-
+import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/customer_utility/customercontainer.dart';
+import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
-
-import 'package:herd_service/pages/profilepage.dart';
-import 'package:herd_service/pages/tickethistory.dart';
+import 'package:herd_service/profile/notification.dart';
+import 'package:herd_service/server/home_api.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:intl/intl.dart';
-
-import 'package:motion_tab_bar/MotionTabBar.dart';
-import 'package:motion_tab_bar/MotionTabBarController.dart';
 import 'package:provider/provider.dart';
 
 class Homepage extends StatefulWidget {
@@ -21,89 +16,26 @@ class Homepage extends StatefulWidget {
   State<Homepage> createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage>
-    with SingleTickerProviderStateMixin {
-  MotionTabBarController? _motionTabBarController;
+class _HomepageState extends State<Homepage> {
   bool accept = true;
-  int counter = 0;
+  int counter = 1;
 
   DateTime? selectedDate;
   final ScrollController _controller = ScrollController();
-  List<Customercard> res = customercard;
 
   String finaldata = DateFormat('MMMM d, yyyy').format(DateTime.now());
-  @override
-  void initState() {
-    super.initState();
-
-    _motionTabBarController = MotionTabBarController(
-      initialIndex: 0,
-      length: 3,
-      vsync: this,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _motionTabBarController!.dispose();
-  }
-
   String Date = "25 Jun 2024, 8am";
+
+  void initState() {
+    // TODO: implement initState
+    // change_current_to_assign(context, 5);
+    setState(() {});
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var Width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      bottomNavigationBar: MotionTabBar(
-        controller:
-            _motionTabBarController, // ADD THIS if you need to change your tab programmatically
-        initialSelectedTab: "Home",
-
-        labels: const ["Home", "Ticket History", "Profile"],
-        icons: const [
-          Icons.home,
-          Icons.payments_outlined,
-          Icons.person,
-        ],
-
-        // optional badges, length must be same with labels
-
-        tabSize: 50,
-        tabBarHeight: 70,
-        textStyle: const TextStyle(
-          fontSize: 15,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-        tabIconColor: Colors.white,
-        tabIconSize: 28.0,
-        tabIconSelectedSize: 26.0,
-        tabSelectedColor: Colors.white,
-        tabIconSelectedColor: const Color.fromRGBO(70, 149, 184, 1),
-        tabBarColor: const Color.fromRGBO(70, 149, 184, 1),
-        onTabItemSelected: (int value) {
-          setState(() {
-            // _tabController!.index = value;
-            _motionTabBarController!.index = value;
-          });
-        },
-      ),
-      body: TabBarView(
-        physics:
-            const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
-        // controller: _tabController,
-        controller: _motionTabBarController,
-        children: <Widget>[
-          homepage(context, Date, finaldata, Width, accept),
-          const Tickethistory(),
-          const Profilepage()
-        ],
-      ),
-    );
-  }
-
-  Widget homepage(BuildContext context, date, finaldata, width, accept) {
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -122,9 +54,10 @@ class _HomepageState extends State<Homepage>
               new IconButton(
                   icon: Icon(Icons.notifications),
                   onPressed: () {
-                    setState(() {
-                      counter = 0;
-                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Notificationpage()));
                   }),
               counter != 0
                   ? new Positioned(
@@ -159,9 +92,10 @@ class _HomepageState extends State<Homepage>
       body: SingleChildScrollView(
         controller: _controller,
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            // mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
               Row(
                 children: [
                   const SizedBox(
@@ -202,55 +136,86 @@ class _HomepageState extends State<Homepage>
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: current_request_list.length,
+                      itemCount: Provider.of<test>(context)
+                          .current_request_list
+                          .length,
                       itemBuilder: (context, ind) {
-                        var res = current_request_list[ind];
-                        return appoinment_Request(date, res.priroity, res.name,
+                        var res = Provider.of<test>(context)
+                            .current_request_list[ind];
+                        return appoinment_Request(Date, res.priroity, res.name,
                             res.vllc, res.street, res.state, ind);
                       })
                   : const SizedBox(),
               const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Assignment",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                child: Row(
+                  children: [
+                    Text(
+                      "Assignment",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
-              Center(
-                child: Stack(children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width - 30,
-                    height: 200,
-                    // margin: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        // ignore: prefer_const_literals_to_create_immutables
-                        boxShadow: [
-                          const BoxShadow(color: Colors.grey, blurRadius: 3)
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(color: Colors.grey, blurRadius: 3),
+                      ]),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 80,
+                          ),
+                          Center(
+                            child: Text(
+                              finaldata,
+                              style: const TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Icon(Icons.calendar_month_outlined),
                         ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15)),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: width > 400 ? calendar1() : calendar(),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                    ],
                   ),
-                  Positioned(
-                      top: 27,
-                      left: 100,
-                      child: Text(
-                        finaldata,
-                        style: const TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      )),
-                  width > 400 ? calendar1() : calendar()
-                ]),
+                ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Center(
                 child: ListView.builder(
+                    padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: res.length,
+                    itemCount: Provider.of<test>(context).customercard.length,
                     itemBuilder: (context, index) {
-                      return Customercontainer(card: res[index]);
+                      return Customercontainer(
+                          card: Provider.of<test>(context).customercard[index]);
                     }),
               )
             ]),
@@ -272,6 +237,7 @@ class _HomepageState extends State<Homepage>
             color: Colors.white,
             borderRadius: BorderRadius.circular(15)),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: MediaQuery.of(context).size.width - 20,
@@ -330,9 +296,16 @@ class _HomepageState extends State<Homepage>
               height: 20,
               width: 60,
             ),
-            Text(
-              name,
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                SizedBox(
+                  width: 99,
+                ),
+                Text(
+                  name,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -441,7 +414,9 @@ class _HomepageState extends State<Homepage>
                             backgroundColor:
                                 const Color.fromRGBO(235, 239, 250, 1)),
                         onPressed: () {
-                          current_request_list.removeAt(index);
+                          Provider.of<test>(context)
+                              .current_request_list
+                              .removeAt(index);
                           setState(() {
                             accept = false;
                           });
@@ -459,15 +434,25 @@ class _HomepageState extends State<Homepage>
                             backgroundColor:
                                 const Color.fromRGBO(70, 149, 184, 1)),
                         onPressed: () {
-                          var res = current_request_list.removeAt(index);
-                          customercard.insert(
-                              0,
-                              Customercard(res.name, res.vllc, "089786w445",
-                                  date, res.priroity, 3));
-                          if (current_request_list.isEmpty) {
-                            accept = false;
-                          }
-                          setState(() {});
+                          change_current_to_assign(
+                              context,
+                              Provider.of<test>(context, listen: false)
+                                  .current_request_list[index]
+                                  .ticketid);
+
+                          // var res = Provider.of<test>(context)
+                          //     .current_request_list
+                          //     .removeAt(index);
+                          // customercard.insert(
+                          //     0,
+                          //     Customercard(res.name, res.vllc, "089786w445",
+                          //         date, res.priroity, 3));
+                          // if (Provider.of<test>(context)
+                          //     .current_request_list
+                          //     .isEmpty) {
+                          //   accept = false;
+                          // }
+                          // setState(() {});
                         },
                         child: const Text(
                           "ACCEPT",
@@ -492,50 +477,39 @@ class _HomepageState extends State<Homepage>
   }
 
   calendar() {
-    return Positioned(
-      bottom: 40,
-      left: 20,
-      child: ConstrainedBox(
-        constraints: BoxConstraints.tightFor(
-            width: MediaQuery.of(context).size.width - 50),
-        child: HorizontalCalendar(
-          date: DateTime.now(),
-          initialDate: DateTime.parse("2024-07-23"),
-          textColor: Colors.black,
-          backgroundColor: Colors.white,
-          selectedColor: const Color.fromRGBO(70, 149, 184, 1),
-          // showMonth: true,
-          locale: Localizations.localeOf(context),
-          onDateSelected: (date) {
-            _pickDate(date.toString());
-            custom_sorting(date.toString());
-            setState(() {});
-          },
-        ),
-      ),
+    return HorizontalCalendar(
+      date: DateTime.now(),
+
+      initialDate: DateTime.parse("2024-07-23"),
+      textColor: Colors.black,
+      backgroundColor: Colors.white,
+      selectedColor: const Color.fromRGBO(70, 149, 184, 1),
+      // showMonth: true,
+      locale: Localizations.localeOf(context),
+      onDateSelected: (date) {
+        // _pickDate(date.toString());
+        // custom_sorting(date.toString());
+        // setState(() {});
+      },
     );
   }
 
   calendar1() {
-    return Positioned(
-      bottom: 50,
-      left: 20,
-      child: ConstrainedBox(
-        constraints: BoxConstraints.tightFor(
-            width: MediaQuery.of(context).size.width - 50, height: 70),
-        child: HorizontalCalendar(
-          date: DateTime.now(),
-          initialDate: DateTime.now(),
-          textColor: Colors.black,
-          backgroundColor: Colors.white,
-          selectedColor: const Color.fromRGBO(70, 149, 184, 1),
-          // showMonth: true,
-          locale: Localizations.localeOf(context),
-          onDateSelected: (date) {
-            _pickDate(date.toString());
-            setState(() {});
-          },
-        ),
+    return ConstrainedBox(
+      constraints: BoxConstraints.tightFor(
+          width: MediaQuery.of(context).size.width - 50, height: 70),
+      child: HorizontalCalendar(
+        date: DateTime.now(),
+        initialDate: DateTime.now(),
+        textColor: Colors.black,
+        backgroundColor: Colors.white,
+        selectedColor: const Color.fromRGBO(70, 149, 184, 1),
+        // showMonth: true,
+        locale: Localizations.localeOf(context),
+        onDateSelected: (date) {
+          _pickDate(date.toString());
+          setState(() {});
+        },
       ),
     );
   }
@@ -543,6 +517,7 @@ class _HomepageState extends State<Homepage>
   custom_sorting(String calcendardate) {
     List<Customercard> lst = [];
     List temp = [];
+    List customercard = Provider.of<test>(context).customercard;
     // print(calcendardate.substring(5, 7));
     int whole_date = int.parse(calcendardate.substring(0, 4) +
         calcendardate.substring(5, 6) +
@@ -567,7 +542,7 @@ class _HomepageState extends State<Homepage>
     }
 
     setState(() {
-      res = lst;
+      customercard = lst;
     });
   }
 

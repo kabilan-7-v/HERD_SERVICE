@@ -134,7 +134,15 @@ class _CustomercontainerState extends State<Customercontainer> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const Appoinmentrequest()));
+                                                  const Appoinmentrequest(
+                                                      phonenumber: "7010185919",
+                                                      date: "date",
+                                                      time: "time",
+                                                      name: "name",
+                                                      priority: true,
+                                                      vllc: "vllc",
+                                                      street: "street",
+                                                      comment: "comment")));
                                     },
                                     child: const Icon(Icons.more_horiz)),
                                 SizedBox(
