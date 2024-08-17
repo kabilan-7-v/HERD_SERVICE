@@ -7,7 +7,8 @@ import 'package:herd_service/profile/preferences.dart';
 import 'package:provider/provider.dart';
 
 class Settingspage extends StatelessWidget {
-  const Settingspage({super.key});
+  const Settingspage({super.key, required this.pass});
+  final String pass;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,11 @@ class Settingspage extends StatelessWidget {
       ),
       listofprofile("Manage Password", "", "assets/icons/lock.png", () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Managepassword()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => Managepassword(
+                      pass: pass,
+                    )));
       }),
       line(context),
       listofprofile(

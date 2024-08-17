@@ -6,6 +6,7 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 import 'package:herd_service/pages/enterdetails.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Appoinmentrequest extends StatelessWidget {
@@ -31,139 +32,279 @@ class Appoinmentrequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
+    print(height);
+    print("object");
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Stack(
-              children: [
-                SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Image.asset(
-                      "assets/img/bluebackground.png",
-                      fit: BoxFit.cover,
-                    )),
-                const Positioned(
-                  left: 10,
-                  top: 50,
-                  child: BackButton(
-                    color: Colors.white,
-                  ),
-                ),
-                Positioned(
-                  top: 60,
-                  left: 60,
-                  child: Text(
-                    "Appointment Request",
-                    style: TextStyle(color: Colors.white, fontSize: 22),
-                  ),
-                ),
-                Positioned(
-                  bottom: 120,
-                  left: 100,
-                  child: Text(
-                    date,
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Positioned(
-                  bottom: 90,
-                  left: 100,
-                  child: Text(
-                    time,
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            ),
-            priority == true
-                ? const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                    child: Text(
-                      "Mid Priority",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: Color.fromRGBO(176, 107, 5, 1)),
-                    ),
-                  )
-                : const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                    child: Text(
-                      "Low Priority",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: Color.fromRGBO(176, 107, 5, 1)),
-                    ),
-                  ),
-            custom_container(context),
-            comment_container(context),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
+      body: height <= 500
+          ? custom_size_change(context, height)
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                socialMedia(Bootstrap.whatsapp, () {
-                  whatsapp();
-                }),
-                socialMedia(Bootstrap.send, () async {}),
-                socialMedia(Bootstrap.telephone, () async {
-                  await _callNumber(phonenumber);
-                }),
+                Stack(
+                  children: [
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.asset(
+                          "assets/img/bluebackground.png",
+                          fit: BoxFit.cover,
+                        )),
+                    const Positioned(
+                      left: 10,
+                      top: 50,
+                      child: BackButton(
+                        color: Colors.white,
+                      ),
+                    ),
+                    Positioned(
+                      top: 60,
+                      left: 60,
+                      child: Text(
+                        "Appointment Request",
+                        style: TextStyle(color: Colors.white, fontSize: 22),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 120,
+                      left: 100,
+                      child: Text(
+                        date,
+                        style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 90,
+                      left: 100,
+                      child: Text(
+                        time,
+                        style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
+                priority == true
+                    ? const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                        child: Text(
+                          "Mid Priority",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: Color.fromRGBO(176, 107, 5, 1)),
+                        ),
+                      )
+                    : const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                        child: Text(
+                          "Low Priority",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: Color.fromRGBO(176, 107, 5, 1)),
+                        ),
+                      ),
+                custom_container(context),
+                comment_container(context),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    socialMedia(Bootstrap.whatsapp, () {
+                      whatsapp();
+                    }),
+                    socialMedia(Bootstrap.send, () async {}),
+                    socialMedia(Bootstrap.telephone, () async {
+                      await _callNumber(phonenumber);
+                    }),
+                  ],
+                ),
+                Spacer(),
+                const Center(
+                  child: BlinkText('Slide to Complete',
+                      style: TextStyle(fontSize: 14.0, color: Colors.black),
+                      endColor: Colors.grey,
+                      duration: Duration(seconds: 2)),
+                ),
+                Spacer(),
+                GestureDetector(
+                  onPanUpdate: (details) {
+                    // Swiping in left direction.
+                    if (details.delta.dx > 0) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Enterdetails()));
+                    }
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 70,
+                    child: Center(
+                        child: Padding(
+                      padding: const EdgeInsets.all(22.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "SERVICE COMPLETED",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          Image.asset("assets/img/swipe_up.png")
+                        ],
+                      ),
+                    )),
+                    color: const Color.fromRGBO(70, 149, 184, 1),
+                  ),
+                ),
               ],
             ),
-            SizedBox(
-              height: (height / 14),
-            ),
-            const Center(
-              child: BlinkText('Slide to Complete',
-                  style: TextStyle(fontSize: 14.0, color: Colors.black),
-                  endColor: Colors.grey,
-                  duration: Duration(seconds: 2)),
-            ),
-            GestureDetector(
-              onPanUpdate: (details) {
-                // Swiping in left direction.
-                if (details.delta.dx > 0) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Enterdetails()));
-                }
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 70,
-                child: Center(
-                    child: Padding(
-                  padding: const EdgeInsets.all(22.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "SERVICE COMPLETED",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
-                      ),
-                      Image.asset("assets/img/swipe_up.png")
-                    ],
-                  ),
-                )),
-                color: const Color.fromRGBO(70, 149, 184, 1),
+    );
+  }
+
+  custom_size_change(BuildContext context, height) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Stack(
+            children: [
+              SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset(
+                    "assets/img/bluebackground.png",
+                    fit: BoxFit.cover,
+                  )),
+              const Positioned(
+                left: 10,
+                top: 50,
+                child: BackButton(
+                  color: Colors.white,
+                ),
               ),
+              Positioned(
+                top: 60,
+                left: 60,
+                child: Text(
+                  "Appointment Request",
+                  style: TextStyle(color: Colors.white, fontSize: 22),
+                ),
+              ),
+              Positioned(
+                bottom: 120,
+                left: 100,
+                child: Text(
+                  date,
+                  style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Positioned(
+                bottom: 90,
+                left: 100,
+                child: Text(
+                  time,
+                  style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              )
+            ],
+          ),
+          priority == true
+              ? const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  child: Text(
+                    "Mid Priority",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Color.fromRGBO(176, 107, 5, 1)),
+                  ),
+                )
+              : const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  child: Text(
+                    "Low Priority",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Color.fromRGBO(176, 107, 5, 1)),
+                  ),
+                ),
+          custom_container(context),
+          comment_container(context),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              socialMedia(Bootstrap.whatsapp, () {
+                whatsapp();
+              }),
+              socialMedia(Bootstrap.send, () async {}),
+              socialMedia(Bootstrap.telephone, () async {
+                await _callNumber(phonenumber);
+              }),
+            ],
+          ),
+          SizedBox(
+            height: (height / 14),
+          ),
+          const Center(
+            child: BlinkText('Slide to Complete',
+                style: TextStyle(fontSize: 14.0, color: Colors.black),
+                endColor: Colors.grey,
+                duration: Duration(seconds: 2)),
+          ),
+          GestureDetector(
+            onPanUpdate: (details) {
+              // Swiping in left direction.
+              if (details.delta.dx > 0) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Enterdetails()));
+              }
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 70,
+              child: Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(22.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "SERVICE COMPLETED",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    Image.asset("assets/img/swipe_up.png")
+                  ],
+                ),
+              )),
+              color: const Color.fromRGBO(70, 149, 184, 1),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -367,6 +508,16 @@ class Appoinmentrequest extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  custom_time_formmat(String val) {
+    String timestamp = val;
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the time with AM/PM
+    String formattedTime = DateFormat('hh:mm:ss a').format(dateTime);
+
+    return formattedTime; // Output: 12 AUG 2024
   }
 
   _callNumber(String phoneNumber) async {

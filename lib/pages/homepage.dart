@@ -27,6 +27,7 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     // TODO: implement initState
     // change_current_to_assign(context, 4);
+    // Appoimentresquestapi(context, 2);
     setState(() {});
     super.initState();
   }
@@ -502,7 +503,7 @@ class _HomepageState extends State<Homepage> {
       locale: Localizations.localeOf(context),
       onDateSelected: (date) {
         _pickDate(date.toString());
-        // custom_sorting(date.toString());
+        custom_sorting(date.toString());
         setState(() {});
       },
     );
@@ -531,7 +532,7 @@ class _HomepageState extends State<Homepage> {
   custom_sorting(String calcendardate) {
     List<Customercard> lst = [];
     List temp = [];
-    List customercard = Provider.of<test>(context).customercard;
+    List customercard = Provider.of<test>(context, listen: false).customercard;
     // print(calcendardate.substring(5, 7));
     int whole_date = int.parse(calcendardate.substring(0, 4) +
         calcendardate.substring(5, 6) +

@@ -4,8 +4,6 @@ import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Loginpage.dart';
-import 'package:herd_service/pages/commonpage.dart';
-import 'package:herd_service/pages/homepage.dart';
 
 import 'package:provider/provider.dart';
 

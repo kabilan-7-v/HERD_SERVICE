@@ -179,8 +179,9 @@ class _LoginpageState extends State<Loginpage> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        Commonpage())); // Navigator.pushReplacementNamed(context, "/common");
+                    builder: (context) => Commonpage(
+                          pass: _passwordController.text,
+                        ))); // Navigator.pushReplacementNamed(context, "/common");
           } else {
             if (Provider.of<Login_id>(context, listen: false).emailchecker) {
               ScaffoldMessenger.of(context).showSnackBar(

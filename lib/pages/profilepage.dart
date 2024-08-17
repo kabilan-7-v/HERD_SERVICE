@@ -15,7 +15,8 @@ import 'package:herd_service/profile/settings.dart';
 import 'package:provider/provider.dart';
 
 class Profilepage extends StatefulWidget {
-  const Profilepage({super.key});
+  Profilepage({super.key, required this.pass});
+  final String pass;
 
   @override
   State<Profilepage> createState() => _ProfilepageState();
@@ -144,7 +145,9 @@ class _ProfilepageState extends State<Profilepage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const Settingspage()));
+                      builder: (context) => Settingspage(
+                            pass: widget.pass,
+                          )));
             }),
             line(context),
             listofprofile("About", Icons.info_outlined,

@@ -174,8 +174,12 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
             if (validate) {
               // Navigator.pushReplacementNamed(context, "/common");
 
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => Commonpage()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Commonpage(
+                            pass: _passwordController.text,
+                          )));
             } else {
               if (Provider.of<Login_email>(context, listen: false)
                   .emailchecker) {
@@ -197,8 +201,12 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
             final validate =
                 await Provider.of<Login_phone>(context, listen: false).Validate;
             if (validate) {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => Commonpage()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Commonpage(
+                            pass: _passwordController.text,
+                          )));
             } else {
               if (Provider.of<Login_phone>(context, listen: false)
                   .phonechecker) {

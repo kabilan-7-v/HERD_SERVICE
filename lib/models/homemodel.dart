@@ -7,6 +7,7 @@ class userprofiledetails extends ChangeNotifier {
   String phoneno;
   String address;
   int doctor_id;
+  String Password;
 
   userprofiledetails(
       {this.type_of_user = ".",
@@ -14,15 +15,18 @@ class userprofiledetails extends ChangeNotifier {
       this.phoneno = "",
       this.address = "",
       this.username = "Dr.k.Ram kumar MD.MS",
-      this.doctor_id = 2});
+      this.doctor_id = 2,
+      this.Password = ""});
 
-  change_user_profile(name, usertype, useremail, phno, useraddress, id) {
+  change_user_profile(name, usertype, useremail, phno, useraddress, id, pass) {
     username = name;
     type_of_user = usertype;
     email = useremail;
     phoneno = phno;
     address = useraddress;
     doctor_id = id;
+    Password = pass;
+
     notifyListeners();
   }
 }

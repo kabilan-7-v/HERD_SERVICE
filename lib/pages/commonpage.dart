@@ -6,7 +6,6 @@ import 'package:herd_service/pages/homepage.dart';
 
 import 'package:herd_service/pages/profilepage.dart';
 import 'package:herd_service/pages/tickethistory.dart';
-import 'package:herd_service/server/Notificationapi.dart';
 import 'package:herd_service/server/home_api.dart';
 import 'package:intl/intl.dart';
 
@@ -14,7 +13,8 @@ import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
 
 class Commonpage extends StatefulWidget {
-  const Commonpage({super.key});
+  Commonpage({super.key, required this.pass});
+  final String pass;
 
   @override
   State<Commonpage> createState() => _HomepageState();
@@ -33,7 +33,6 @@ class _HomepageState extends State<Commonpage>
   void initState() {
     super.initState();
     Appoimentresquestapi(context, 2);
-    Notification_api(context, 2);
 
     _motionTabBarController = MotionTabBarController(
       initialIndex: 0,
@@ -93,7 +92,9 @@ class _HomepageState extends State<Commonpage>
         children: <Widget>[
           const Homepage(),
           const Tickethistory(),
-          const Profilepage()
+          Profilepage(
+            pass: widget.pass as String,
+          )
         ],
       ),
     );

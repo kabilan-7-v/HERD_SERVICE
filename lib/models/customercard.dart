@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Customercard {
   final String name;
@@ -144,17 +145,41 @@ class test extends ChangeNotifier {
               i["Name"],
               i["Address"],
               i["Mobile1"].toString(),
-              i["Ticket_Raised_date"],
+              custom_date_formmat(i["Ticket_Raised_date"]),
               true,
-              67698,
+              int.parse(custom_slice_for_sort(i["Ticket_Raised_date"])),
               i["Comments"],
-              i["SP_Approval_time"],
+              custom_time_formmat(i["Ticket_Raised_date"]),
               i["VLCC"],
               i["Level"]));
         }
       }
       notifyListeners();
     });
+  }
+
+  custom_date_formmat(String val) {
+    String timestamp = val;
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the date
+    String formattedDate = DateFormat('dd MMM yyyy').format(dateTime);
+
+    return formattedDate; // Output: 12 AUG 2024
+  }
+
+  custom_time_formmat(String val) {
+    String timestamp = val;
+    DateTime dateTime = DateTime.parse(timestamp);
+
+    // Format the time with AM/PM
+    String formattedTime = DateFormat('hh:mm:ss a').format(dateTime);
+
+    return formattedTime; // Output: 12 AUG 2024
+  }
+
+  custom_slice_for_sort(String val) {
+    return val.substring(0, 4) + val.substring(5, 7) + val.substring(8, 10);
   }
 
   removevalue_to_current_request() {}
