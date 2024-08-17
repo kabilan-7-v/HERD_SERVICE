@@ -177,7 +177,10 @@ class _LoginpageState extends State<Loginpage> {
           // Now check the validation and navigate accordingly
           if (validate) {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Commonpage()));
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Commonpage())); // Navigator.pushReplacementNamed(context, "/common");
           } else {
             if (Provider.of<Login_id>(context, listen: false).emailchecker) {
               ScaffoldMessenger.of(context).showSnackBar(

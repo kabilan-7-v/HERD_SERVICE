@@ -38,7 +38,7 @@ class _CustomercontainerState extends State<Customercontainer> {
                   Row(
                     children: [
                       const Spacer(),
-                      (widget.card.priority) == true
+                      (widget.card.level) == "Mid"
                           ? Container(
                               width: 43,
                               height: 22,
@@ -61,27 +61,52 @@ class _CustomercontainerState extends State<Customercontainer> {
                                     fontWeight: FontWeight.bold),
                               )),
                             )
-                          : Container(
-                              width: 43,
-                              height: 22,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(5)),
-                                  border: Border.all(
-                                    width: 2,
-                                    color: const Color.fromRGBO(0, 105, 61, 1),
-                                    style: BorderStyle.solid,
-                                  ),
-                                  color: Colors.white),
-                              child: const Center(
-                                  child: Text(
-                                "Low",
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: Color.fromRGBO(0, 105, 61, 1),
-                                    fontWeight: FontWeight.bold),
-                              )),
-                            ),
+                          : widget.card.level == "Low"
+                              ? Container(
+                                  width: 43,
+                                  height: 22,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5)),
+                                      border: Border.all(
+                                        width: 2,
+                                        color:
+                                            const Color.fromRGBO(0, 105, 61, 1),
+                                        style: BorderStyle.solid,
+                                      ),
+                                      color: Colors.white),
+                                  child: const Center(
+                                      child: Text(
+                                    "Low",
+                                    style: TextStyle(
+                                        fontSize: 11,
+                                        color: Color.fromRGBO(0, 105, 61, 1),
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                                )
+                              : widget.card.level == "high"
+                                  ? Container(
+                                      width: 43,
+                                      height: 22,
+                                      decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(5)),
+                                          border: Border.all(
+                                            width: 2,
+                                            color: Colors.red,
+                                            style: BorderStyle.solid,
+                                          ),
+                                          color: Colors.white),
+                                      child: const Center(
+                                          child: Text(
+                                        "High",
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                    )
+                                  : SizedBox(),
                       const SizedBox(
                         width: 5,
                       )
@@ -134,15 +159,19 @@ class _CustomercontainerState extends State<Customercontainer> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const Appoinmentrequest(
-                                                      phonenumber: "7010185919",
-                                                      date: "date",
-                                                      time: "time",
-                                                      name: "name",
-                                                      priority: true,
-                                                      vllc: "vllc",
-                                                      street: "street",
-                                                      comment: "comment")));
+                                                  Appoinmentrequest(
+                                                      phonenumber: widget
+                                                          .card.phonenumber,
+                                                      date: widget.card.date,
+                                                      time: widget.card.time,
+                                                      name: widget.card.name,
+                                                      priority:
+                                                          widget.card.priority,
+                                                      vllc: widget.card.vllc,
+                                                      street:
+                                                          widget.card.address,
+                                                      comment: widget
+                                                          .card.comment)));
                                     },
                                     child: const Icon(Icons.more_horiz)),
                                 SizedBox(

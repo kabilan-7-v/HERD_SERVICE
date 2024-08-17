@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:herd_service/models/loginmodels.dart';
+import 'package:herd_service/pages/Loginpage.dart';
 import 'package:herd_service/profile/managepassword.dart';
 import 'package:herd_service/profile/preferences.dart';
+import 'package:provider/provider.dart';
 
 class Settingspage extends StatelessWidget {
   const Settingspage({super.key});
@@ -38,9 +42,100 @@ class Settingspage extends StatelessWidget {
             context, MaterialPageRoute(builder: (context) => Preferences()));
       }),
       line(context),
-      listofprofile("Logout", "", "assets/icons/logout.png", () {}),
+      listofprofile("Logout", "", "assets/icons/logout.png", () {
+        showlogout(context);
+      }),
       line(context),
     ]));
+  }
+
+  showlogout(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: Container(
+              height: 200,
+              width: 450,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Icon(
+                          Icons.close,
+                          size: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Text(
+                    'You are attempting to logout',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  const Text(
+                    'Are you Sure?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ConstrainedBox(
+                        constraints: const BoxConstraints.tightFor(
+                            height: 50, width: 200),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromRGBO(218, 53, 53, 1),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: () async {
+                            await context
+                                .read<Login_id>()
+                                .Loginupdate_id(false, false, false);
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Loginpage()),
+                              (Route<dynamic> route) => false,
+                            );
+
+                            // Navigator.popUntil(
+                            //     context, ModalRoute.withName('/Login'));
+                            // Navigator.pushNamed(context, "/Login");
+                          },
+                          child: const Text(
+                            'Log Out',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   Widget listofprofile(String text, String subtext, String imageurl, ontap) {

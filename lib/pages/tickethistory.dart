@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/pages/ticketshow.dart';
+import 'package:provider/provider.dart';
 
-class Tickethistory extends StatelessWidget {
+class Tickethistory extends StatefulWidget {
   const Tickethistory({
     super.key,
   });
 
+  @override
+  State<Tickethistory> createState() => _TickethistoryState();
+}
+
+class _TickethistoryState extends State<Tickethistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +41,10 @@ class Tickethistory extends StatelessWidget {
             ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: tickethistory.length,
+                itemCount: Provider.of<test>(context).tickethistory.length,
                 itemBuilder: (context, ind) {
-                  return ticketcard(tickethistory[ind], context);
+                  return ticketcard(
+                      Provider.of<test>(context).tickethistory[ind], context);
                 }),
           ],
         ),
@@ -78,7 +85,7 @@ class Tickethistory extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              data.iscompleted == true
+              data.iscompleted == 1
                   ? Icon(
                       Icons.verified_rounded,
                       color: Colors.green,

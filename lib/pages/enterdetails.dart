@@ -1,12 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:herd_service/pages/adddetails.dart';
 import 'package:herd_service/pages/otppage.dart';
+import 'package:herd_service/server/enterdetails_api.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Enterdetails extends StatefulWidget {
@@ -23,16 +24,32 @@ class _EnterdetailsState extends State<Enterdetails> {
   final GlobalKey<FormState> _key = GlobalKey();
   bool aitecnician = false;
   bool popup = false;
+  XFile? temp;
   File? imageFile;
 
+  // Store the Base64-encoded string
+
+  // Method to select and encode file to Base64
   selectFile() async {
     XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (file != null) {
       setState(() {
+        temp = file;
         imageFile = File(file.path);
+        // Encode to Base64
       });
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    strawNumberController.dispose();
+    bullTypeController.dispose();
+    priceController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -168,7 +185,14 @@ class _EnterdetailsState extends State<Enterdetails> {
                           )
                         : InkWell(
                             onTap: () {
+                              if (temp == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Please add image')));
+                              }
+
                               if (!_key.currentState!.validate()) return;
+
                               setState(() {
                                 popup = true;
                               });
@@ -226,6 +250,7 @@ class _EnterdetailsState extends State<Enterdetails> {
           ),
           const SizedBox(height: 8),
           TextFormField(
+            // keyboardType: TextInputType.number,
             validator: (value) {
               if (value!.isEmpty) {
                 return "Please enter $label";
@@ -326,10 +351,20 @@ class _EnterdetailsState extends State<Enterdetails> {
                         fixedSize: const Size(330, 24),
                         backgroundColor: const Color.fromRGBO(4, 183, 159, 1)),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Otppage()));
+                      enterdetails_api(
+                          imageFile!.absolute,
+                          strawNumberController.text,
+                          priceController.text,
+                          bullTypeController.text);
+                      if (temp == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Please add image')));
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Otppage()));
+                      }
                     },
                     child: const Center(
                         child: Text(

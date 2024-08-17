@@ -1,17 +1,13 @@
 // ignore_for_file: avoid_unnecessary_containers, non_constant_identifier_names
 
-import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_week/flutter_calendar_week.dart';
-import 'package:herd_service/models/customercard.dart';
-import 'package:herd_service/customer_utility/customercontainer.dart';
-import 'package:herd_service/models/homemodel.dart';
+
 import 'package:herd_service/pages/homepage.dart';
 
 import 'package:herd_service/pages/profilepage.dart';
 import 'package:herd_service/pages/tickethistory.dart';
+import 'package:herd_service/server/Notificationapi.dart';
 import 'package:herd_service/server/home_api.dart';
-import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:intl/intl.dart';
 
 import 'package:motion_tab_bar/MotionTabBar.dart';
@@ -37,6 +33,7 @@ class _HomepageState extends State<Commonpage>
   void initState() {
     super.initState();
     Appoimentresquestapi(context, 2);
+    Notification_api(context, 2);
 
     _motionTabBarController = MotionTabBarController(
       initialIndex: 0,

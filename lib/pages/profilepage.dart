@@ -3,10 +3,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:herd_service/models/homemodel.dart';
+import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Alertservices.dart';
+import 'package:herd_service/pages/Loginpage.dart';
 import 'package:herd_service/pages/tickethistory.dart';
 import 'package:herd_service/profile/about.dart';
-import 'package:herd_service/profile/notification.dart';
+import 'package:herd_service/pages/notification.dart';
 import 'package:herd_service/profile/profile.dart';
 import 'package:herd_service/profile/settings.dart';
 
@@ -128,7 +130,9 @@ class _ProfilepageState extends State<Profilepage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const Notificationpage()));
+                      builder: (context) => Notificationpage(
+                          doctor_id: Provider.of<userprofiledetails>(context)
+                              .doctor_id)));
             }),
             line(context),
             // listofprofile("Medicine", Icons.medical_information_outlined,
@@ -312,7 +316,21 @@ class _ProfilepageState extends State<Profilepage> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () async {
+                              await context
+                                  .read<Login_id>()
+                                  .Loginupdate_id(false, false, false);
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Loginpage()),
+                                (Route<dynamic> route) => false,
+                              );
+
+                              // Navigator.popUntil(
+                              //     context, ModalRoute.withName('/Login'));
+                              // Navigator.pushNamed(context, "/Login");
+                            },
                             child: const Text(
                               'Log Out',
                               style: TextStyle(
@@ -330,24 +348,26 @@ class _ProfilepageState extends State<Profilepage> {
           },
         );
       },
-      child: Container(
-        width: 180,
-        height: 50,
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: Colors.black,
-            )),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.logout),
-            SizedBox(
-              width: 3,
-            ),
-            Text("LogOut")
-          ],
+      child: InkWell(
+        child: Container(
+          width: 180,
+          height: 50,
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Colors.black,
+              )),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.logout),
+              SizedBox(
+                width: 3,
+              ),
+              Text("LogOut")
+            ],
+          ),
         ),
       ),
     );

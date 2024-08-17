@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:herd_service/models/Notification_models.dart';
 import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Loginpage.dart';
 import 'package:herd_service/pages/commonpage.dart';
+import 'package:herd_service/pages/homepage.dart';
+
 import 'package:provider/provider.dart';
 
 void main() {
@@ -28,8 +31,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (create) => Login_id()),
         ChangeNotifierProvider(create: (create) => Login_phone()),
         ChangeNotifierProvider(create: (create) => test()),
+        ChangeNotifierProvider(create: (create) => NotifyModel()),
       ],
       child: MaterialApp(
+        // initialRoute: '/',
+        // routes: {
+        //   '/': (context) => const Loginpage(),
+        //   // '/common': (context) => const Commonpage(),
+        // },
         builder: (context, child) {
           return MediaQuery(
             data: MediaQuery.of(context)
@@ -38,8 +47,8 @@ class MyApp extends StatelessWidget {
           );
         },
         debugShowCheckedModeBanner: false,
-        home: const Commonpage(),
-        // home: const Loginpage(),
+        // home: const Commonpage(),
+        home: const Loginpage(),
       ),
     );
   }

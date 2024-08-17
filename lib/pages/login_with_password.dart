@@ -172,6 +172,8 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
             final validate =
                 await Provider.of<Login_email>(context, listen: false).Validate;
             if (validate) {
+              // Navigator.pushReplacementNamed(context, "/common");
+
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => Commonpage()));
             } else {

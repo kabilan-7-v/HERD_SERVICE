@@ -77,7 +77,8 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
           res["phno"].toString(),
           res["email"].toString(),
           res["phno"].toString(),
-          res["Location"].toString());
+          res["Location"].toString(),
+          res["id"]);
     } else if (response.statusCode == 404) {
       await context.read<Login_id>().Loginupdate_id(false, true, false);
       print(response.body);
@@ -112,7 +113,8 @@ Login_with_phone(BuildContext context, String phone, String pass) async {
           res["phno"].toString(),
           res["email"].toString(),
           res["phno"].toString(),
-          res["Location"].toString());
+          res["Location"].toString(),
+          res["id"]);
     } else if (response.statusCode == 404) {
       await context.read<Login_phone>().Loginupdate_phone(false, true, false);
       print(response.body);

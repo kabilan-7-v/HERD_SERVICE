@@ -1,9 +1,8 @@
-import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:herd_service/customer_utility/customercontainer.dart';
 import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
-import 'package:herd_service/profile/notification.dart';
+import 'package:herd_service/pages/notification.dart';
 import 'package:herd_service/server/home_api.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +16,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  bool accept = true;
   int counter = 1;
 
   DateTime? selectedDate;
@@ -28,7 +26,7 @@ class _HomepageState extends State<Homepage> {
 
   void initState() {
     // TODO: implement initState
-    // change_current_to_assign(context, 5);
+    // change_current_to_assign(context, 4);
     setState(() {});
     super.initState();
   }
@@ -57,7 +55,10 @@ class _HomepageState extends State<Homepage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Notificationpage()));
+                            builder: (context) => Notificationpage(
+                                doctor_id:
+                                    Provider.of<userprofiledetails>(context)
+                                        .doctor_id)));
                   }),
               counter != 0
                   ? new Positioned(
@@ -117,35 +118,29 @@ class _HomepageState extends State<Homepage> {
               const SizedBox(
                 height: 10,
               ),
-              accept
-                  ? Row(
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        const Text(
-                          "Current Request",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        )
-                      ],
-                    )
-                  : SizedBox(),
-              accept
-                  ? ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: Provider.of<test>(context)
-                          .current_request_list
-                          .length,
-                      itemBuilder: (context, ind) {
-                        var res = Provider.of<test>(context)
-                            .current_request_list[ind];
-                        return appoinment_Request(Date, res.priroity, res.name,
-                            res.vllc, res.street, res.state, ind);
-                      })
-                  : const SizedBox(),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  const Text(
+                    "Current Request",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  )
+                ],
+              ),
+              ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount:
+                      Provider.of<test>(context).current_request_list.length,
+                  itemBuilder: (context, ind) {
+                    var res =
+                        Provider.of<test>(context).current_request_list[ind];
+                    return appoinment_Request(Date, res.priroity, res.name,
+                        res.vllc, res.street, res.state, ind, res.level);
+                  }),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(
@@ -223,8 +218,8 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  Widget appoinment_Request(
-      date, priority, String name, vllc, street, state, int index) {
+  Widget appoinment_Request(date, priority, String name, vllc, street, state,
+      int index, String level) {
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width - 30,
@@ -313,7 +308,7 @@ class _HomepageState extends State<Homepage> {
                 const SizedBox(
                   width: 20,
                 ),
-                priority == true
+                level == "Mid"
                     ? Container(
                         width: 50,
                         height: 50,
@@ -327,31 +322,53 @@ class _HomepageState extends State<Homepage> {
                             color: Colors.white),
                         child: Center(
                             child: Text(
-                          priority == true ? "Mid" : "Low",
+                          "Mid",
                           style: TextStyle(
                               color: Color.fromRGBO(242, 160, 36, 1),
                               fontWeight: FontWeight.bold),
                         )),
                       )
-                    : Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                              width: 3,
-                              color: const Color.fromRGBO(0, 105, 61, 1),
-                              style: BorderStyle.solid,
-                            ),
-                            color: Colors.white),
-                        child: Center(
-                            child: Text(
-                          priority == true ? "Mid" : "Low",
-                          style: TextStyle(
-                              color: Color.fromRGBO(0, 105, 61, 1),
-                              fontWeight: FontWeight.bold),
-                        )),
-                      ),
+                    : level == "Low"
+                        ? Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                  width: 3,
+                                  color: const Color.fromRGBO(0, 105, 61, 1),
+                                  style: BorderStyle.solid,
+                                ),
+                                color: Colors.white),
+                            child: Center(
+                                child: Text(
+                              "Low",
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 105, 61, 1),
+                                  fontWeight: FontWeight.bold),
+                            )),
+                          )
+                        : level == "high"
+                            ? Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    border: Border.all(
+                                      width: 3,
+                                      color: Colors.red,
+                                      style: BorderStyle.solid,
+                                    ),
+                                    color: Colors.white),
+                                child: Center(
+                                    child: Text(
+                                  "High",
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                              )
+                            : SizedBox(),
                 // Image.asset("assets/icons/mid.png"),
                 const SizedBox(
                   width: 30,
@@ -417,9 +434,6 @@ class _HomepageState extends State<Homepage> {
                           Provider.of<test>(context)
                               .current_request_list
                               .removeAt(index);
-                          setState(() {
-                            accept = false;
-                          });
                         },
                         child: const Text(
                           "DECLINE",
@@ -479,7 +493,7 @@ class _HomepageState extends State<Homepage> {
   calendar() {
     return HorizontalCalendar(
       date: DateTime.now(),
-
+      lastDate: DateTime.parse("2050-07-23"),
       initialDate: DateTime.parse("2024-07-23"),
       textColor: Colors.black,
       backgroundColor: Colors.white,
@@ -487,9 +501,9 @@ class _HomepageState extends State<Homepage> {
       // showMonth: true,
       locale: Localizations.localeOf(context),
       onDateSelected: (date) {
-        // _pickDate(date.toString());
+        _pickDate(date.toString());
         // custom_sorting(date.toString());
-        // setState(() {});
+        setState(() {});
       },
     );
   }
