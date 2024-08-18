@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Managepassword_api(BuildContext context, String pass) async {
-  final String url = "http://103.120.176.156:8803/doctor/updatePassword/2";
+Managepassword_api(BuildContext context, String pass, String doctor_id) async {
+  final String url =
+      "http://103.120.176.156:8803/doctor/updatePassword/$doctor_id";
   try {
     final response = await http.post(
       Uri.parse(url),

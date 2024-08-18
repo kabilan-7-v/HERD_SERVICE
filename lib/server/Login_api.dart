@@ -72,14 +72,24 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
     if (response.statusCode == 200) {
       await context.read<Login_id>().Loginupdate_id(true, false, false);
       var res = jsonDecode(response.body);
+      print(response.body);
+      print(
+          "kabilan q2wasertdcyfgvhjbknlmwaerextrcfgvjhbjwzsdfxgchj ewzwrdxfcghj ");
+      print(res);
       await context.read<userprofiledetails>().change_user_profile(
           res["Name"].toString(),
           res["phno"].toString(),
           res["email"].toString(),
           res["phno"].toString(),
           res["Location"].toString(),
-          res["id"],
-          pass);
+          res["Doctor_id"],
+          pass,
+          res["emailpromotions"],
+          res["emailinvoice"],
+          res["smsinvoice"],
+          res["smspromotion"],
+          res["WhatsApp"],
+          res["pushnotification"]);
     } else if (response.statusCode == 404) {
       await context.read<Login_id>().Loginupdate_id(false, true, false);
       print(response.body);
@@ -116,7 +126,13 @@ Login_with_phone(BuildContext context, String phone, String pass) async {
           res["phno"].toString(),
           res["Location"].toString(),
           res["id"],
-          pass);
+          pass,
+          res["emailpromotions"],
+          res["emailinvoice"],
+          res["smsinvoice"],
+          res["smspromotion"],
+          res["WhatsApp"],
+          res["pushnotification"]);
     } else if (response.statusCode == 404) {
       await context.read<Login_phone>().Loginupdate_phone(false, true, false);
       print(response.body);

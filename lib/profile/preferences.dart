@@ -1,6 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:herd_service/models/homemodel.dart';
+import 'package:herd_service/server/preference_api.dart';
+import 'package:provider/provider.dart';
 
 class Preferences extends StatefulWidget {
   const Preferences({super.key});
@@ -8,13 +11,6 @@ class Preferences extends StatefulWidget {
   @override
   State<Preferences> createState() => _PreferencesState();
 }
-
-bool email_prmotion = false;
-bool email_invoice = false;
-bool allow_sms_invoice = false;
-bool allow_promotion_sms = false;
-bool allow_updates_whatsapp = false;
-bool allow_Pushnotifications = false;
 
 class _PreferencesState extends State<Preferences> {
   @override
@@ -57,8 +53,32 @@ class _PreferencesState extends State<Preferences> {
                     children: [
                       InkWell(
                         onTap: () {
-                          email_prmotion = !email_prmotion;
-                          setState(() {});
+                          Preferences_api(
+                            context,
+                            Provider.of<userprofiledetails>(context,
+                                    listen: false)
+                                .doctor_id,
+                            !Provider.of<userprofiledetails>(context,
+                                    listen: false)
+                                .emailpromotion,
+                            Provider.of<userprofiledetails>(context,
+                                    listen: false)
+                                .emailinvoice,
+                            Provider.of<userprofiledetails>(context,
+                                    listen: false)
+                                .smsinvoice,
+                            Provider.of<userprofiledetails>(context,
+                                    listen: false)
+                                .smsinvoice,
+                            Provider.of<userprofiledetails>(context,
+                                    listen: false)
+                                .whatsapp,
+                            Provider.of<userprofiledetails>(context,
+                                    listen: false)
+                                .pushnotification,
+                          );
+                          // email_prmotion = !email_prmotion;
+                          // setState(() {});
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(10.0),
@@ -66,11 +86,34 @@ class _PreferencesState extends State<Preferences> {
                         ),
                       ),
                       const Spacer(),
-                      email_prmotion == true
+                      Provider.of<userprofiledetails>(context, listen: false)
+                                  .emailpromotion ==
+                              true
                           ? InkWell(
                               onTap: () {
-                                email_prmotion = false;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .doctor_id,
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .emailpromotion,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .emailinvoice,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .smsinvoice,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .smsinvoice,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .whatsapp,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -80,8 +123,29 @@ class _PreferencesState extends State<Preferences> {
                             )
                           : InkWell(
                               onTap: () {
-                                email_prmotion = true;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .doctor_id,
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .emailpromotion,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .emailinvoice,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .smsinvoice,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .smsinvoice,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .whatsapp,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -96,8 +160,29 @@ class _PreferencesState extends State<Preferences> {
                     children: [
                       InkWell(
                         onTap: () {
-                          email_invoice = !email_invoice;
-                          setState(() {});
+                          Preferences_api(
+                              context,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .doctor_id,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .emailpromotion,
+                              !Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .emailinvoice,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .smsinvoice,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .smsinvoice,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .whatsapp,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .pushnotification);
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(10.0),
@@ -105,11 +190,32 @@ class _PreferencesState extends State<Preferences> {
                         ),
                       ),
                       const Spacer(),
-                      email_invoice == true
+                      context.watch<userprofiledetails>().emailinvoice == true
                           ? InkWell(
                               onTap: () {
-                                email_invoice = false;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .doctor_id,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailpromotion,
+                                    !context
+                                        .watch<userprofiledetails>()
+                                        .emailinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smsinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smspromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .whatsapp,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -119,8 +225,29 @@ class _PreferencesState extends State<Preferences> {
                             )
                           : InkWell(
                               onTap: () {
-                                email_invoice = true;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .doctor_id,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailpromotion,
+                                    !context
+                                        .watch<userprofiledetails>()
+                                        .emailinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smsinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smspromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .whatsapp,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -153,7 +280,23 @@ class _PreferencesState extends State<Preferences> {
                       InkWell(
                         onTap: () {
                           setState(() {
-                            allow_sms_invoice = !allow_sms_invoice;
+                            Preferences_api(
+                                context,
+                                context.watch<userprofiledetails>().doctor_id,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .emailpromotion,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .emailinvoice,
+                                !context.watch<userprofiledetails>().smsinvoice,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .smspromotion,
+                                context.watch<userprofiledetails>().whatsapp,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .pushnotification);
                           });
                         },
                         child: const Padding(
@@ -162,11 +305,32 @@ class _PreferencesState extends State<Preferences> {
                         ),
                       ),
                       const Spacer(),
-                      allow_sms_invoice == true
+                      context.watch<userprofiledetails>().smsinvoice == true
                           ? InkWell(
                               onTap: () {
-                                allow_sms_invoice = false;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .doctor_id,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailpromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailinvoice,
+                                    !context
+                                        .watch<userprofiledetails>()
+                                        .smsinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smspromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .whatsapp,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -176,8 +340,29 @@ class _PreferencesState extends State<Preferences> {
                             )
                           : InkWell(
                               onTap: () {
-                                allow_sms_invoice = true;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .doctor_id,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailpromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailinvoice,
+                                    !context
+                                        .watch<userprofiledetails>()
+                                        .smsinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smspromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .whatsapp,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -192,8 +377,19 @@ class _PreferencesState extends State<Preferences> {
                     children: [
                       InkWell(
                         onTap: () {
-                          allow_promotion_sms = !allow_promotion_sms;
-                          setState(() {});
+                          Preferences_api(
+                              context,
+                              context.watch<userprofiledetails>().doctor_id,
+                              context
+                                  .watch<userprofiledetails>()
+                                  .emailpromotion,
+                              context.watch<userprofiledetails>().emailinvoice,
+                              context.watch<userprofiledetails>().smsinvoice,
+                              !context.watch<userprofiledetails>().smspromotion,
+                              context.watch<userprofiledetails>().whatsapp,
+                              context
+                                  .watch<userprofiledetails>()
+                                  .pushnotification);
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(12.0),
@@ -201,11 +397,32 @@ class _PreferencesState extends State<Preferences> {
                         ),
                       ),
                       const Spacer(),
-                      allow_promotion_sms == true
+                      context.watch<userprofiledetails>().smspromotion == true
                           ? InkWell(
                               onTap: () {
-                                allow_promotion_sms = false;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .doctor_id,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailpromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smsinvoice,
+                                    !context
+                                        .watch<userprofiledetails>()
+                                        .smspromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .whatsapp,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -215,8 +432,29 @@ class _PreferencesState extends State<Preferences> {
                             )
                           : InkWell(
                               onTap: () {
-                                allow_promotion_sms = true;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .doctor_id,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailpromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smsinvoice,
+                                    !context
+                                        .watch<userprofiledetails>()
+                                        .smspromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .whatsapp,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -231,9 +469,19 @@ class _PreferencesState extends State<Preferences> {
                     children: [
                       InkWell(
                         onTap: () {
-                          setState(() {
-                            allow_updates_whatsapp = !allow_updates_whatsapp;
-                          });
+                          Preferences_api(
+                              context,
+                              context.watch<userprofiledetails>().doctor_id,
+                              context
+                                  .watch<userprofiledetails>()
+                                  .emailpromotion,
+                              context.watch<userprofiledetails>().emailinvoice,
+                              context.watch<userprofiledetails>().smsinvoice,
+                              context.watch<userprofiledetails>().smspromotion,
+                              !context.watch<userprofiledetails>().whatsapp,
+                              context
+                                  .watch<userprofiledetails>()
+                                  .pushnotification);
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(12.0),
@@ -241,11 +489,32 @@ class _PreferencesState extends State<Preferences> {
                         ),
                       ),
                       const Spacer(),
-                      allow_updates_whatsapp == true
+                      context.watch<userprofiledetails>().whatsapp == true
                           ? InkWell(
                               onTap: () {
-                                allow_updates_whatsapp = false;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .doctor_id,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailpromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smsinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smspromotion,
+                                    !context
+                                        .watch<userprofiledetails>()
+                                        .whatsapp,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -255,8 +524,29 @@ class _PreferencesState extends State<Preferences> {
                             )
                           : InkWell(
                               onTap: () {
-                                allow_updates_whatsapp = true;
-                                setState(() {});
+                                Preferences_api(
+                                    context,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .doctor_id,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailpromotion,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .emailinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smsinvoice,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .smspromotion,
+                                    !context
+                                        .watch<userprofiledetails>()
+                                        .whatsapp,
+                                    context
+                                        .watch<userprofiledetails>()
+                                        .pushnotification);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -282,9 +572,17 @@ class _PreferencesState extends State<Preferences> {
                 children: [
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        allow_Pushnotifications = !allow_Pushnotifications;
-                      });
+                      Preferences_api(
+                          context,
+                          context.watch<userprofiledetails>().doctor_id,
+                          context.watch<userprofiledetails>().emailpromotion,
+                          context.watch<userprofiledetails>().emailinvoice,
+                          context.watch<userprofiledetails>().smsinvoice,
+                          context.watch<userprofiledetails>().smspromotion,
+                          context.watch<userprofiledetails>().whatsapp,
+                          !context
+                              .watch<userprofiledetails>()
+                              .pushnotification);
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(12.0),
@@ -292,11 +590,26 @@ class _PreferencesState extends State<Preferences> {
                     ),
                   ),
                   const Spacer(),
-                  allow_Pushnotifications == true
+                  context.watch<userprofiledetails>().pushnotification == true
                       ? InkWell(
                           onTap: () {
-                            allow_Pushnotifications = false;
-                            setState(() {});
+                            Preferences_api(
+                                context,
+                                context.watch<userprofiledetails>().doctor_id,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .emailpromotion,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .emailinvoice,
+                                context.watch<userprofiledetails>().smsinvoice,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .smspromotion,
+                                context.watch<userprofiledetails>().whatsapp,
+                                !context
+                                    .watch<userprofiledetails>()
+                                    .pushnotification);
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -305,8 +618,23 @@ class _PreferencesState extends State<Preferences> {
                         )
                       : InkWell(
                           onTap: () {
-                            allow_Pushnotifications = true;
-                            setState(() {});
+                            Preferences_api(
+                                context,
+                                context.watch<userprofiledetails>().doctor_id,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .emailpromotion,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .emailinvoice,
+                                context.watch<userprofiledetails>().smsinvoice,
+                                context
+                                    .watch<userprofiledetails>()
+                                    .smspromotion,
+                                context.watch<userprofiledetails>().whatsapp,
+                                !context
+                                    .watch<userprofiledetails>()
+                                    .pushnotification);
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
