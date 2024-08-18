@@ -69,7 +69,7 @@ class _PreferencesState extends State<Preferences> {
                                 .smsinvoice,
                             Provider.of<userprofiledetails>(context,
                                     listen: false)
-                                .smsinvoice,
+                                .smspromotion,
                             Provider.of<userprofiledetails>(context,
                                     listen: false)
                                 .whatsapp,
@@ -107,7 +107,7 @@ class _PreferencesState extends State<Preferences> {
                                         .smsinvoice,
                                     Provider.of<userprofiledetails>(context,
                                             listen: false)
-                                        .smsinvoice,
+                                        .smspromotion,
                                     Provider.of<userprofiledetails>(context,
                                             listen: false)
                                         .whatsapp,
@@ -139,7 +139,7 @@ class _PreferencesState extends State<Preferences> {
                                         .smsinvoice,
                                     Provider.of<userprofiledetails>(context,
                                             listen: false)
-                                        .smsinvoice,
+                                        .smspromotion,
                                     Provider.of<userprofiledetails>(context,
                                             listen: false)
                                         .whatsapp,
@@ -160,6 +160,8 @@ class _PreferencesState extends State<Preferences> {
                     children: [
                       InkWell(
                         onTap: () {
+                          print("object");
+
                           Preferences_api(
                               context,
                               Provider.of<userprofiledetails>(context,
@@ -176,7 +178,7 @@ class _PreferencesState extends State<Preferences> {
                                   .smsinvoice,
                               Provider.of<userprofiledetails>(context,
                                       listen: false)
-                                  .smsinvoice,
+                                  .smspromotion,
                               Provider.of<userprofiledetails>(context,
                                       listen: false)
                                   .whatsapp,
@@ -190,31 +192,33 @@ class _PreferencesState extends State<Preferences> {
                         ),
                       ),
                       const Spacer(),
-                      context.watch<userprofiledetails>().emailinvoice == true
+                      Provider.of<userprofiledetails>(context).emailinvoice ==
+                              true
                           ? InkWell(
                               onTap: () {
+                                print("object");
                                 Preferences_api(
                                     context,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .doctor_id,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailpromotion,
-                                    !context
-                                        .watch<userprofiledetails>()
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smsinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smspromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .whatsapp,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .pushnotification);
                               },
                               child: Padding(
@@ -227,26 +231,26 @@ class _PreferencesState extends State<Preferences> {
                               onTap: () {
                                 Preferences_api(
                                     context,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .doctor_id,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailpromotion,
-                                    !context
-                                        .watch<userprofiledetails>()
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smsinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smspromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .whatsapp,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .pushnotification);
                               },
                               child: Padding(
@@ -282,21 +286,28 @@ class _PreferencesState extends State<Preferences> {
                           setState(() {
                             Preferences_api(
                                 context,
-                                context.watch<userprofiledetails>().doctor_id,
-                                context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
+                                    .doctor_id,
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .emailpromotion,
-                                context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .emailinvoice,
-                                !context.watch<userprofiledetails>().smsinvoice,
-                                context
-                                    .watch<userprofiledetails>()
+                                !Provider.of<userprofiledetails>(context,
+                                        listen: false)
+                                    .smsinvoice,
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .smspromotion,
-                                context.watch<userprofiledetails>().whatsapp,
-                                context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
+                                    .whatsapp,
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .pushnotification);
+                            ;
                           });
                         },
                         child: const Padding(
@@ -310,26 +321,26 @@ class _PreferencesState extends State<Preferences> {
                               onTap: () {
                                 Preferences_api(
                                     context,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .doctor_id,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailpromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailinvoice,
-                                    !context
-                                        .watch<userprofiledetails>()
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smsinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smspromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .whatsapp,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .pushnotification);
                               },
                               child: Padding(
@@ -342,26 +353,26 @@ class _PreferencesState extends State<Preferences> {
                               onTap: () {
                                 Preferences_api(
                                     context,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .doctor_id,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailpromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailinvoice,
-                                    !context
-                                        .watch<userprofiledetails>()
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smsinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smspromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .whatsapp,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .pushnotification);
                               },
                               child: Padding(
@@ -379,16 +390,26 @@ class _PreferencesState extends State<Preferences> {
                         onTap: () {
                           Preferences_api(
                               context,
-                              context.watch<userprofiledetails>().doctor_id,
-                              context
-                                  .watch<userprofiledetails>()
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .doctor_id,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
                                   .emailpromotion,
-                              context.watch<userprofiledetails>().emailinvoice,
-                              context.watch<userprofiledetails>().smsinvoice,
-                              !context.watch<userprofiledetails>().smspromotion,
-                              context.watch<userprofiledetails>().whatsapp,
-                              context
-                                  .watch<userprofiledetails>()
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .emailinvoice,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .smsinvoice,
+                              !Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .smspromotion,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .whatsapp,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
                                   .pushnotification);
                         },
                         child: const Padding(
@@ -402,26 +423,26 @@ class _PreferencesState extends State<Preferences> {
                               onTap: () {
                                 Preferences_api(
                                     context,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .doctor_id,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailpromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smsinvoice,
-                                    !context
-                                        .watch<userprofiledetails>()
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smspromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .whatsapp,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .pushnotification);
                               },
                               child: Padding(
@@ -434,26 +455,26 @@ class _PreferencesState extends State<Preferences> {
                               onTap: () {
                                 Preferences_api(
                                     context,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .doctor_id,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailpromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smsinvoice,
-                                    !context
-                                        .watch<userprofiledetails>()
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smspromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .whatsapp,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .pushnotification);
                               },
                               child: Padding(
@@ -471,16 +492,26 @@ class _PreferencesState extends State<Preferences> {
                         onTap: () {
                           Preferences_api(
                               context,
-                              context.watch<userprofiledetails>().doctor_id,
-                              context
-                                  .watch<userprofiledetails>()
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .doctor_id,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
                                   .emailpromotion,
-                              context.watch<userprofiledetails>().emailinvoice,
-                              context.watch<userprofiledetails>().smsinvoice,
-                              context.watch<userprofiledetails>().smspromotion,
-                              !context.watch<userprofiledetails>().whatsapp,
-                              context
-                                  .watch<userprofiledetails>()
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .emailinvoice,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .smsinvoice,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .smspromotion,
+                              !Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .whatsapp,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
                                   .pushnotification);
                         },
                         child: const Padding(
@@ -494,26 +525,26 @@ class _PreferencesState extends State<Preferences> {
                               onTap: () {
                                 Preferences_api(
                                     context,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .doctor_id,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailpromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smsinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smspromotion,
-                                    !context
-                                        .watch<userprofiledetails>()
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .whatsapp,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .pushnotification);
                               },
                               child: Padding(
@@ -526,26 +557,26 @@ class _PreferencesState extends State<Preferences> {
                               onTap: () {
                                 Preferences_api(
                                     context,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .doctor_id,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailpromotion,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .emailinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smsinvoice,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .smspromotion,
-                                    !context
-                                        .watch<userprofiledetails>()
+                                    !Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .whatsapp,
-                                    context
-                                        .watch<userprofiledetails>()
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
                                         .pushnotification);
                               },
                               child: Padding(
@@ -574,14 +605,26 @@ class _PreferencesState extends State<Preferences> {
                     onTap: () {
                       Preferences_api(
                           context,
-                          context.watch<userprofiledetails>().doctor_id,
-                          context.watch<userprofiledetails>().emailpromotion,
-                          context.watch<userprofiledetails>().emailinvoice,
-                          context.watch<userprofiledetails>().smsinvoice,
-                          context.watch<userprofiledetails>().smspromotion,
-                          context.watch<userprofiledetails>().whatsapp,
-                          !context
-                              .watch<userprofiledetails>()
+                          Provider.of<userprofiledetails>(context,
+                                  listen: false)
+                              .doctor_id,
+                          Provider.of<userprofiledetails>(context,
+                                  listen: false)
+                              .emailpromotion,
+                          Provider.of<userprofiledetails>(context,
+                                  listen: false)
+                              .emailinvoice,
+                          Provider.of<userprofiledetails>(context,
+                                  listen: false)
+                              .smsinvoice,
+                          Provider.of<userprofiledetails>(context,
+                                  listen: false)
+                              .smspromotion,
+                          Provider.of<userprofiledetails>(context,
+                                  listen: false)
+                              .whatsapp,
+                          !Provider.of<userprofiledetails>(context,
+                                  listen: false)
                               .pushnotification);
                     },
                     child: const Padding(
@@ -595,20 +638,26 @@ class _PreferencesState extends State<Preferences> {
                           onTap: () {
                             Preferences_api(
                                 context,
-                                context.watch<userprofiledetails>().doctor_id,
-                                context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
+                                    .doctor_id,
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .emailpromotion,
-                                context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .emailinvoice,
-                                context.watch<userprofiledetails>().smsinvoice,
-                                context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
+                                    .smsinvoice,
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .smspromotion,
-                                context.watch<userprofiledetails>().whatsapp,
-                                !context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
+                                    .whatsapp,
+                                !Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .pushnotification);
                           },
                           child: Padding(
@@ -620,20 +669,26 @@ class _PreferencesState extends State<Preferences> {
                           onTap: () {
                             Preferences_api(
                                 context,
-                                context.watch<userprofiledetails>().doctor_id,
-                                context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
+                                    .doctor_id,
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .emailpromotion,
-                                context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .emailinvoice,
-                                context.watch<userprofiledetails>().smsinvoice,
-                                context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
+                                    .smsinvoice,
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .smspromotion,
-                                context.watch<userprofiledetails>().whatsapp,
-                                !context
-                                    .watch<userprofiledetails>()
+                                Provider.of<userprofiledetails>(context,
+                                        listen: false)
+                                    .whatsapp,
+                                !Provider.of<userprofiledetails>(context,
+                                        listen: false)
                                     .pushnotification);
                           },
                           child: Padding(

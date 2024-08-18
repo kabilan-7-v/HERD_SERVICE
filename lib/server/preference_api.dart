@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:herd_service/models/homemodel.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 Preferences_api(BuildContext context, int doctor_id, emailpro, emailinvoice,
     smsinvoice, smspro, whatsapp, pushnotification) async {
@@ -23,9 +25,25 @@ Preferences_api(BuildContext context, int doctor_id, emailpro, emailinvoice,
         "pushnotification": pushnotification
       }),
     );
-
+    print(emailpro);
+    print(emailinvoice);
     if (response.statusCode == 200) {
-      print(response.body);
+      Provider.of<userprofiledetails>(context, listen: false)
+          .change_user_profile(
+              Provider.of<userprofiledetails>(context, listen: false).username,
+              Provider.of<userprofiledetails>(context, listen: false)
+                  .type_of_user,
+              Provider.of<userprofiledetails>(context, listen: false).email,
+              Provider.of<userprofiledetails>(context, listen: false).phoneno,
+              Provider.of<userprofiledetails>(context, listen: false).address,
+              Provider.of<userprofiledetails>(context, listen: false).doctor_id,
+              Provider.of<userprofiledetails>(context, listen: false).Password,
+              emailpro,
+              emailinvoice,
+              smsinvoice,
+              smspro,
+              whatsapp,
+              pushnotification);
     } else {
       print("Request failed with status: ${response.statusCode}");
     }

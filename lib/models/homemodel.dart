@@ -31,7 +31,7 @@ class userprofiledetails extends ChangeNotifier {
       this.pushnotification = false});
 
   change_user_profile(name, usertype, useremail, phno, useraddress, id, pass,
-      emailpromo, emailinvoice, smsin, smspromo, whatsap, pushnot) {
+      emailpromo, emailinvoic, smsin, smspromo, whatsap, pushnot) {
     username = name;
     type_of_user = usertype;
     email = useremail;
@@ -40,7 +40,7 @@ class userprofiledetails extends ChangeNotifier {
     doctor_id = id;
     Password = pass;
     emailpromotion = emailpromo;
-    emailinvoice = emailinvoice;
+    emailinvoice = emailinvoic;
     smsinvoice = smsin;
     smspromotion = smspromo;
     whatsapp = whatsap;
