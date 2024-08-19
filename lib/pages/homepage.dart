@@ -9,7 +9,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+  const Homepage({super.key, required this.docto_id});
+  final int docto_id;
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -27,7 +28,7 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     // TODO: implement initState
     // change_current_to_assign(context, 4);
-    // Appoimentresquestapi(context, 2);
+    Appoimentresquestapi(context, widget.docto_id);
     setState(() {});
     super.initState();
   }

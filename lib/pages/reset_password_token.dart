@@ -6,8 +6,6 @@ import 'package:herd_service/blocs/app_bloc.dart';
 import 'package:herd_service/blocs/app_events.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/commonpage.dart';
-import 'package:herd_service/pages/forgetpassword.dart';
-import 'package:herd_service/pages/login_with_password.dart';
 import 'package:herd_service/server/Login_api.dart';
 import 'package:herd_service/server/forgetpassword_api.dart';
 import 'package:provider/provider.dart';

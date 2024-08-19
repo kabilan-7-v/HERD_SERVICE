@@ -118,12 +118,15 @@ class _ManagepasswordState extends State<Managepassword> {
             );
             return;
           }
-          Managepassword_api(context, _newpasswordController.text,
-              context.watch<userprofiledetails>().doctor_id as String);
+          int id =
+              Provider.of<userprofiledetails>(context, listen: false).doctor_id;
+          Managepassword_api(
+              context, _newpasswordController.text, id.toString());
 
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Your password changed succesfully')),
           );
+          Navigator.pop(context);
         },
         child: const Center(
             child: Text(

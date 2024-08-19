@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:herd_service/models/homemodel.dart';
 
 import 'package:herd_service/pages/homepage.dart';
 
@@ -11,9 +12,13 @@ import 'package:intl/intl.dart';
 
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
+import 'package:provider/provider.dart';
 
 class Commonpage extends StatefulWidget {
-  Commonpage({super.key, required this.pass});
+  Commonpage({
+    super.key,
+    required this.pass,
+  });
   final String pass;
 
   @override
@@ -25,6 +30,7 @@ class _HomepageState extends State<Commonpage>
   MotionTabBarController? _motionTabBarController;
   bool accept = true;
   int counter = 0;
+  int? doctor_id;
 
   DateTime? selectedDate;
 
@@ -32,13 +38,17 @@ class _HomepageState extends State<Commonpage>
   @override
   void initState() {
     super.initState();
-    Appoimentresquestapi(context, 2);
 
     _motionTabBarController = MotionTabBarController(
       initialIndex: 0,
       length: 3,
       vsync: this,
     );
+  }
+
+  take_doctor_id(BuildContext context) {
+    doctor_id = Provider.of<userprofiledetails>(context).doctor_id;
+    setState(() {});
   }
 
   @override
@@ -90,7 +100,9 @@ class _HomepageState extends State<Commonpage>
         // controller: _tabController,
         controller: _motionTabBarController,
         children: <Widget>[
-          const Homepage(),
+          Homepage(
+            docto_id: Provider.of<userprofiledetails>(context).doctor_id,
+          ),
           const Tickethistory(),
           Profilepage(
             pass: widget.pass as String,
