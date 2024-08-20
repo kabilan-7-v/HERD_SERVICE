@@ -10,16 +10,21 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Appoinmentrequest extends StatelessWidget {
-  const Appoinmentrequest(
-      {super.key,
-      required this.date,
-      required this.name,
-      required this.priority,
-      required this.vllc,
-      required this.street,
-      required this.comment,
-      required this.time,
-      required this.phonenumber});
+  const Appoinmentrequest({
+    super.key,
+    required this.date,
+    required this.name,
+    required this.priority,
+    required this.vllc,
+    required this.street,
+    required this.comment,
+    required this.time,
+    required this.phonenumber,
+    required this.ticket_id,
+    required this.doc_type,
+    required this.Straw_no,
+    required this.bull_type,
+  });
   final String date;
   final String time;
   final String name;
@@ -28,6 +33,10 @@ class Appoinmentrequest extends StatelessWidget {
   final String street;
   final String comment;
   final String phonenumber;
+  final String ticket_id;
+  final String doc_type;
+  final int Straw_no;
+  final int bull_type;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +129,7 @@ class Appoinmentrequest extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     socialMedia(Bootstrap.whatsapp, () {
-                      whatsapp();
+                      whatsapp(phonenumber);
                     }),
                     socialMedia(Bootstrap.send, () async {}),
                     socialMedia(Bootstrap.telephone, () async {
@@ -143,7 +152,11 @@ class Appoinmentrequest extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Enterdetails()));
+                              builder: (context) => Enterdetails(
+                                    Straw_no: Straw_no,
+                                    bull_type: bull_type,
+                                    ticket_id: ticket_id,
+                                  )));
                     }
                   },
                   child: Container(
@@ -256,7 +269,7 @@ class Appoinmentrequest extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               socialMedia(Bootstrap.whatsapp, () {
-                whatsapp();
+                whatsapp(phonenumber);
               }),
               socialMedia(Bootstrap.send, () async {}),
               socialMedia(Bootstrap.telephone, () async {
@@ -280,7 +293,11 @@ class Appoinmentrequest extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Enterdetails()));
+                        builder: (context) => Enterdetails(
+                              Straw_no: Straw_no,
+                              bull_type: bull_type,
+                              ticket_id: ticket_id,
+                            )));
               }
             },
             child: Container(
@@ -311,7 +328,7 @@ class Appoinmentrequest extends StatelessWidget {
 
   custom_container(BuildContext context) {
     return Container(
-      height: 130,
+      height: 110,
       width: MediaQuery.of(context).size.width - 30,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
@@ -366,17 +383,6 @@ class Appoinmentrequest extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text("Tamil Nadu, TN-636 000."),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -417,48 +423,8 @@ class Appoinmentrequest extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text(comment),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text("Ajay Kumar’s cow was sick"),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text("So, Kindly Pick up the problem & gave "),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text("Immediate treatment to that Cow."),
-              ],
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(comment),
           ),
         ],
       ),
@@ -525,8 +491,8 @@ class Appoinmentrequest extends StatelessWidget {
     await FlutterPhoneDirectCaller.callNumber(number);
   }
 
-  whatsapp() async {
-    var contact = "+91 9976082664";
+  whatsapp(val) async {
+    var contact = val;
     var androidUrl = "whatsapp://send?phone=$contact&text=Hi, I need some help";
     // var iosUrl =
     //     "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help')}";

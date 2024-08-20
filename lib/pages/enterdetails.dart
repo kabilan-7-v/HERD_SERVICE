@@ -3,14 +3,24 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:herd_service/models/homemodel.dart';
 
 import 'package:herd_service/pages/adddetails.dart';
 import 'package:herd_service/pages/otppage.dart';
 import 'package:herd_service/server/enterdetails_api.dart';
+import 'package:herd_service/server/ticket_status_api.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class Enterdetails extends StatefulWidget {
-  const Enterdetails({super.key});
+  Enterdetails(
+      {super.key,
+      required this.ticket_id,
+      required this.Straw_no,
+      required this.bull_type});
+  final String ticket_id;
+  final int Straw_no;
+  final int bull_type;
 
   @override
   State<Enterdetails> createState() => _EnterdetailsState();
@@ -184,10 +194,34 @@ class _EnterdetailsState extends State<Enterdetails> {
                           )
                         : InkWell(
                             onTap: () {
+                              print(widget.Straw_no);
+                              print(widget.bull_type);
                               if (temp == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                         content: Text('Please add image')));
+                                return;
+                              }
+
+                              if (strawNumberController.text !=
+                                  widget.Straw_no.toString()) {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text(
+                                        'Please enter correct cowid or strawnumber')));
+                                return;
+                              } else if (bullTypeController.text !=
+                                  widget.bull_type.toString()) {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text(
+                                        'Please enter correct Formerid or bulltype')));
+                                return;
+                              }
+
+                              if (temp == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Please add image')));
+                                return;
                               }
 
                               if (!_key.currentState!.validate()) return;
@@ -254,7 +288,6 @@ class _EnterdetailsState extends State<Enterdetails> {
               if (value!.isEmpty) {
                 return "Please enter $label";
               }
-              return null;
             },
             controller: controller,
             decoration: InputDecoration(
@@ -349,21 +382,21 @@ class _EnterdetailsState extends State<Enterdetails> {
                     style: ElevatedButton.styleFrom(
                         fixedSize: const Size(330, 24),
                         backgroundColor: const Color.fromRGBO(4, 183, 159, 1)),
-                    onPressed: () {
+                    onPressed: () async {
                       enterdetails_api(
                           imageFile!.absolute,
                           strawNumberController.text,
                           priceController.text,
-                          bullTypeController.text);
-                      if (temp == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Please add image')));
-                      } else {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Otppage()));
-                      }
+                          bullTypeController.text,
+                          widget.ticket_id,
+                          Provider.of<userprofiledetails>(context,
+                                  listen: false)
+                              .doctor_id);
+                      await ticket_update_start_api(
+                          widget.ticket_id.toString());
+                      await ticket_update_end_api(widget.ticket_id.toString());
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Otppage()));
                     },
                     child: const Center(
                         child: Text(

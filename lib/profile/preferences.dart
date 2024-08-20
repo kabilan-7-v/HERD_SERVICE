@@ -192,7 +192,8 @@ class _PreferencesState extends State<Preferences> {
                         ),
                       ),
                       const Spacer(),
-                      Provider.of<userprofiledetails>(context).emailinvoice ==
+                      Provider.of<userprofiledetails>(context, listen: false)
+                                  .emailinvoice ==
                               true
                           ? InkWell(
                               onTap: () {

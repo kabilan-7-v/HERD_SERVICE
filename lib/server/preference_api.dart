@@ -16,7 +16,7 @@ Preferences_api(BuildContext context, int doctor_id, emailpro, emailinvoice,
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
-        "Doctor_id": 2,
+        "Doctor_id": doctor_id,
         "emailpromotions": emailpro,
         "emailinvoice": emailinvoice,
         "smsinvoice": smsinvoice,
@@ -30,20 +30,20 @@ Preferences_api(BuildContext context, int doctor_id, emailpro, emailinvoice,
     if (response.statusCode == 200) {
       Provider.of<userprofiledetails>(context, listen: false)
           .change_user_profile(
-              Provider.of<userprofiledetails>(context, listen: false).username,
-              Provider.of<userprofiledetails>(context, listen: false)
-                  .type_of_user,
-              Provider.of<userprofiledetails>(context, listen: false).email,
-              Provider.of<userprofiledetails>(context, listen: false).phoneno,
-              Provider.of<userprofiledetails>(context, listen: false).address,
-              Provider.of<userprofiledetails>(context, listen: false).doctor_id,
-              Provider.of<userprofiledetails>(context, listen: false).Password,
-              emailpro,
-              emailinvoice,
-              smsinvoice,
-              smspro,
-              whatsapp,
-              pushnotification);
+        Provider.of<userprofiledetails>(context, listen: false).username,
+        Provider.of<userprofiledetails>(context, listen: false).type_of_user,
+        Provider.of<userprofiledetails>(context, listen: false).email,
+        Provider.of<userprofiledetails>(context, listen: false).phoneno,
+        Provider.of<userprofiledetails>(context, listen: false).address,
+        Provider.of<userprofiledetails>(context, listen: false).doctor_id,
+        Provider.of<userprofiledetails>(context, listen: false).Password,
+        emailpro,
+        emailinvoice,
+        smsinvoice,
+        smspro,
+        whatsapp,
+        pushnotification,
+      );
     } else {
       print("Request failed with status: ${response.statusCode}");
     }

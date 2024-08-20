@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:herd_service/models/homemodel.dart';
+import 'package:herd_service/server/service_availability_api.dart';
 // import 'package:herd_service/models/customercard.dart';nn
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class Alertservices extends StatefulWidget {
   const Alertservices({super.key});
@@ -10,6 +13,8 @@ class Alertservices extends StatefulWidget {
 }
 
 class _AlertservicesState extends State<Alertservices> {
+  final TextEditingController _reason = TextEditingController();
+
   String finaldate = "select date";
   final GlobalKey<FormState> _key = GlobalKey();
   @override
@@ -73,6 +78,7 @@ class _AlertservicesState extends State<Alertservices> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5)),
                                 child: TextFormField(
+                                  controller: _reason,
                                   validator: (value) {
                                     if (value!.isEmpty)
                                       return "Please type the Reason";
@@ -172,8 +178,15 @@ class _AlertservicesState extends State<Alertservices> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 if (!_key.currentState!.validate()) return;
+                                await Service_off(
+                                    context,
+                                    Provider.of<userprofiledetails>(context,
+                                            listen: false)
+                                        .doctor_id,
+                                    _reason.text,
+                                    finaldate);
 
                                 Navigator.pop(context, false);
                               },

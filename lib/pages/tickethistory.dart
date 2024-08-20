@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/models/customercard.dart';
+import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/pages/ticketshow.dart';
+import 'package:herd_service/server/home_api.dart';
 import 'package:provider/provider.dart';
 
 class Tickethistory extends StatefulWidget {
@@ -14,6 +16,12 @@ class Tickethistory extends StatefulWidget {
 
 class _TickethistoryState extends State<Tickethistory> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
@@ -26,7 +34,6 @@ class _TickethistoryState extends State<Tickethistory> {
             ),
             const Row(
               children: [
-                BackButton(),
                 SizedBox(
                   width: 15,
                 ),

@@ -11,6 +11,7 @@ import 'package:herd_service/profile/about.dart';
 import 'package:herd_service/pages/notification.dart';
 import 'package:herd_service/profile/profile.dart';
 import 'package:herd_service/profile/settings.dart';
+import 'package:herd_service/server/service_availability_api.dart';
 
 import 'package:provider/provider.dart';
 
@@ -132,7 +133,8 @@ class _ProfilepageState extends State<Profilepage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => Notificationpage(
-                          doctor_id: Provider.of<userprofiledetails>(context)
+                          doctor_id: Provider.of<userprofiledetails>(context,
+                                  listen: false)
                               .doctor_id)));
             }),
             line(context),
@@ -195,6 +197,11 @@ class _ProfilepageState extends State<Profilepage> {
                       setState(() {
                         _switchValue = !_switchValue;
                         Navigator.pop(context);
+                        Service_on(
+                            context,
+                            Provider.of<userprofiledetails>(context,
+                                    listen: false)
+                                .doctor_id);
                       });
                     },
                     child: Container(

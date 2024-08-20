@@ -160,18 +160,27 @@ class _CustomercontainerState extends State<Customercontainer> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   Appoinmentrequest(
-                                                      phonenumber: widget
-                                                          .card.phonenumber,
-                                                      date: widget.card.date,
-                                                      time: widget.card.time,
-                                                      name: widget.card.name,
-                                                      priority:
-                                                          widget.card.priority,
-                                                      vllc: widget.card.vllc,
-                                                      street:
-                                                          widget.card.address,
-                                                      comment: widget
-                                                          .card.comment)));
+                                                    phonenumber:
+                                                        widget.card.phonenumber,
+                                                    date: widget.card.date,
+                                                    time: widget.card.time,
+                                                    name: widget.card.name,
+                                                    priority:
+                                                        widget.card.priority,
+                                                    vllc: widget.card.vllc,
+                                                    street: widget.card.address,
+                                                    comment:
+                                                        widget.card.comment,
+                                                    ticket_id: widget
+                                                        .card.ticket_id
+                                                        .toString(),
+                                                    doc_type:
+                                                        widget.card.ticket_type,
+                                                    Straw_no:
+                                                        widget.card.straw_no,
+                                                    bull_type:
+                                                        widget.card.bulltype,
+                                                  )));
                                     },
                                     child: const Icon(Icons.more_horiz)),
                                 SizedBox(

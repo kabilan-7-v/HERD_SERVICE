@@ -38,17 +38,13 @@ class _HomepageState extends State<Commonpage>
   @override
   void initState() {
     super.initState();
+    Appoimentresquestapi(context, doctor_id);
 
     _motionTabBarController = MotionTabBarController(
       initialIndex: 0,
       length: 3,
       vsync: this,
     );
-  }
-
-  take_doctor_id(BuildContext context) {
-    doctor_id = Provider.of<userprofiledetails>(context).doctor_id;
-    setState(() {});
   }
 
   @override
@@ -101,7 +97,9 @@ class _HomepageState extends State<Commonpage>
         controller: _motionTabBarController,
         children: <Widget>[
           Homepage(
-            docto_id: Provider.of<userprofiledetails>(context).doctor_id,
+            docto_id: Provider.of<userprofiledetails>(
+              context,
+            ).doctor_id,
           ),
           const Tickethistory(),
           Profilepage(

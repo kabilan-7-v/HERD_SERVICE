@@ -28,7 +28,7 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     // TODO: implement initState
     // change_current_to_assign(context, 4);
-    Appoimentresquestapi(context, widget.docto_id);
+    Appoimentresquestapi(context, widget.docto_id.toString());
     setState(() {});
     super.initState();
   }
@@ -58,9 +58,10 @@ class _HomepageState extends State<Homepage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => Notificationpage(
-                                doctor_id:
-                                    Provider.of<userprofiledetails>(context)
-                                        .doctor_id)));
+                                doctor_id: Provider.of<userprofiledetails>(
+                                        context,
+                                        listen: false)
+                                    .doctor_id)));
                   }),
               counter != 0
                   ? new Positioned(
@@ -120,17 +121,20 @@ class _HomepageState extends State<Homepage> {
               const SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  const Text(
-                    "Current Request",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  )
-                ],
-              ),
+              Provider.of<test>(context).current_request_list.length != 0
+                  ? Row(
+                      children: [
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        const Text(
+                          "Current Request",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        )
+                      ],
+                    )
+                  : SizedBox(),
               ListView.builder(
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
@@ -433,9 +437,11 @@ class _HomepageState extends State<Homepage> {
                             backgroundColor:
                                 const Color.fromRGBO(235, 239, 250, 1)),
                         onPressed: () {
-                          Provider.of<test>(context)
-                              .current_request_list
-                              .removeAt(index);
+                          change_current_to_assign(
+                              context,
+                              Provider.of<test>(context, listen: false)
+                                  .current_request_list[index]
+                                  .ticketid);
                         },
                         child: const Text(
                           "DECLINE",
@@ -450,6 +456,10 @@ class _HomepageState extends State<Homepage> {
                             backgroundColor:
                                 const Color.fromRGBO(70, 149, 184, 1)),
                         onPressed: () {
+                          print(Provider.of<test>(context, listen: false)
+                              .current_request_list[index]
+                              .ticketid);
+
                           change_current_to_assign(
                               context,
                               Provider.of<test>(context, listen: false)
@@ -494,7 +504,7 @@ class _HomepageState extends State<Homepage> {
 
   calendar() {
     return HorizontalCalendar(
-      date: DateTime.now(),
+      date: DateTime.parse("2050-07-23"),
       lastDate: DateTime.parse("2050-07-23"),
       initialDate: DateTime.parse("2024-07-23"),
       textColor: Colors.black,

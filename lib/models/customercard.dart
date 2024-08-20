@@ -12,6 +12,11 @@ class Customercard {
   String time;
   String vllc;
   String level;
+  int ticket_id;
+  int status;
+  String ticket_type;
+  int straw_no;
+  int bulltype;
 
   Customercard(
       this.name,
@@ -23,7 +28,12 @@ class Customercard {
       this.comment,
       this.time,
       this.vllc,
-      this.level);
+      this.level,
+      this.ticket_id,
+      this.status,
+      this.ticket_type,
+      this.straw_no,
+      this.bulltype);
 }
 
 class Ticket_history {
@@ -31,6 +41,7 @@ class Ticket_history {
   String address;
   String cost;
   int iscompleted;
+
   Ticket_history(
       {this.name = "",
       this.address = "",
@@ -49,9 +60,11 @@ class current_request {
   int ticketid;
   String date;
   String level;
+  String doc_type;
+  int Status;
 
   current_request(this.name, this.priroity, this.vllc, this.street, this.state,
-      this.ticketid, this.date, this.level);
+      this.ticketid, this.date, this.level, this.doc_type, this.Status);
 }
 
 class test extends ChangeNotifier {
@@ -106,30 +119,40 @@ class test extends ChangeNotifier {
     tickethistory = [];
     val.forEach((key, value) {
       for (var i in value) {
-        tickethistory.add(Ticket_history(
-            name: i["Name"],
-            address: i["VLCC"],
-            cost: "800",
-            iscompleted: i["SP_Approval_status"]));
+        if (i["Status"] == 2) {
+          tickethistory.add(Ticket_history(
+              name: i["Name"],
+              address: i["VLCC"],
+              cost: i["price"],
+              iscompleted: i["SP_Approval_status"]));
+        }
       }
       notifyListeners();
     });
   }
 
   addvalue_to_current_request(val) {
-    current_request_list = [];
+    customercard = [];
     val.forEach((key, value) {
       for (var i in value) {
-        if (i["SP_Approval_status"] == 0) {
-          current_request_list.add(current_request(
-              i["Name"],
-              true,
-              i["VLCC"],
-              i["Address"],
-              "Tamil Nadu,TN-630 000,",
-              i["Ticket_id"],
-              i["Ticket_Raised_date"],
-              i["Level"]));
+        if (i["Status"] == 0) {
+          customercard.add(Customercard(
+            i["Name"],
+            i["Address"],
+            i["Mobile1"].toString(),
+            custom_date_formmat(i["Ticket_Raised_date"]),
+            true,
+            int.parse(custom_slice_for_sort(i["Ticket_Raised_date"])),
+            i["Comments"],
+            custom_time_formmat(i["Ticket_Raised_date"]),
+            i["VLCC"],
+            i["Level"],
+            i["Ticket_id"],
+            i["Status"],
+            i["Type"],
+            i["cow_id"],
+            i["Former_id"],
+          ));
         }
       }
       notifyListeners();
@@ -137,21 +160,22 @@ class test extends ChangeNotifier {
   }
 
   addvalue_to_assignment_request(val) {
-    customercard = [];
+    current_request_list = [];
     val.forEach((key, value) {
       for (var i in value) {
-        if (i["SP_Approval_status"] == 1) {
-          customercard.add(Customercard(
-              i["Name"],
-              i["Address"],
-              i["Mobile1"].toString(),
-              custom_date_formmat(i["Ticket_Raised_date"]),
-              true,
-              int.parse(custom_slice_for_sort(i["Ticket_Raised_date"])),
-              i["Comments"],
-              custom_time_formmat(i["Ticket_Raised_date"]),
-              i["VLCC"],
-              i["Level"]));
+        if (i["Status"] == 1) {
+          current_request_list.add(current_request(
+            i["Name"],
+            true,
+            i["VLCC"],
+            i["Address"],
+            "Tamil Nadu,TN-630 000,",
+            i["Ticket_id"],
+            i["Ticket_Raised_date"],
+            i["Level"],
+            i["Type"],
+            i["Status"],
+          ));
         }
       }
       notifyListeners();

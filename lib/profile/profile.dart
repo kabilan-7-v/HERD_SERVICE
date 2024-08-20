@@ -43,7 +43,7 @@ class Profile extends StatelessWidget {
           line(context),
           listofprofile(
               "Phone Number",
-              Provider.of<userprofiledetails>(context).phoneno,
+              Provider.of<userprofiledetails>(context, listen: false).phoneno,
               Icons.phone,
               () {}),
           line(context),
