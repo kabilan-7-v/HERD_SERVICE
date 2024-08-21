@@ -5,9 +5,29 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Ticketshow extends StatelessWidget {
-  const Ticketshow({super.key});
+class Ticketshow extends StatefulWidget {
+  Ticketshow(
+      {super.key,
+      required this.date,
+      required this.time,
+      required this.name,
+      required this.priority,
+      required this.vllc,
+      required this.street,
+      required this.comment});
+  final String date;
+  final String time;
+  final String name;
+  final bool priority;
+  final String vllc;
+  final String street;
+  final String comment;
 
+  @override
+  State<Ticketshow> createState() => _TicketshowState();
+}
+
+class _TicketshowState extends State<Ticketshow> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,22 +59,22 @@ class Ticketshow extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   bottom: 120,
                   left: 100,
                   child: Text(
-                    "25 JUN 20024,",
+                    widget.date,
                     style: TextStyle(
                         fontSize: 22,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   bottom: 90,
                   left: 100,
                   child: Text(
-                    "8am-10am",
+                    widget.time,
                     style: TextStyle(
                         fontSize: 22,
                         color: Colors.white,
@@ -63,16 +83,27 @@ class Ticketshow extends StatelessWidget {
                 )
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              child: Text(
-                "Mid Priority",
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                    color: Color.fromRGBO(176, 107, 5, 1)),
-              ),
-            ),
+            widget.priority == true
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child: Text(
+                      "Mid Priority",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Color.fromRGBO(176, 107, 5, 1)),
+                    ),
+                  )
+                : const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child: Text(
+                      "Low Priority",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Color.fromRGBO(56, 176, 5, 1)),
+                    ),
+                  ),
             custom_container(context),
             comment_container(context),
             const SizedBox(
@@ -96,7 +127,7 @@ class Ticketshow extends StatelessWidget {
           boxShadow: const [
             BoxShadow(color: Colors.grey, blurRadius: 3),
           ]),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
@@ -104,14 +135,14 @@ class Ticketshow extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.all(1.0),
-            child: const Row(
+            child: Row(
               children: [
                 SizedBox(
                   width: 20,
                 ),
                 Text.rich(TextSpan(children: [
                   TextSpan(
-                      text: "AJAY KUMAR",
+                      text: widget.name,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   TextSpan(text: "(608MRC)")
@@ -126,7 +157,7 @@ class Ticketshow extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text("VLCC: Pollachi"),
+                Text("VLCC:" + widget.vllc),
               ],
             ),
           ),
@@ -137,18 +168,7 @@ class Ticketshow extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text("NO:04, ABC Street, Pollachi, CBE "),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text("Tamil Nadu, TN-636 000."),
+                Text(widget.street),
               ],
             ),
           ),
@@ -169,7 +189,7 @@ class Ticketshow extends StatelessWidget {
           boxShadow: const [
             BoxShadow(color: Colors.grey, blurRadius: 3),
           ]),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
@@ -192,49 +212,9 @@ class Ticketshow extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text("Hello, Dr. Ram,"),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text("Ajay Kumar’s cow was sick"),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text("So, Kindly Pick up the problem & gave "),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text("Immediate treatment to that Cow."),
-              ],
-            ),
-          ),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(widget.comment),
+          )
         ],
       ),
     );

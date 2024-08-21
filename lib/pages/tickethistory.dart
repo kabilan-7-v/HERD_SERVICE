@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/models/customercard.dart';
-import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/pages/ticketshow.dart';
-import 'package:herd_service/server/home_api.dart';
 import 'package:provider/provider.dart';
 
 class Tickethistory extends StatefulWidget {
@@ -51,7 +49,9 @@ class _TickethistoryState extends State<Tickethistory> {
                 itemCount: Provider.of<test>(context).tickethistory.length,
                 itemBuilder: (context, ind) {
                   return ticketcard(
-                      Provider.of<test>(context).tickethistory[ind], context);
+                      Provider.of<test>(context).tickethistory[ind],
+                      context,
+                      ind);
                 }),
           ],
         ),
@@ -59,11 +59,21 @@ class _TickethistoryState extends State<Tickethistory> {
     );
   }
 
-  ticketcard(data, BuildContext context) {
+  ticketcard(data, BuildContext context, ind) {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Ticketshow()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => Ticketshow(
+                      date: "data.date",
+                      time: "data.time",
+                      name: data.name,
+                      vllc: "",
+                      street: data.address,
+                      priority: true,
+                      comment: "",
+                    )));
       },
       child: Column(
         children: [

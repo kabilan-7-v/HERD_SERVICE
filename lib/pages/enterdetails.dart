@@ -288,6 +288,7 @@ class _EnterdetailsState extends State<Enterdetails> {
               if (value!.isEmpty) {
                 return "Please enter $label";
               }
+              return null;
             },
             controller: controller,
             decoration: InputDecoration(

@@ -182,6 +182,36 @@ class test extends ChangeNotifier {
     });
   }
 
+  custom_sorting(String calcendardate) {
+    List<Customercard> lst = [];
+    List temp = [];
+
+    // print(calcendardate.substring(5, 7));
+    int whole_date = int.parse(calcendardate.substring(0, 4) +
+        calcendardate.substring(5, 6) +
+        (int.parse(calcendardate.substring(6, 7))).toString() +
+        calcendardate.substring(8, 10));
+    print(whole_date);
+    for (var i in customercard) {
+      if (i.date_sort <= whole_date) {
+        temp.add(i.date_sort);
+      }
+    }
+    temp.sort((a, b) => -a.compareTo(b));
+    Set seen = {};
+
+    for (var i in temp) {
+      for (var j in customercard) {
+        if (i == j.date_sort && !seen.contains(j)) {
+          lst.add(j);
+          seen.add(j);
+        }
+      }
+    }
+    customercard = lst;
+    notifyListeners();
+  }
+
   custom_date_formmat(String val) {
     String timestamp = val;
     DateTime dateTime = DateTime.parse(timestamp);

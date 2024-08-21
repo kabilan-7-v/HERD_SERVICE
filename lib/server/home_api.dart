@@ -19,6 +19,7 @@ Appoimentresquestapi(BuildContext context, doctor_id) async {
     await context.read<test>().addvalue_to_current_request(val);
     await context.read<test>().addvalue_to_assignment_request(val);
     await context.read<test>().addvalue_to_ticket_history(val);
+    print("object");
   } catch (e) {
     print("Error: " + e.toString());
   }

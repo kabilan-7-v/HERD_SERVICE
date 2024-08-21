@@ -38,7 +38,8 @@ class _HomepageState extends State<Commonpage>
   @override
   void initState() {
     super.initState();
-    Appoimentresquestapi(context, doctor_id);
+    Appoimentresquestapi(context,
+        Provider.of<userprofiledetails>(context, listen: false).doctor_id);
 
     _motionTabBarController = MotionTabBarController(
       initialIndex: 0,

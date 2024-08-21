@@ -514,7 +514,7 @@ class _HomepageState extends State<Homepage> {
       locale: Localizations.localeOf(context),
       onDateSelected: (date) {
         _pickDate(date.toString());
-        custom_sorting(date.toString());
+        context.read<test>().custom_sorting(date.toString());
         setState(() {});
       },
     );
@@ -534,42 +534,12 @@ class _HomepageState extends State<Homepage> {
         locale: Localizations.localeOf(context),
         onDateSelected: (date) {
           _pickDate(date.toString());
+          context.read<test>().custom_sorting(date.toString());
+
           setState(() {});
         },
       ),
     );
-  }
-
-  custom_sorting(String calcendardate) {
-    List<Customercard> lst = [];
-    List temp = [];
-    List customercard = Provider.of<test>(context, listen: false).customercard;
-    // print(calcendardate.substring(5, 7));
-    int whole_date = int.parse(calcendardate.substring(0, 4) +
-        calcendardate.substring(5, 6) +
-        (int.parse(calcendardate.substring(6, 7))).toString() +
-        calcendardate.substring(8, 10));
-    print(whole_date);
-    for (var i in customercard) {
-      if (i.date_sort <= whole_date) {
-        temp.add(i.date_sort);
-      }
-    }
-    temp.sort((a, b) => -a.compareTo(b));
-    Set seen = {};
-
-    for (var i in temp) {
-      for (var j in customercard) {
-        if (i == j.date_sort && !seen.contains(j)) {
-          lst.add(j);
-          seen.add(j);
-        }
-      }
-    }
-
-    setState(() {
-      customercard = lst;
-    });
   }
 
   DateTime parseCustomDate(String dateString) {

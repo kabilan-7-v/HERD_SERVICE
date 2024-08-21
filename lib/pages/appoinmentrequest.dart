@@ -3,10 +3,13 @@
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:herd_service/models/homemodel.dart';
+import 'package:herd_service/pages/adddetails.dart';
 
 import 'package:herd_service/pages/enterdetails.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Appoinmentrequest extends StatelessWidget {
@@ -117,7 +120,7 @@ class Appoinmentrequest extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 18,
-                              color: Color.fromRGBO(176, 107, 5, 1)),
+                              color: Color.fromRGBO(5, 176, 39, 1)),
                         ),
                       ),
                 custom_container(context),
@@ -149,14 +152,27 @@ class Appoinmentrequest extends StatelessWidget {
                   onPanUpdate: (details) {
                     // Swiping in left direction.
                     if (details.delta.dx > 0) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Enterdetails(
-                                    Straw_no: Straw_no,
-                                    bull_type: bull_type,
-                                    ticket_id: ticket_id,
-                                  )));
+                      print(Provider.of<userprofiledetails>(context,
+                              listen: false)
+                          .type_of_user);
+                      if (Provider.of<userprofiledetails>(context,
+                                  listen: false)
+                              .type_of_user ==
+                          1) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Adddetails()));
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Enterdetails(
+                                      Straw_no: Straw_no,
+                                      bull_type: bull_type,
+                                      ticket_id: ticket_id,
+                                    )));
+                      }
                     }
                   },
                   child: Container(
@@ -290,14 +306,24 @@ class Appoinmentrequest extends StatelessWidget {
             onPanUpdate: (details) {
               // Swiping in left direction.
               if (details.delta.dx > 0) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Enterdetails(
-                              Straw_no: Straw_no,
-                              bull_type: bull_type,
-                              ticket_id: ticket_id,
-                            )));
+                print(Provider.of<userprofiledetails>(
+                  context,
+                ).type_of_user);
+                if (Provider.of<userprofiledetails>(
+                      context,
+                    ).type_of_user ==
+                    2) {}
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => Adddetails()));
+
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => Enterdetails(
+                //               Straw_no: Straw_no,
+                //               bull_type: bull_type,
+                //               ticket_id: ticket_id,
+                //             )));
               }
             },
             child: Container(
