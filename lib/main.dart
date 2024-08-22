@@ -4,8 +4,6 @@ import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Loginpage.dart';
-import 'package:herd_service/pages/no_internet.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'package:provider/provider.dart';
 

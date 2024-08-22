@@ -38,7 +38,7 @@ class _CustomercontainerState extends State<Customercontainer> {
                   Row(
                     children: [
                       const Spacer(),
-                      (widget.card.level) == "Mid"
+                      (widget.card.level) == "mid"
                           ? Container(
                               width: 43,
                               height: 22,
@@ -61,7 +61,7 @@ class _CustomercontainerState extends State<Customercontainer> {
                                     fontWeight: FontWeight.bold),
                               )),
                             )
-                          : widget.card.level == "Low"
+                          : widget.card.level == "low"
                               ? Container(
                                   width: 43,
                                   height: 22,

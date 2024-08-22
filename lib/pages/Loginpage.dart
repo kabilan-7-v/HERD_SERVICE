@@ -9,6 +9,8 @@ import 'package:herd_service/pages/commonpage.dart';
 import 'package:herd_service/pages/forgetpassword.dart';
 import 'package:herd_service/pages/login_with_password.dart';
 import 'package:herd_service/server/Login_api.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 class Loginpage extends StatefulWidget {
@@ -24,6 +26,28 @@ class _LoginpageState extends State<Loginpage> {
   final TextEditingController _passwordController = TextEditingController();
   final ScrollController _scrollcontroller = ScrollController();
   bool isloading = false;
+  bool? connect_internet;
+  @override
+  void initState() {
+    // TODO: implement initState
+    get_internet();
+    super.initState();
+  }
+
+  get_internet() async {
+    bool isConnected = await InternetConnectionChecker().hasConnection;
+    if (isConnected) {
+      setState(() {
+        connect_internet = isConnected;
+      });
+      print('Device is connected to the internet');
+    } else {
+      setState(() {
+        connect_internet = isConnected;
+      });
+      print('Device is not connected to the internet');
+    }
+  }
 
   @override
   void dispose() {
@@ -34,81 +58,88 @@ class _LoginpageState extends State<Loginpage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          UserBloc(RepositoryProvider.of<UserRespository>(context))
-            ..add(LoadUserEvent()),
-      child: Scaffold(
-          body: SingleChildScrollView(
-        controller: _scrollcontroller,
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Form(
-            key: _key,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 43,
-                ),
-                Stack(
-                  children: [
-                    Image.asset("assets/img/background_doctor_blue.png"),
-                    Positioned(
-                        top: 10,
-                        left: 80,
-                        child: Image.asset("assets/img/doctor.png")),
-                    Positioned(
-                      bottom: 65,
-                      left: 150,
-                      child: Text(
-                        "LOGIN",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
+    return connect_internet == false
+        ? NoInternet_checker()
+        : BlocProvider(
+            create: (context) =>
+                UserBloc(RepositoryProvider.of<UserRespository>(context))
+                  ..add(LoadUserEvent()),
+            child: Scaffold(
+                body: SingleChildScrollView(
+              controller: _scrollcontroller,
+              child: GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                },
+                child: Form(
+                  key: _key,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 43,
                       ),
-                    ),
-                  ],
+                      Stack(
+                        children: [
+                          Image.asset("assets/img/background_doctor_blue.png"),
+                          Positioned(
+                              top: 10,
+                              left: 80,
+                              child: Image.asset("assets/img/doctor.png")),
+                          Positioned(
+                            bottom: 65,
+                            left: 150,
+                            child: Text(
+                              "LOGIN",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Custom_Textfield(context, Icon(Icons.person_2_outlined),
+                          "Enter User ID", "Please Enter User ID", _id),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Custom_Textfield(
+                          context,
+                          Icon(Icons.lock),
+                          "Enter Password",
+                          "Please Enter Password",
+                          _passwordController),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      click_text("Instead sign in using email/Phone Number",
+                          () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginWithPassword()));
+                      }),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                          child: click_text("Forget Password", () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Forgetpasswordpage()));
+                      })),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      click_button(context),
+                      SizedBox(
+                        height: 40,
+                      ),
+                    ],
+                  ),
                 ),
-                Custom_Textfield(context, Icon(Icons.person_2_outlined),
-                    "Enter User ID", "Please Enter User ID", _id),
-                SizedBox(
-                  height: 20,
-                ),
-                Custom_Textfield(context, Icon(Icons.lock), "Enter Password",
-                    "Please Enter Password", _passwordController),
-                SizedBox(
-                  height: 10,
-                ),
-                click_text("Instead sign in using email/Phone Number", () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginWithPassword()));
-                }),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                    child: click_text("Forget Password", () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Forgetpasswordpage()));
-                })),
-                SizedBox(
-                  height: 50,
-                ),
-                click_button(context),
-                SizedBox(
-                  height: 40,
-                ),
-              ],
-            ),
-          ),
-        ),
-      )),
-    );
+              ),
+            )),
+          );
   }
 
   Widget Custom_Textfield(
@@ -206,6 +237,62 @@ class _LoginpageState extends State<Loginpage> {
                         color: Colors.white),
                   )
                 : CircularProgressIndicator()),
+      ),
+    );
+  }
+
+  Widget NoInternet_checker() {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 53,
+              ),
+              Stack(
+                children: [
+                  SizedBox(
+                      height: 900,
+                      width: 500,
+                      child: Image.asset(
+                        "assets/img/background_doctor_blue.png",
+                        fit: BoxFit.cover,
+                      )),
+                  Positioned(
+                      top: 60,
+                      left: 120,
+                      child: SizedBox(
+                          child: Image.asset("assets/img/doctor.png"))),
+                  Positioned(
+                    bottom: 405,
+                    left: 50,
+                    child: Text(
+                      "Please check your internet connectivity",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Positioned(
+                      bottom: 370, left: 189, child: Icon(Bootstrap.wifi_off)),
+                  Positioned(
+                      bottom: 205,
+                      left: 160,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              fixedSize: Size(100, 34),
+                              backgroundColor: Color.fromRGBO(18, 87, 39, 1)),
+                          onPressed: () {
+                            get_internet();
+                          },
+                          child: Text(
+                            "Retry",
+                            style: TextStyle(color: Colors.white),
+                          ))),
+                ],
+              ),
+            ]),
       ),
     );
   }

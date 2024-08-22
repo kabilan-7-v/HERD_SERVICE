@@ -35,6 +35,7 @@ class _TickethistoryState extends State<Tickethistory> {
                 SizedBox(
                   width: 15,
                 ),
+                BackButton(),
                 Text(
                   "Ticket History",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),

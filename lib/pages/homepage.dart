@@ -144,8 +144,15 @@ class _HomepageState extends State<Homepage> {
                   itemBuilder: (context, ind) {
                     var res =
                         Provider.of<test>(context).current_request_list[ind];
-                    return appoinment_Request(Date, res.priroity, res.name,
-                        res.vllc, res.street, res.state, ind, res.level);
+                    return appoinment_Request(
+                        Date,
+                        res.priroity,
+                        res.name,
+                        res.vllc,
+                        res.street,
+                        res.state,
+                        ind,
+                        res.level.toLowerCase());
                   }),
               const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -314,7 +321,7 @@ class _HomepageState extends State<Homepage> {
                 const SizedBox(
                   width: 20,
                 ),
-                level == "Mid"
+                level == "mid"
                     ? Container(
                         width: 50,
                         height: 50,
@@ -334,7 +341,7 @@ class _HomepageState extends State<Homepage> {
                               fontWeight: FontWeight.bold),
                         )),
                       )
-                    : level == "Low"
+                    : level == "low"
                         ? Container(
                             width: 50,
                             height: 50,
@@ -437,6 +444,9 @@ class _HomepageState extends State<Homepage> {
                             backgroundColor:
                                 const Color.fromRGBO(235, 239, 250, 1)),
                         onPressed: () {
+                          print(Provider.of<test>(context, listen: false)
+                              .current_request_list[index]
+                              .ticketid);
                           change_current_to_assign(
                               context,
                               Provider.of<test>(context, listen: false)
@@ -490,7 +500,7 @@ class _HomepageState extends State<Homepage> {
 
   calendar() {
     return HorizontalCalendar(
-      date: DateTime.parse("2050-07-23"),
+      date: DateTime.now(),
       lastDate: DateTime.parse("2050-07-23"),
       initialDate: DateTime.parse("2024-07-23"),
       textColor: Colors.black,

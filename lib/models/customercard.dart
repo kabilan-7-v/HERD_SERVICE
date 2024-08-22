@@ -130,14 +130,16 @@ class test extends ChangeNotifier {
     val.forEach((key, value) {
       for (var i in value) {
         if (i["Status"] == 2 || i["Status"] == 3) {
+          String level = i["Level"];
+
           tickethistory.add(Ticket_history(
-            name: i["Name"],
+            name: i["Name"] ?? "",
             address: i["Address"],
-            cost: i["price"],
+            cost: i["price"] ?? "null",
             iscompleted: i["Status"],
-            date: custom_date_formmat(i["Service_End_date"]),
-            time: custom_time_formmat(i["Service_End_date"]),
-            level: i["Level"],
+            date: custom_date_formmat(i["Service_End_date"] ?? ""),
+            time: custom_time_formmat(i["Service_End_date"] ?? ""),
+            level: level.toLowerCase(),
             comment: i["Comments"],
             vllc: i["VLCC"],
           ));
@@ -151,6 +153,7 @@ class test extends ChangeNotifier {
     customercard = [];
     val.forEach((key, value) {
       for (var i in value) {
+        String level = i["Level"];
         if (i["Status"] == 0) {
           customercard.add(Customercard(
             i["Name"],
@@ -158,11 +161,11 @@ class test extends ChangeNotifier {
             i["Mobile1"].toString(),
             custom_date_formmat(i["Ticket_Raised_date"]),
             true,
-            int.parse(custom_slice_for_sort(i["Ticket_Raised_date"])),
+            int.parse(custom_slice_for_sort(i["Ticket_Raised_date"] ?? "")),
             i["Comments"],
-            custom_time_formmat(i["Ticket_Raised_date"]),
+            custom_time_formmat(i["Ticket_Raised_date"] ?? ""),
             i["VLCC"],
-            i["Level"],
+            level.toLowerCase(),
             i["Ticket_id"],
             i["Status"],
             i["Type"],
@@ -180,15 +183,17 @@ class test extends ChangeNotifier {
     val.forEach((key, value) {
       for (var i in value) {
         if (i["Status"] == 1) {
+          String level = i["Level"];
+
           current_request_list.add(current_request(
-            i["Name"],
+            i["Name"] ?? "",
             true,
             i["VLCC"],
             i["Address"],
             "Tamil Nadu,TN-630 000,",
-            i["Ticket_id"],
-            i["Ticket_Raised_date"],
-            i["Level"],
+            i["Ticket_id"] ?? "",
+            i["Ticket_Raised_date"] ?? "",
+            level.toLowerCase(),
             i["Type"],
             i["Status"],
           ));
@@ -207,8 +212,10 @@ class test extends ChangeNotifier {
         calcendardate.substring(5, 6) +
         (int.parse(calcendardate.substring(6, 7))).toString() +
         calcendardate.substring(8, 10));
+
     print(whole_date);
     for (var i in customercard) {
+      print(i.date_sort);
       if (i.date_sort <= whole_date) {
         temp.add(i.date_sort);
       }

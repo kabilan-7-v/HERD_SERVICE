@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class NoInternetchecker extends StatefulWidget {
   const NoInternetchecker({super.key});
@@ -9,6 +10,7 @@ class NoInternetchecker extends StatefulWidget {
 }
 
 class _NoInternetcheckerState extends State<NoInternetchecker> {
+  bool? connect_internet;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,5 +64,20 @@ class _NoInternetcheckerState extends State<NoInternetchecker> {
             ]),
       ),
     );
+  }
+
+  get_internet() async {
+    bool isConnected = await InternetConnectionChecker().hasConnection;
+    if (isConnected) {
+      setState(() {
+        connect_internet = isConnected;
+      });
+      print('Device is connected to the internet');
+    } else {
+      setState(() {
+        connect_internet = isConnected;
+      });
+      print('Device is not connected to the internet');
+    }
   }
 }
