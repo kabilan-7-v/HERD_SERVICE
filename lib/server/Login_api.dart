@@ -46,19 +46,25 @@ Login_with_email_or_phone(
       await context.read<Login_email>().Loginupdate_email(true, false, false);
       var res = jsonDecode(response.body);
       await context.read<userprofiledetails>().change_user_profile(
-          res["Name"],
-          res["type"],
-          res["email"],
-          res["phno"].toString(),
-          res["address"],
-          res["Doctor_id"],
-          pass,
-          res["emailpromotions"] == 1 ? true : false,
-          res["emailinvoice"] == 1 ? true : false,
-          res["smsinvoice"] == 1 ? true : false,
-          res["smspromotion"] == 1 ? true : false,
-          res["WhatsApp"] == 1 ? true : false,
-          res["pushnotification"] == 1 ? true : false);
+            res["Name"],
+            res["type"],
+            res["email"],
+            res["phno"].toString(),
+            res["address"],
+            res["Doctor_id"],
+            pass,
+            res["emailpromotions"] == 1 ? true : false,
+            res["emailinvoice"] == 1 ? true : false,
+            res["smsinvoice"] == 1 ? true : false,
+            res["smspromotion"] == 1 ? true : false,
+            res["WhatsApp"] == 1 ? true : false,
+            res["pushnotification"] == 1 ? true : false,
+            res["status"] == 1 ? true : false,
+          );
+
+      await context
+          .read<service_availability>()
+          .change_toogle(res["status"] == 1 ? true : false);
     } else if (response.statusCode == 404) {
       await context.read<Login_email>().Loginupdate_email(false, true, false);
       print("Email not Match");
@@ -89,22 +95,27 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
       var res = jsonDecode(response.body);
       print(response.body);
       print(
-          "kabilan q2wasertdcyfgvhjbknlmwaerextrcfgvjhbjwzsdfxgchj ewzwrdxfcghj ");
+          "kabilan q2wasertdcyfgvhjbknlmwaerextrcfgvjhbjwzsdfxgchj ewzwrdxfcghj");
       print(res);
       await context.read<userprofiledetails>().change_user_profile(
-          res["Name"],
-          res["type"],
-          res["email"],
-          res["phno"].toString(),
-          res["address"],
-          res["Doctor_id"],
-          pass,
-          res["emailpromotions"] == 1 ? true : false,
-          res["emailinvoice"] == 1 ? true : false,
-          res["smsinvoice"] == 1 ? true : false,
-          res["smspromotion"] == 1 ? true : false,
-          res["WhatsApp"] == 1 ? true : false,
-          res["pushnotification"] == 1 ? true : false);
+            res["Name"],
+            res["type"],
+            res["email"],
+            res["phno"].toString(),
+            res["address"],
+            res["Doctor_id"],
+            pass,
+            res["emailpromotions"] == 1 ? true : false,
+            res["emailinvoice"] == 1 ? true : false,
+            res["smsinvoice"] == 1 ? true : false,
+            res["smspromotion"] == 1 ? true : false,
+            res["WhatsApp"] == 1 ? true : false,
+            res["pushnotification"] == 1 ? true : false,
+            res["status"] == 1 ? true : false,
+          );
+      await context
+          .read<service_availability>()
+          .change_toogle(res["status"] == 1 ? true : false);
     } else if (response.statusCode == 404) {
       await context.read<Login_id>().Loginupdate_id(false, true, false);
       print(response.body);
@@ -136,19 +147,24 @@ Login_with_phone(BuildContext context, String phone, String pass) async {
       var res = jsonDecode(response.body);
 
       await context.read<userprofiledetails>().change_user_profile(
-          res["Name"],
-          res["type"],
-          res["email"],
-          res["phno"].toString(),
-          res["address"],
-          res["Doctor_id"],
-          pass,
-          res["emailpromotions"] == 1 ? true : false,
-          res["emailinvoice"] == 1 ? true : false,
-          res["smsinvoice"] == 1 ? true : false,
-          res["smspromotion"] == 1 ? true : false,
-          res["WhatsApp"] == 1 ? true : false,
-          res["pushnotification"] == 1 ? true : false);
+            res["Name"],
+            res["type"],
+            res["email"],
+            res["phno"].toString(),
+            res["address"],
+            res["Doctor_id"],
+            pass,
+            res["emailpromotions"] == 1 ? true : false,
+            res["emailinvoice"] == 1 ? true : false,
+            res["smsinvoice"] == 1 ? true : false,
+            res["smspromotion"] == 1 ? true : false,
+            res["WhatsApp"] == 1 ? true : false,
+            res["pushnotification"] == 1 ? true : false,
+            res["status"] == 1 ? true : false,
+          );
+      await context
+          .read<service_availability>()
+          .change_toogle(res["status"] == 1 ? true : false);
     } else if (response.statusCode == 404) {
       await context.read<Login_phone>().Loginupdate_phone(false, true, false);
       print(response.body);

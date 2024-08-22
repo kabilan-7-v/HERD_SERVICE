@@ -66,13 +66,14 @@ class _TickethistoryState extends State<Tickethistory> {
             context,
             MaterialPageRoute(
                 builder: (context) => Ticketshow(
-                      date: "data.date",
-                      time: "data.time",
+                      date: data.date,
+                      time: data.time,
                       name: data.name,
-                      vllc: "",
+                      vllc: data.vllc,
                       street: data.address,
-                      priority: true,
-                      comment: "",
+                      priority: data.level,
+                      comment: data.comment,
+                      status: data.iscompleted,
                     )));
       },
       child: Column(
@@ -96,13 +97,13 @@ class _TickethistoryState extends State<Tickethistory> {
               Text(data.address),
               const Spacer(),
               Text(
-                data.iscompleted == true ? "Completed" : "Cancel",
+                data.iscompleted == 2 ? "Completed" : "Cancel",
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 width: 5,
               ),
-              data.iscompleted == 1
+              data.iscompleted == 2
                   ? Icon(
                       Icons.verified_rounded,
                       color: Colors.green,

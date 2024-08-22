@@ -41,12 +41,22 @@ class Ticket_history {
   String address;
   String cost;
   int iscompleted;
+  String date;
+  String time;
+  String level;
+  String comment;
+  String vllc;
 
   Ticket_history(
       {this.name = "",
       this.address = "",
       this.cost = "",
-      this.iscompleted = 0});
+      this.iscompleted = 0,
+      this.date = "",
+      this.time = "",
+      this.level = "",
+      this.comment = "",
+      this.vllc = ""});
 }
 
 class current_request {
@@ -119,12 +129,18 @@ class test extends ChangeNotifier {
     tickethistory = [];
     val.forEach((key, value) {
       for (var i in value) {
-        if (i["Status"] == 2) {
+        if (i["Status"] == 2 || i["Status"] == 3) {
           tickethistory.add(Ticket_history(
-              name: i["Name"],
-              address: i["VLCC"],
-              cost: i["price"],
-              iscompleted: i["SP_Approval_status"]));
+            name: i["Name"],
+            address: i["Address"],
+            cost: i["price"],
+            iscompleted: i["Status"],
+            date: custom_date_formmat(i["Service_End_date"]),
+            time: custom_time_formmat(i["Service_End_date"]),
+            level: i["Level"],
+            comment: i["Comments"],
+            vllc: i["VLCC"],
+          ));
         }
       }
       notifyListeners();

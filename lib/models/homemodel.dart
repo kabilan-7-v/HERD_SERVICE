@@ -15,6 +15,7 @@ class userprofiledetails extends ChangeNotifier {
   bool whatsapp;
   bool pushnotification;
   int type_of_user;
+  bool status;
 
   userprofiledetails(
       {this.type_of_user = 0,
@@ -29,23 +30,24 @@ class userprofiledetails extends ChangeNotifier {
       this.smsinvoice = false,
       this.smspromotion = false,
       this.whatsapp = false,
-      this.pushnotification = false});
+      this.pushnotification = false,
+      this.status = false});
 
   change_user_profile(
-    String name,
-    usertype,
-    String useremail,
-    String phno,
-    String useraddress,
-    int id,
-    pass,
-    emailpromo,
-    emailinvoic,
-    smsin,
-    smspromo,
-    whatsap,
-    pushnot,
-  ) {
+      String name,
+      usertype,
+      String useremail,
+      String phno,
+      String useraddress,
+      int id,
+      pass,
+      emailpromo,
+      emailinvoic,
+      smsin,
+      smspromo,
+      whatsap,
+      pushnot,
+      stat) {
     username = name;
     type_of_user = usertype;
     email = useremail;
@@ -59,6 +61,18 @@ class userprofiledetails extends ChangeNotifier {
     smspromotion = smspromo;
     whatsapp = whatsap;
     pushnotification = pushnot;
+    status = stat;
+
+    notifyListeners();
+  }
+}
+
+class service_availability extends ChangeNotifier {
+  bool toogle;
+
+  service_availability({this.toogle = false});
+  change_toogle(_switch) {
+    toogle = _switch;
 
     notifyListeners();
   }

@@ -4,10 +4,14 @@ import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Loginpage.dart';
+import 'package:herd_service/pages/no_internet.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'package:provider/provider.dart';
 
 void main() {
+  // Remember to cancel the subscription when it's no longer needed
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => Login_email(),
@@ -16,11 +20,20 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
+  void dispose() {
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -30,6 +43,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (create) => Login_phone()),
         ChangeNotifierProvider(create: (create) => test()),
         ChangeNotifierProvider(create: (create) => NotifyModel()),
+        ChangeNotifierProvider(create: (create) => service_availability()),
       ],
       child: MaterialApp(
         // initialRoute: '/',

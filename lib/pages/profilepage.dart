@@ -14,6 +14,7 @@ import 'package:herd_service/profile/settings.dart';
 import 'package:herd_service/server/service_availability_api.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profilepage extends StatefulWidget {
   Profilepage({super.key, required this.pass});
@@ -24,12 +25,25 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
-  bool _switchValue = false;
-  bool offswith = true;
   String finaldate = "select date";
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    get();
+    super.initState();
+  }
+
+  get() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('toogle_button', false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
       body: SingleChildScrollView(
         child: Column(
@@ -77,7 +91,7 @@ class _ProfilepageState extends State<Profilepage> {
                   SizedBox(
                     width: 20,
                   ),
-                  _switchValue == true
+                  Provider.of<service_availability>(context).toogle == true
                       ? SizedBox(
                           height: 32,
                           width: 32,
@@ -98,16 +112,15 @@ class _ProfilepageState extends State<Profilepage> {
                     thumbColor: Colors.white,
                     // trackColor: Colors.black,
                     activeColor: const Color.fromRGBO(70, 149, 184, 1),
-                    value: _switchValue,
+                    value: Provider.of<service_availability>(context).toogle,
                     onChanged: (value) async {
                       if (value == true) {
-                        confirmation_popup();
+                        confirmation_popup(_scaffoldKey);
                       } else {
-                        _switchValue = await Navigator.push(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Alertservices()));
-                        setState(() {});
                       }
                     },
                   ),
@@ -167,9 +180,9 @@ class _ProfilepageState extends State<Profilepage> {
     );
   }
 
-  confirmation_popup() {
+  confirmation_popup(_scaffoldKey) {
     return showDialog(
-        context: context,
+        context: _scaffoldKey.currentContext,
         builder: (BuildContext context) {
           return Dialog(
             child: Container(
@@ -194,15 +207,14 @@ class _ProfilepageState extends State<Profilepage> {
                   Spacer(),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        _switchValue = !_switchValue;
-                        Navigator.pop(context);
-                        Service_on(
-                            context,
-                            Provider.of<userprofiledetails>(context,
-                                    listen: false)
-                                .doctor_id);
-                      });
+                      // print(
+                      //     "objectEZTsrxydtcfygvhubjknqzwetrxytcufyvghubwerdtfygu");
+                      Service_on(
+                          context,
+                          Provider.of<userprofiledetails>(context,
+                                  listen: false)
+                              .doctor_id);
+                      Navigator.of(context).pop();
                     },
                     child: Container(
                       height: 55,

@@ -465,20 +465,6 @@ class _HomepageState extends State<Homepage> {
                               Provider.of<test>(context, listen: false)
                                   .current_request_list[index]
                                   .ticketid);
-
-                          // var res = Provider.of<test>(context)
-                          //     .current_request_list
-                          //     .removeAt(index);
-                          // customercard.insert(
-                          //     0,
-                          //     Customercard(res.name, res.vllc, "089786w445",
-                          //         date, res.priroity, 3));
-                          // if (Provider.of<test>(context)
-                          //     .current_request_list
-                          //     .isEmpty) {
-                          //   accept = false;
-                          // }
-                          // setState(() {});
                         },
                         child: const Text(
                           "ACCEPT",

@@ -43,6 +43,7 @@ Preferences_api(BuildContext context, int doctor_id, emailpro, emailinvoice,
         smspro,
         whatsapp,
         pushnotification,
+        Provider.of<userprofiledetails>(context, listen: false).status,
       );
     } else {
       print("Request failed with status: ${response.statusCode}");

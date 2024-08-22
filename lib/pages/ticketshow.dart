@@ -14,14 +14,16 @@ class Ticketshow extends StatefulWidget {
       required this.priority,
       required this.vllc,
       required this.street,
-      required this.comment});
+      required this.comment,
+      required this.status});
   final String date;
   final String time;
   final String name;
-  final bool priority;
+  final String priority;
   final String vllc;
   final String street;
   final String comment;
+  final int status;
 
   @override
   State<Ticketshow> createState() => _TicketshowState();
@@ -83,7 +85,7 @@ class _TicketshowState extends State<Ticketshow> {
                 )
               ],
             ),
-            widget.priority == true
+            widget.priority == "Mid"
                 ? const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                     child: Text(
@@ -94,16 +96,31 @@ class _TicketshowState extends State<Ticketshow> {
                           color: Color.fromRGBO(176, 107, 5, 1)),
                     ),
                   )
-                : const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                    child: Text(
-                      "Low Priority",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: Color.fromRGBO(56, 176, 5, 1)),
-                    ),
-                  ),
+                : widget.priority == "Low"
+                    ? const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                        child: Text(
+                          "Low Priority",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: Color.fromRGBO(56, 176, 5, 1)),
+                        ),
+                      )
+                    : widget.priority == "high"
+                        ? const Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 10),
+                            child: Text(
+                              "High Priority",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(176, 5, 5, 1)),
+                            ),
+                          )
+                        : SizedBox(),
             custom_container(context),
             comment_container(context),
             const SizedBox(
