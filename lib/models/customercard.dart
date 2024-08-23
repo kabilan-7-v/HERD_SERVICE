@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:herd_service/server/home_api.dart';
 import 'package:intl/intl.dart';
 
 class Customercard {
@@ -137,8 +138,8 @@ class test extends ChangeNotifier {
             address: i["Address"],
             cost: i["price"] ?? "null",
             iscompleted: i["Status"],
-            date: custom_date_formmat(i["Service_End_date"] ?? ""),
-            time: custom_time_formmat(i["Service_End_date"] ?? ""),
+            date: custom_date_formmat(i["Service_End_date"] ?? "null"),
+            time: custom_time_formmat(i["Service_End_date"] ?? "null"),
             level: level.toLowerCase(),
             comment: i["Comments"],
             vllc: i["VLCC"],
@@ -161,9 +162,9 @@ class test extends ChangeNotifier {
             i["Mobile1"].toString(),
             custom_date_formmat(i["Ticket_Raised_date"]),
             true,
-            int.parse(custom_slice_for_sort(i["Ticket_Raised_date"] ?? "")),
+            int.parse(custom_slice_for_sort(i["Ticket_Raised_date"] ?? "null")),
             i["Comments"],
-            custom_time_formmat(i["Ticket_Raised_date"] ?? ""),
+            custom_time_formmat(i["Ticket_Raised_date"] ?? "null"),
             i["VLCC"],
             level.toLowerCase(),
             i["Ticket_id"],
@@ -203,7 +204,8 @@ class test extends ChangeNotifier {
     });
   }
 
-  custom_sorting(String calcendardate) {
+  custom_sorting(String calcendardate, BuildContext context, doctor_id) {
+    Appoimentresquestapi(context, doctor_id);
     List<Customercard> lst = [];
     List temp = [];
 
@@ -232,7 +234,7 @@ class test extends ChangeNotifier {
       }
     }
     customercard = lst;
-    notifyListeners();
+    ChangeNotifier();
   }
 
   custom_date_formmat(String val) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:herd_service/models/Ai_enter_details.dart';
 import 'package:herd_service/models/Notification_models.dart';
 import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
@@ -42,6 +43,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (create) => test()),
         ChangeNotifierProvider(create: (create) => NotifyModel()),
         ChangeNotifierProvider(create: (create) => service_availability()),
+        ChangeNotifierProvider(create: (create) => Med_list()),
+        ChangeNotifierProvider(create: (create) => Med()),
       ],
       child: MaterialApp(
         // initialRoute: '/',

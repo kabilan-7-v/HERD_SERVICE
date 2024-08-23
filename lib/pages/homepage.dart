@@ -203,7 +203,11 @@ class _HomepageState extends State<Homepage> {
                         height: 8,
                       ),
                       Center(
-                        child: width > 400 ? calendar1() : calendar(),
+                        child: width > 400
+                            ? calendar1(Provider.of<userprofiledetails>(context)
+                                .doctor_id)
+                            : calendar(Provider.of<userprofiledetails>(context)
+                                .doctor_id),
                       ),
                       SizedBox(
                         height: 25,
@@ -498,11 +502,11 @@ class _HomepageState extends State<Homepage> {
     finaldata = formattedDate;
   }
 
-  calendar() {
+  calendar(doc) {
     return HorizontalCalendar(
-      date: DateTime.now(),
+      date: DateTime.parse("2024-06-23"),
       lastDate: DateTime.parse("2050-07-23"),
-      initialDate: DateTime.parse("2024-07-23"),
+      initialDate: DateTime.parse("2024-06-23"),
       textColor: Colors.black,
       backgroundColor: Colors.white,
       selectedColor: const Color.fromRGBO(70, 149, 184, 1),
@@ -510,19 +514,19 @@ class _HomepageState extends State<Homepage> {
       locale: Localizations.localeOf(context),
       onDateSelected: (date) {
         _pickDate(date.toString());
-        context.read<test>().custom_sorting(date.toString());
+        context.read<test>().custom_sorting(date.toString(), context, doc);
         setState(() {});
       },
     );
   }
 
-  calendar1() {
+  calendar1(doc) {
     return ConstrainedBox(
       constraints: BoxConstraints.tightFor(
           width: MediaQuery.of(context).size.width - 50, height: 70),
       child: HorizontalCalendar(
-        date: DateTime.now(),
-        initialDate: DateTime.now(),
+        date: DateTime.parse("2024-06-23"),
+        initialDate: DateTime.parse("2024-06-23"),
         textColor: Colors.black,
         backgroundColor: Colors.white,
         selectedColor: const Color.fromRGBO(70, 149, 184, 1),
@@ -530,7 +534,7 @@ class _HomepageState extends State<Homepage> {
         locale: Localizations.localeOf(context),
         onDateSelected: (date) {
           _pickDate(date.toString());
-          context.read<test>().custom_sorting(date.toString());
+          context.read<test>().custom_sorting(date.toString(), context, doc);
 
           setState(() {});
         },
