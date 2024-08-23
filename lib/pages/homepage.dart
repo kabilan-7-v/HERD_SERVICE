@@ -219,17 +219,34 @@ class _HomepageState extends State<Homepage> {
               SizedBox(
                 height: 10,
               ),
-              Center(
-                child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: Provider.of<test>(context).customercard.length,
-                    itemBuilder: (context, index) {
-                      return Customercontainer(
-                          card: Provider.of<test>(context).customercard[index]);
-                    }),
-              )
+              Provider.of<test>(context).customercard.length == 0
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Center(
+                            child: Text(
+                          "No Ticket found",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        )),
+                      ],
+                    )
+                  : Center(
+                      child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount:
+                              Provider.of<test>(context).customercard.length,
+                          itemBuilder: (context, index) {
+                            return Customercontainer(
+                                card: Provider.of<test>(context)
+                                    .customercard[index]);
+                          }),
+                    )
             ]),
       ),
     );

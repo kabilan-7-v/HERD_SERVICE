@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:herd_service/models/homemodel.dart';
+import 'package:herd_service/server/home_api.dart';
+import 'package:provider/provider.dart';
 
 class Otppage extends StatefulWidget {
   const Otppage({super.key});
@@ -241,6 +244,11 @@ class _OtppageState extends State<Otppage> {
                     Spacer(),
                     IconButton(
                         onPressed: () {
+                          Appoimentresquestapi(
+                              context,
+                              Provider.of<userprofiledetails>(context,
+                                      listen: false)
+                                  .doctor_id);
                           Navigator.popUntil(context, (route) => count++ == 5);
                         },
                         icon: Icon(Icons.close)),

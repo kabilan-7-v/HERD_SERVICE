@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Appoinmentrequest extends StatelessWidget {
+class Appoinmentrequest extends StatefulWidget {
   const Appoinmentrequest({
     super.key,
     required this.date,
@@ -40,6 +40,18 @@ class Appoinmentrequest extends StatelessWidget {
   final String doc_type;
   final int Straw_no;
   final int bull_type;
+
+  @override
+  State<Appoinmentrequest> createState() => _AppoinmentrequestState();
+}
+
+class _AppoinmentrequestState extends State<Appoinmentrequest> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +92,7 @@ class Appoinmentrequest extends StatelessWidget {
                       bottom: 120,
                       left: 100,
                       child: Text(
-                        date,
+                        widget.date,
                         style: TextStyle(
                             fontSize: 22,
                             color: Colors.white,
@@ -91,7 +103,7 @@ class Appoinmentrequest extends StatelessWidget {
                       bottom: 90,
                       left: 100,
                       child: Text(
-                        time,
+                        widget.time,
                         style: TextStyle(
                             fontSize: 22,
                             color: Colors.white,
@@ -100,7 +112,7 @@ class Appoinmentrequest extends StatelessWidget {
                     )
                   ],
                 ),
-                priority == true
+                widget.priority == true
                     ? const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 40, vertical: 10),
@@ -132,11 +144,11 @@ class Appoinmentrequest extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     socialMedia(Bootstrap.whatsapp, () {
-                      whatsapp(phonenumber);
+                      whatsapp(widget.phonenumber);
                     }),
                     socialMedia(Bootstrap.send, () async {}),
                     socialMedia(Bootstrap.telephone, () async {
-                      await _callNumber(phonenumber);
+                      await _callNumber(widget.phonenumber);
                     }),
                   ],
                 ),
@@ -162,15 +174,17 @@ class Appoinmentrequest extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Adddetails()));
+                                builder: (context) => Adddetails(
+                                      ticketid: widget.ticket_id,
+                                    )));
                       } else {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Enterdetails(
-                                      Straw_no: Straw_no,
-                                      bull_type: bull_type,
-                                      ticket_id: ticket_id,
+                                      Straw_no: widget.Straw_no,
+                                      bull_type: widget.bull_type,
+                                      ticket_id: widget.ticket_id,
                                     )));
                       }
                     }
@@ -235,7 +249,7 @@ class Appoinmentrequest extends StatelessWidget {
                 bottom: 120,
                 left: 100,
                 child: Text(
-                  date,
+                  widget.date,
                   style: TextStyle(
                       fontSize: 22,
                       color: Colors.white,
@@ -246,7 +260,7 @@ class Appoinmentrequest extends StatelessWidget {
                 bottom: 90,
                 left: 100,
                 child: Text(
-                  time,
+                  widget.time,
                   style: TextStyle(
                       fontSize: 22,
                       color: Colors.white,
@@ -255,7 +269,7 @@ class Appoinmentrequest extends StatelessWidget {
               )
             ],
           ),
-          priority == true
+          widget.priority == true
               ? const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: Text(
@@ -285,11 +299,11 @@ class Appoinmentrequest extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               socialMedia(Bootstrap.whatsapp, () {
-                whatsapp(phonenumber);
+                whatsapp(widget.phonenumber);
               }),
               socialMedia(Bootstrap.send, () async {}),
               socialMedia(Bootstrap.telephone, () async {
-                await _callNumber(phonenumber);
+                await _callNumber(widget.phonenumber);
               }),
             ],
           ),
@@ -379,7 +393,7 @@ class Appoinmentrequest extends StatelessWidget {
                 ),
                 Text.rich(TextSpan(children: [
                   TextSpan(
-                      text: name,
+                      text: widget.name,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   TextSpan(text: "(608MRC)")
@@ -394,7 +408,7 @@ class Appoinmentrequest extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text("VLCC: $vllc"),
+                Text("VLCC: ${widget.vllc}"),
               ],
             ),
           ),
@@ -405,7 +419,7 @@ class Appoinmentrequest extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                Text(street),
+                Text(widget.street),
               ],
             ),
           ),
@@ -450,7 +464,7 @@ class Appoinmentrequest extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(comment),
+            child: Text(widget.comment),
           ),
         ],
       ),
