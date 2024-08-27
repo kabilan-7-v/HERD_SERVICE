@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:herd_service/models/blogdetails.dart';
-import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/server/home_api.dart';
@@ -68,9 +67,33 @@ Login_with_email_or_phone(
       await context
           .read<service_availability>()
           .change_toogle(res["status"] == 1 ? true : false);
+      await Appoimentresquestapi(context, res["Doctor_id"]);
+      print(res["Doctor_id"]);
+
       ////////////////////////////////////// shared preferenec userdata set///////////////////////////////
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool("isLoggedIn", true);
+      prefs.reload();
+      await prefs.setBool("isLoggedIn", true);
+      await prefs.setString("Name", res["Name"]);
+      await prefs.setInt("type", res["type"]);
+      await prefs.setString("email", res["email"]);
+      await prefs.setString("phno", res["phno"].toString());
+      await prefs.setString("address", res["address"]);
+      await prefs.setInt("Doctor_id", res["Doctor_id"]);
+      await prefs.setString("password", pass);
+      await prefs.setBool(
+          "emailpromotions", res["emailpromotions"] == 1 ? true : false);
+      await prefs.setBool(
+          "emailinvoice", res["emailinvoice"] == 1 ? true : false);
+      await prefs.setBool("smsinvoice", res["smsinvoice"] == 1 ? true : false);
+      await prefs.setBool(
+          "smspromotion", res["smspromotion"] == 1 ? true : false);
+      await prefs.setBool("WhatsApp", res["WhatsApp"] == 1 ? true : false);
+      await prefs.setBool(
+          "pushnotification", res["pushnotification"] == 1 ? true : false);
+      await prefs.setBool("status", res["status"] == 1 ? true : false);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
     } else if (response.statusCode == 404) {
       await context.read<Login_email>().Loginupdate_email(false, true, false);
       print("Email not Match");
@@ -198,9 +221,33 @@ Login_with_phone(BuildContext context, String phone, String pass) async {
       await context
           .read<service_availability>()
           .change_toogle(res["status"] == 1 ? true : false);
+      await Appoimentresquestapi(context, res["Doctor_id"]);
+      print(res["Doctor_id"]);
+
       ////////////////////////////////////// shared preferenec userdata set///////////////////////////////
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool("isLoggedIn", true);
+      prefs.reload();
+      await prefs.setBool("isLoggedIn", true);
+      await prefs.setString("Name", res["Name"]);
+      await prefs.setInt("type", res["type"]);
+      await prefs.setString("email", res["email"]);
+      await prefs.setString("phno", res["phno"].toString());
+      await prefs.setString("address", res["address"]);
+      await prefs.setInt("Doctor_id", res["Doctor_id"]);
+      await prefs.setString("password", pass);
+      await prefs.setBool(
+          "emailpromotions", res["emailpromotions"] == 1 ? true : false);
+      await prefs.setBool(
+          "emailinvoice", res["emailinvoice"] == 1 ? true : false);
+      await prefs.setBool("smsinvoice", res["smsinvoice"] == 1 ? true : false);
+      await prefs.setBool(
+          "smspromotion", res["smspromotion"] == 1 ? true : false);
+      await prefs.setBool("WhatsApp", res["WhatsApp"] == 1 ? true : false);
+      await prefs.setBool(
+          "pushnotification", res["pushnotification"] == 1 ? true : false);
+      await prefs.setBool("status", res["status"] == 1 ? true : false);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
     } else if (response.statusCode == 404) {
       await context.read<Login_phone>().Loginupdate_phone(false, true, false);
       print(response.body);
