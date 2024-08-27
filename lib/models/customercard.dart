@@ -146,8 +146,9 @@ class test extends ChangeNotifier {
           ));
         }
       }
-      notifyListeners();
     });
+    tickethistory = tickethistory.sublist(0);
+    notifyListeners();
   }
 
   addvalue_to_current_request(val) {
@@ -175,8 +176,9 @@ class test extends ChangeNotifier {
           ));
         }
       }
-      notifyListeners();
     });
+    customercard = customercard.sublist(0);
+    notifyListeners();
   }
 
   addvalue_to_assignment_request(val) {
@@ -200,8 +202,8 @@ class test extends ChangeNotifier {
           ));
         }
       }
-      notifyListeners();
     });
+    notifyListeners();
   }
 
   custom_sorting(String calcendardate, BuildContext context, doctor_id) {

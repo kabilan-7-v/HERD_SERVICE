@@ -54,9 +54,12 @@ dependencies:
   internet_connection_checker: ^2.0.0
   calendar_timeline:  
   swipeable_page_route: ^0.4.3
+
   provider:
+  
   flutter_calendar_week:
   shared_preferences: ^2.3.2
+  liquid_pull_to_refresh: ^3.0.1
    
    
     

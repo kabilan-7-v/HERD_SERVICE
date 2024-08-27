@@ -5,18 +5,25 @@ import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Loginpage.dart';
+import 'package:herd_service/pages/commonpage.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   // Remember to cancel the subscription when it's no longer needed
 
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => Login_email(),
-      child: MyApp(),
-    ),
-  );
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (create) => userprofiledetails()),
+    ChangeNotifierProvider(create: (create) => Login_email()),
+    ChangeNotifierProvider(create: (create) => Login_id()),
+    ChangeNotifierProvider(create: (create) => Login_phone()),
+    ChangeNotifierProvider(create: (create) => test()),
+    ChangeNotifierProvider(create: (create) => NotifyModel()),
+    ChangeNotifierProvider(create: (create) => service_availability()),
+    ChangeNotifierProvider(create: (create) => Med_list()),
+    ChangeNotifierProvider(create: (create) => Med()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -27,42 +34,54 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool? isLoggedIn;
+  bool isLoading = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    _checkLoginStatus();
+
+    super.initState();
+  }
+
   // This widget is the root of your application.
   @override
   void dispose() {
     super.dispose();
   }
 
+  _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    isLoading = false;
+    setState(() {});
+  }
+
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (create) => userprofiledetails()),
-        ChangeNotifierProvider(create: (create) => Login_email()),
-        ChangeNotifierProvider(create: (create) => Login_id()),
-        ChangeNotifierProvider(create: (create) => Login_phone()),
-        ChangeNotifierProvider(create: (create) => test()),
-        ChangeNotifierProvider(create: (create) => NotifyModel()),
-        ChangeNotifierProvider(create: (create) => service_availability()),
-        ChangeNotifierProvider(create: (create) => Med_list()),
-        ChangeNotifierProvider(create: (create) => Med()),
-      ],
-      child: MaterialApp(
-        // initialRoute: '/',
-        // routes: {
-        //   '/': (context) => const Loginpage(),
-        //   // '/common': (context) => const Commonpage(),
-        // },
-        builder: (context, child) {
-          return MediaQuery(
-            data: MediaQuery.of(context)
-                .copyWith(textScaler: const TextScaler.linear(0.9)),
-            child: child!,
-          );
-        },
-        debugShowCheckedModeBanner: false,
-        // home: const Commonpage(),
-        home: const Loginpage(),
-      ),
+    return MaterialApp(
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => const Loginpage(),
+      //   // '/common': (context) => const Commonpage(),
+      // },
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: const TextScaler.linear(0.9)),
+          child: child!,
+        );
+      },
+      debugShowCheckedModeBanner: false,
+      // home: const Commonpage(),
+      home: isLoading
+          ? Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : isLoggedIn == true
+              ? Commonpage()
+              : Loginpage(),
     );
   }
 }

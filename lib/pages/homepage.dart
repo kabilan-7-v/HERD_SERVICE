@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:herd_service/Local_data_user/doctor_details.dart';
 import 'package:herd_service/customer_utility/customercontainer.dart';
 import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
@@ -6,6 +7,7 @@ import 'package:herd_service/pages/notification.dart';
 import 'package:herd_service/server/home_api.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:provider/provider.dart';
 
 class Homepage extends StatefulWidget {
@@ -28,14 +30,17 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     // TODO: implement initState
     // change_current_to_assign(context, 4);
-    Appoimentresquestapi(context, widget.docto_id.toString());
-    setState(() {});
+    doctor_details_local_data(context);
+    print("+++++++++++++++++++++");
+    Appoimentresquestapi(context, widget.docto_id);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    List<Customercard> customerCard = Provider.of<test>(context).customercard;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -93,161 +98,176 @@ class _HomepageState extends State<Homepage> {
         ],
       ),
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
-      body: SingleChildScrollView(
-        controller: _controller,
-        child: Column(
-            // mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 20,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    context.watch<userprofiledetails>().username,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Provider.of<test>(context).current_request_list.length != 0
-                  ? Row(
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        const Text(
-                          "Current Request",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        )
-                      ],
-                    )
-                  : SizedBox(),
-              ListView.builder(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount:
-                      Provider.of<test>(context).current_request_list.length,
-                  itemBuilder: (context, ind) {
-                    var res =
-                        Provider.of<test>(context).current_request_list[ind];
-                    return appoinment_Request(
-                        Date,
-                        res.priroity,
-                        res.name,
-                        res.vllc,
-                        res.street,
-                        res.state,
-                        ind,
-                        res.level.toLowerCase());
-                  }),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
+      body: LiquidPullToRefresh(
+        onRefresh: () async {
+          await Future.delayed(Duration(seconds: 2));
+        },
+        showChildOpacityTransition: false,
+        color: const Color.fromRGBO(70, 149, 184, 1),
+        backgroundColor: Colors.white,
+        animSpeedFactor: 10,
+        child: SingleChildScrollView(
+          controller: _controller,
+          child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
                   children: [
-                    Text(
-                      "Assignment",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      width: 20,
                     ),
                   ],
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey, blurRadius: 3),
-                      ]),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      context.watch<userprofiledetails>().username,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Provider.of<test>(context, listen: false)
+                            .current_request_list
+                            .length !=
+                        0
+                    ? Row(
                         children: [
-                          SizedBox(
-                            width: 80,
-                          ),
-                          Center(
-                            child: Text(
-                              finaldata,
-                              style: const TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
-                          Icon(Icons.calendar_month_outlined),
+                          const Text(
+                            "Current Request",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          )
                         ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Center(
-                        child: width > 400
-                            ? calendar1(Provider.of<userprofiledetails>(context)
-                                .doctor_id)
-                            : calendar(Provider.of<userprofiledetails>(context)
-                                .doctor_id),
-                      ),
-                      SizedBox(
-                        height: 25,
+                      )
+                    : SizedBox(),
+                ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: Provider.of<test>(context, listen: false)
+                        .current_request_list
+                        .length,
+                    itemBuilder: (context, ind) {
+                      var res = Provider.of<test>(context, listen: false)
+                          .current_request_list[ind];
+                      return appoinment_Request(
+                          Date,
+                          res.priroity,
+                          res.name,
+                          res.vllc,
+                          res.street,
+                          res.state,
+                          ind,
+                          res.level.toLowerCase());
+                    }),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Assignment",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Provider.of<test>(context).customercard.length == 0
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey, blurRadius: 3),
+                        ]),
+                    child: Column(
                       children: [
                         SizedBox(
-                          height: 50,
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 80,
+                            ),
+                            Center(
+                              child: Text(
+                                finaldata,
+                                style: const TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Icon(Icons.calendar_month_outlined),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 8,
                         ),
                         Center(
-                            child: Text(
-                          "No Ticket found",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        )),
+                          child: width > 400
+                              ? calendar1(
+                                  Provider.of<userprofiledetails>(context)
+                                      .doctor_id)
+                              : calendar(
+                                  Provider.of<userprofiledetails>(context)
+                                      .doctor_id),
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
                       ],
-                    )
-                  : Center(
-                      child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount:
-                              Provider.of<test>(context).customercard.length,
-                          itemBuilder: (context, index) {
-                            return Customercontainer(
-                                card: Provider.of<test>(context)
-                                    .customercard[index]);
-                          }),
-                    )
-            ]),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Provider.of<test>(context, listen: false).customercard.length ==
+                        0
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Center(
+                              child: Text(
+                            "No Ticket found",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )),
+                        ],
+                      )
+                    : Center(
+                        child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: customerCard.length,
+                            itemBuilder: (context, index) {
+                              return Customercontainer(
+                                  card: customerCard[index]);
+                            }),
+                      )
+              ]),
+        ),
       ),
     );
   }

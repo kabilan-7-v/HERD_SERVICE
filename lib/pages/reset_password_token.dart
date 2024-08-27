@@ -158,9 +158,8 @@ class _LoginpageState extends State<ResetPasswordToken> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => Commonpage(
-                          pass: _PasswordController.text,
-                        ))); // Navigator.pushReplacementNamed(context, "/common");
+                    builder: (context) =>
+                        Commonpage())); // Navigator.pushReplacementNamed(context, "/common");
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Please enter correct token')),

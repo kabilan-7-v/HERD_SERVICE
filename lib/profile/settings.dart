@@ -5,6 +5,7 @@ import 'package:herd_service/pages/Loginpage.dart';
 import 'package:herd_service/profile/managepassword.dart';
 import 'package:herd_service/profile/preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settingspage extends StatelessWidget {
   const Settingspage({super.key, required this.pass});
@@ -112,6 +113,10 @@ class Settingspage extends StatelessWidget {
                             ),
                           ),
                           onPressed: () async {
+                            ////////////////////////////////////// shared preferenec userdata set///////////////////////////////
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            prefs.setBool("isLoggedIn", true);
                             await context
                                 .read<Login_id>()
                                 .Loginupdate_id(false, false, false);

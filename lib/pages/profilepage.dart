@@ -12,6 +12,7 @@ import 'package:herd_service/pages/notification.dart';
 import 'package:herd_service/profile/profile.dart';
 import 'package:herd_service/profile/settings.dart';
 import 'package:herd_service/server/service_availability_api.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,136 +46,147 @@ class _ProfilepageState extends State<Profilepage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 70,
-            ),
-            Center(
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Profile()));
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 30,
-                  height: 160,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: const [
-                        BoxShadow(color: Colors.grey, blurRadius: 4)
-                      ]),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        context.watch<userprofiledetails>().username,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text("DOCOO54"),
-                      Text("Pollachi")
-                    ],
+      body: LiquidPullToRefresh(
+        onRefresh: () async {
+          await Future.delayed(Duration(seconds: 1));
+        },
+        showChildOpacityTransition: false,
+        color: const Color.fromRGBO(70, 149, 184, 1),
+        backgroundColor: Colors.white,
+        animSpeedFactor: 10,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 70,
+              ),
+              Center(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Profile()));
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 30,
+                    height: 160,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: const [
+                          BoxShadow(color: Colors.grey, blurRadius: 4)
+                        ]),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          context.watch<userprofiledetails>().username,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text("DOCOO54"),
+                        Text("Pollachi")
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Provider.of<service_availability>(context).toogle == true
-                      ? SizedBox(
-                          height: 32,
-                          width: 32,
-                          child:
-                              Image.asset("assets/icons/account_circle 1.png"))
-                      : SizedBox(
-                          height: 32,
-                          width: 32,
-                          child: Image.asset(
-                              "assets/icons/account_circle_off 2 (1).png")),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text("Service Availability"),
-                  const Spacer(),
-                  CupertinoSwitch(
-                    focusColor: Colors.black,
-                    thumbColor: Colors.white,
-                    // trackColor: Colors.black,
-                    activeColor: const Color.fromRGBO(70, 149, 184, 1),
-                    value: Provider.of<service_availability>(context).toogle,
-                    onChanged: (value) async {
-                      if (value == true) {
-                        confirmation_popup(_scaffoldKey);
-                      } else {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Alertservices()));
-                      }
-                    },
-                  ),
-                  // Image.asset("assets/icons/chevron_right.png"),
-                  const SizedBox(
-                    width: 30,
-                  )
-                ],
+              const SizedBox(
+                height: 20,
               ),
-            ),
-            line(context),
-            listofprofile("Ticket History", Icons.timer_outlined,
-                Icons.keyboard_arrow_right_outlined, () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Tickethistory()));
-            }),
-            line(context),
-            listofprofile("Notification", Icons.notifications_active,
-                Icons.keyboard_arrow_right_outlined, () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Notificationpage(
-                          doctor_id: Provider.of<userprofiledetails>(context,
-                                  listen: false)
-                              .doctor_id)));
-            }),
-            line(context),
-            // listofprofile("Medicine", Icons.medical_information_outlined,
-            //     Icons.keyboard_arrow_right_outlined, () {}),
-            line(context),
-            listofprofile(
-                "Settings", Icons.settings, Icons.keyboard_arrow_right_outlined,
-                () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Settingspage(
-                            pass: widget.pass,
-                          )));
-            }),
-            line(context),
-            listofprofile("About", Icons.info_outlined,
-                Icons.keyboard_arrow_right_outlined, () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Aboutpage()));
-            }),
-            const SizedBox(
-              height: 30,
-            ),
-            Logoutbutton(context),
-          ],
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Provider.of<service_availability>(context).toogle == true
+                        ? SizedBox(
+                            height: 32,
+                            width: 32,
+                            child: Image.asset(
+                                "assets/icons/account_circle 1.png"))
+                        : SizedBox(
+                            height: 32,
+                            width: 32,
+                            child: Image.asset(
+                                "assets/icons/account_circle_off 2 (1).png")),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text("Service Availability"),
+                    const Spacer(),
+                    CupertinoSwitch(
+                      focusColor: Colors.black,
+                      thumbColor: Colors.white,
+                      // trackColor: Colors.black,
+                      activeColor: const Color.fromRGBO(70, 149, 184, 1),
+                      value: Provider.of<service_availability>(context).toogle,
+                      onChanged: (value) async {
+                        if (value == true) {
+                          confirmation_popup(_scaffoldKey);
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Alertservices()));
+                        }
+                      },
+                    ),
+                    // Image.asset("assets/icons/chevron_right.png"),
+                    const SizedBox(
+                      width: 30,
+                    )
+                  ],
+                ),
+              ),
+              line(context),
+              listofprofile("Ticket History", Icons.timer_outlined,
+                  Icons.keyboard_arrow_right_outlined, () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Tickethistory()));
+              }),
+              line(context),
+              listofprofile("Notification", Icons.notifications_active,
+                  Icons.keyboard_arrow_right_outlined, () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Notificationpage(
+                            doctor_id: Provider.of<userprofiledetails>(context,
+                                    listen: false)
+                                .doctor_id)));
+              }),
+              line(context),
+              // listofprofile("Medicine", Icons.medical_information_outlined,
+              //     Icons.keyboard_arrow_right_outlined, () {}),
+              line(context),
+              listofprofile("Settings", Icons.settings,
+                  Icons.keyboard_arrow_right_outlined, () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Settingspage(
+                              pass: widget.pass,
+                            )));
+              }),
+              line(context),
+              listofprofile("About", Icons.info_outlined,
+                  Icons.keyboard_arrow_right_outlined, () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Aboutpage()));
+              }),
+              const SizedBox(
+                height: 30,
+              ),
+              Logoutbutton(context),
+            ],
+          ),
         ),
       ),
     );
@@ -342,6 +354,10 @@ class _ProfilepageState extends State<Profilepage> {
                               await context
                                   .read<Login_id>()
                                   .Loginupdate_id(false, false, false);
+                              ////////////////////////////////////// shared preferenec userdata set///////////////////////////////
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setBool("isLoggedIn", false);
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(

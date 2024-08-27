@@ -4,6 +4,7 @@ class userprofiledetails extends ChangeNotifier {
   String username;
 
   String email;
+  String pass;
   String phoneno;
   String address;
   int doctor_id;
@@ -23,7 +24,7 @@ class userprofiledetails extends ChangeNotifier {
       this.phoneno = "",
       this.address = "",
       this.username = "Dr.k.Ram kumar MD.MS",
-      this.doctor_id = 4,
+      this.doctor_id = 2,
       this.Password = "",
       this.emailpromotion = false,
       this.emailinvoice = false,
@@ -31,7 +32,8 @@ class userprofiledetails extends ChangeNotifier {
       this.smspromotion = false,
       this.whatsapp = false,
       this.pushnotification = false,
-      this.status = false});
+      this.status = false,
+      this.pass = ""});
 
   change_user_profile(
       String name,
@@ -47,7 +49,8 @@ class userprofiledetails extends ChangeNotifier {
       smspromo,
       whatsap,
       pushnot,
-      stat) {
+      stat,
+      pas) {
     username = name;
     type_of_user = usertype;
     email = useremail;
@@ -62,7 +65,7 @@ class userprofiledetails extends ChangeNotifier {
     whatsapp = whatsap;
     pushnotification = pushnot;
     status = stat;
-
+    pass = pass;
     notifyListeners();
   }
 }

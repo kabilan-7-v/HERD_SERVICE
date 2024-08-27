@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:herd_service/Local_data_user/doctor_details.dart';
 import 'package:herd_service/models/homemodel.dart';
 
 import 'package:herd_service/pages/homepage.dart';
@@ -17,9 +18,7 @@ import 'package:provider/provider.dart';
 class Commonpage extends StatefulWidget {
   Commonpage({
     super.key,
-    required this.pass,
   });
-  final String pass;
 
   @override
   State<Commonpage> createState() => _HomepageState();
@@ -31,6 +30,7 @@ class _HomepageState extends State<Commonpage>
   bool accept = true;
   int counter = 0;
   int? doctor_id;
+  String pass = "";
 
   DateTime? selectedDate;
 
@@ -38,14 +38,19 @@ class _HomepageState extends State<Commonpage>
   @override
   void initState() {
     super.initState();
-    Appoimentresquestapi(context,
-        Provider.of<userprofiledetails>(context, listen: false).doctor_id);
 
     _motionTabBarController = MotionTabBarController(
       initialIndex: 0,
       length: 3,
       vsync: this,
     );
+  }
+
+  Future<void> initializeData() async {
+    await doctor_details_local_data(context);
+    setState(() {});
+    Appoimentresquestapi(context,
+        Provider.of<userprofiledetails>(context, listen: false).doctor_id);
   }
 
   @override
@@ -104,7 +109,8 @@ class _HomepageState extends State<Commonpage>
           ),
           const Tickethistory(),
           Profilepage(
-            pass: widget.pass as String,
+            pass: Provider.of<userprofiledetails>(context, listen: false)
+                .Password,
           )
         ],
       ),

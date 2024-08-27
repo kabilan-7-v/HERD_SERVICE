@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/pages/ticketshow.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:provider/provider.dart';
 
 class Tickethistory extends StatefulWidget {
@@ -23,38 +24,50 @@ class _TickethistoryState extends State<Tickethistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 60,
-            ),
-            const Row(
-              children: [
-                SizedBox(
-                  width: 15,
-                ),
-                BackButton(),
-                Text(
-                  "Ticket History",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                )
-              ],
-            ),
+      body: LiquidPullToRefresh(
+        onRefresh: () async {
+          await Future.delayed(Duration(seconds: 1));
+        },
+        showChildOpacityTransition: false,
+        color: const Color.fromRGBO(70, 149, 184, 1),
+        backgroundColor: Colors.white,
+        animSpeedFactor: 10,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 60,
+              ),
+              const Row(
+                children: [
+                  SizedBox(
+                    width: 15,
+                  ),
+                  BackButton(),
+                  Text(
+                    "Ticket History",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  )
+                ],
+              ),
 
-            // ticketcard(tickethistory[0], context)
-            ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: Provider.of<test>(context).tickethistory.length,
-                itemBuilder: (context, ind) {
-                  return ticketcard(
-                      Provider.of<test>(context).tickethistory[ind],
-                      context,
-                      ind);
-                }),
-          ],
+              // ticketcard(tickethistory[0], context)
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: Provider.of<test>(context, listen: false)
+                      .tickethistory
+                      .length,
+                  itemBuilder: (context, ind) {
+                    return ticketcard(
+                        Provider.of<test>(context, listen: false)
+                            .tickethistory[ind],
+                        context,
+                        ind);
+                  }),
+            ],
+          ),
         ),
       ),
     );

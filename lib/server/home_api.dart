@@ -16,9 +16,12 @@ Appoimentresquestapi(BuildContext context, doctor_id) async {
     var val = jsonDecode(response.body);
     print(doctor_id);
     print("kabi kabi kabi");
-    await context.read<test>().addvalue_to_current_request(val);
-    await context.read<test>().addvalue_to_assignment_request(val);
-    await context.read<test>().addvalue_to_ticket_history(val);
+    Provider.of<test>(context, listen: false).addvalue_to_current_request(val);
+    Provider.of<test>(context, listen: false)
+        .addvalue_to_assignment_request(val);
+
+    Provider.of<test>(context, listen: false).addvalue_to_ticket_history(val);
+
     print("object");
   } catch (e) {
     print("Error: " + e.toString());
