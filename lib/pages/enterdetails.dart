@@ -203,26 +203,26 @@ class _EnterdetailsState extends State<Enterdetails> {
                                 return;
                               }
 
-                              if (strawNumberController.text !=
-                                  widget.Straw_no.toString()) {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: Text(
-                                        'Please enter correct cowid or strawnumber')));
-                                return;
-                              } else if (bullTypeController.text !=
-                                  widget.bull_type.toString()) {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: Text(
-                                        'Please enter correct Formerid or bulltype')));
-                                return;
-                              }
+                              // if (strawNumberController.text !=
+                              //     widget.Straw_no.toString()) {
+                              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              //       content: Text(
+                              //           'Please enter correct cowid or strawnumber')));
+                              //   return;
+                              // } else if (bullTypeController.text !=
+                              //     widget.bull_type.toString()) {
+                              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              //       content: Text(
+                              //           'Please enter correct Formerid or bulltype')));
+                              //   return;
+                              // }
 
-                              if (temp == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Please add image')));
-                                return;
-                              }
+                              // if (temp == null) {
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //       SnackBar(
+                              //           content: Text('Please add image')));
+                              //   return;
+                              // }
 
                               if (!_key.currentState!.validate()) return;
 

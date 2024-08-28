@@ -31,10 +31,16 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     // TODO: implement initState
     // change_current_to_assign(context, 4);
-    doctor_details_local_data(context);
-    Appoimentresquestapi(context, widget.docto_id);
+    initializeData();
 
     super.initState();
+  }
+
+  Future<void> initializeData() async {
+    await doctor_details_local_data(context);
+    Appoimentresquestapi(context,
+        Provider.of<userprofiledetails>(context, listen: false).doctor_id);
+    setState(() {});
   }
 
   @override
