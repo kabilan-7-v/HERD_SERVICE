@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:herd_service/models/Ai_enter_details.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/server/ai_medicine_api.dart';
@@ -42,6 +41,13 @@ class _AdddetailsState extends State<Adddetails> {
     // get_medlist_api();
     print(medical_lst);
     super.initState();
+  }
+
+  void dispose() {
+    _comment_controller.dispose();
+    price.dispose();
+    medicine.dispose();
+    super.dispose();
   }
 
   // get_medlist_api() {
@@ -971,10 +977,8 @@ class _AdddetailsState extends State<Adddetails> {
                         fixedSize: const Size(330, 24),
                         backgroundColor: const Color.fromRGBO(4, 183, 159, 1)),
                     onPressed: () async {
-                      await Ai_enterdetails_Followup_api(
-                          context, widget.ticketid, selectdate);
                       await Ai_enterdetails_start_api(context, widget.ticketid);
-                      await Ai_enterdetails_end_api(context, widget.ticketid);
+
                       int count = 0;
                       await Appoimentresquestapi(
                           context,
@@ -1005,9 +1009,16 @@ class _AdddetailsState extends State<Adddetails> {
                               .qty
                         });
                       }
-                      setState(() {});
                       await Ai_enterdetails_MedicialList_api(
                           context, widget.ticketid, med_res_lst);
+                      if (selectdate != "Select date") {
+                        await Ai_enterdetails_Followup_api(
+                            context, widget.ticketid, selectdate);
+                        await Ai_enterdetails_end_api(context, widget.ticketid);
+                        setState(() {});
+                      }
+
+                      setState(() {});
 
                       Navigator.popUntil(context, (route) => count++ == 3);
                     },
