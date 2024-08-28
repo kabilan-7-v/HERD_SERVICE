@@ -37,7 +37,7 @@ class _HomepageState extends State<Commonpage>
   String finaldata = DateFormat('MMMM d, yyyy').format(DateTime.now());
   @override
   void initState() {
-    initializeData();
+    // initializeData();
     super.initState();
 
     _motionTabBarController = MotionTabBarController(

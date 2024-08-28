@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:herd_service/Local_data_user/doctor_details.dart';
 import 'package:herd_service/models/Ai_enter_details.dart';
 import 'package:herd_service/models/Notification_models.dart';
 import 'package:herd_service/models/customercard.dart';
@@ -6,6 +7,7 @@ import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Loginpage.dart';
 import 'package:herd_service/pages/commonpage.dart';
+import 'package:herd_service/server/home_api.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,6 +43,8 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     _checkLoginStatus();
 
+    // initializeData();
+
     super.initState();
   }
 
@@ -48,6 +52,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> initializeData() async {
+    await doctor_details_local_data(context);
+    Appoimentresquestapi(context, 2);
+    print("lusu");
+
+    setState(() {});
   }
 
   _checkLoginStatus() async {
