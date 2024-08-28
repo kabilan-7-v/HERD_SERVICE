@@ -84,3 +84,56 @@ Future<void> Ai_enterdetails_Followup_api(
     debugPrint("error:" + e.toString());
   }
 }
+
+Future<void> Ai_enterdetails_Treamentdetails_api(BuildContext context,
+    ticket_id, cow_id, former_id, doc_id, status, comment, price) async {
+  final String url = "http://103.120.176.156:8803/treatment/vettreatment";
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        "ticketid": ticket_id,
+        "cowid": cow_id,
+        "formerid": former_id,
+        "docid": doc_id,
+        "status": status == 0 ? false : true,
+        "comment": comment,
+        "price": price
+      }),
+    );
+    print("aretcgvhbjnkm,l.xtfcghvj nkjmtrxfchgvj jkgvhbnm");
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      print("Treament updated");
+    }
+  } catch (e) {
+    debugPrint("error:" + e.toString());
+  }
+}
+
+Future<void> Ai_enterdetails_MedicialList_api(
+    BuildContext context, ticket_id, med_list) async {
+  final String url = "http://103.120.176.156:8803/med/medgiven";
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({"treatmentId": ticket_id, "medList": []}),
+    );
+    if (response.statusCode == 200) {
+      print(response.body);
+      print("Medical list updated");
+    }
+  } catch (e) {
+    debugPrint("error:" + e.toString());
+  }
+}

@@ -176,6 +176,13 @@ class _AppoinmentrequestState extends State<Appoinmentrequest> {
                             MaterialPageRoute(
                                 builder: (context) => Adddetails(
                                       ticketid: widget.ticket_id,
+                                      cowid: widget.Straw_no.toString(),
+                                      farmerid: widget.bull_type.toString(),
+                                      docid: Provider.of<userprofiledetails>(
+                                              context,
+                                              listen: false)
+                                          .doctor_id
+                                          .toString(),
                                     )));
                       } else {
                         Navigator.push(

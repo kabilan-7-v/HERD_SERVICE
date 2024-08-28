@@ -148,7 +148,8 @@ class test extends ChangeNotifier {
       }
     });
     tickethistory = tickethistory.sublist(0);
-    notifyListeners();
+    ChangeNotifier();
+    // notifyListeners();
   }
 
   addvalue_to_current_request(val) {
@@ -178,7 +179,8 @@ class test extends ChangeNotifier {
       }
     });
     customercard = customercard.sublist(0);
-    notifyListeners();
+    ChangeNotifier();
+    // notifyListeners();
   }
 
   addvalue_to_assignment_request(val) {
@@ -203,7 +205,8 @@ class test extends ChangeNotifier {
         }
       }
     });
-    notifyListeners();
+    ChangeNotifier();
+    // notifyListeners();
   }
 
   custom_sorting(String calcendardate, BuildContext context, doctor_id) {
@@ -235,8 +238,10 @@ class test extends ChangeNotifier {
         }
       }
     }
-    customercard = lst;
+    customercard = lst.sublist(0);
+
     ChangeNotifier();
+    // notifyListeners();
   }
 
   custom_date_formmat(String val) {

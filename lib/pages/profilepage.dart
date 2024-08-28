@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:herd_service/Local_data_user/doctor_details.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Alertservices.dart';
@@ -31,15 +32,16 @@ class _ProfilepageState extends State<Profilepage> {
   @override
   void initState() {
     // TODO: implement initState
+    doctor_details_local_data(context);
 
-    get();
+    // get();
     super.initState();
   }
 
-  get() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('toogle_button', false);
-  }
+  // get() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool('toogle_button', false);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,8 @@ class _ProfilepageState extends State<Profilepage> {
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
       body: LiquidPullToRefresh(
         onRefresh: () async {
+          await doctor_details_local_data(context);
+
           await Future.delayed(Duration(seconds: 1));
         },
         showChildOpacityTransition: false,
@@ -185,6 +189,9 @@ class _ProfilepageState extends State<Profilepage> {
                 height: 30,
               ),
               Logoutbutton(context),
+              SizedBox(
+                height: 200,
+              )
             ],
           ),
         ),

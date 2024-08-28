@@ -37,6 +37,7 @@ class _HomepageState extends State<Commonpage>
   String finaldata = DateFormat('MMMM d, yyyy').format(DateTime.now());
   @override
   void initState() {
+    initializeData();
     super.initState();
 
     _motionTabBarController = MotionTabBarController(
@@ -48,9 +49,9 @@ class _HomepageState extends State<Commonpage>
 
   Future<void> initializeData() async {
     await doctor_details_local_data(context);
-    setState(() {});
     Appoimentresquestapi(context,
         Provider.of<userprofiledetails>(context, listen: false).doctor_id);
+    setState(() {});
   }
 
   @override

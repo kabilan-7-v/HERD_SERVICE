@@ -26,12 +26,12 @@ class _HomepageState extends State<Homepage> {
 
   String finaldata = DateFormat('MMMM d, yyyy').format(DateTime.now());
   String Date = "25 Jun 2024, 8am";
+  bool isloading = false;
 
   void initState() {
     // TODO: implement initState
     // change_current_to_assign(context, 4);
     doctor_details_local_data(context);
-    print("+++++++++++++++++++++");
     Appoimentresquestapi(context, widget.docto_id);
 
     super.initState();
@@ -100,7 +100,9 @@ class _HomepageState extends State<Homepage> {
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
       body: LiquidPullToRefresh(
         onRefresh: () async {
-          await Future.delayed(Duration(seconds: 2));
+          await doctor_details_local_data(context);
+          await Appoimentresquestapi(context, widget.docto_id);
+          await Future.delayed(Duration(seconds: 1));
         },
         showChildOpacityTransition: false,
         color: const Color.fromRGBO(70, 149, 184, 1),
@@ -239,33 +241,40 @@ class _HomepageState extends State<Homepage> {
                 SizedBox(
                   height: 10,
                 ),
-                Provider.of<test>(context, listen: false).customercard.length ==
-                        0
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 50,
+                isloading == true
+                    ? CircularProgressIndicator()
+                    : Provider.of<test>(context, listen: false)
+                                .customercard
+                                .length ==
+                            0
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 50,
+                              ),
+                              Center(
+                                  child: Text(
+                                "No Ticket found",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              )),
+                            ],
+                          )
+                        : Center(
+                            child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: customerCard.length,
+                                itemBuilder: (context, index) {
+                                  return Customercontainer(
+                                      card: customerCard[index]);
+                                }),
                           ),
-                          Center(
-                              child: Text(
-                            "No Ticket found",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )),
-                        ],
-                      )
-                    : Center(
-                        child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: customerCard.length,
-                            itemBuilder: (context, index) {
-                              return Customercontainer(
-                                  card: customerCard[index]);
-                            }),
-                      )
+                SizedBox(
+                  height: 1000,
+                )
               ]),
         ),
       ),
@@ -541,17 +550,20 @@ class _HomepageState extends State<Homepage> {
 
   calendar(doc) {
     return HorizontalCalendar(
-      date: DateTime.parse("2024-06-23"),
+      date: DateTime.now(),
       lastDate: DateTime.parse("2050-07-23"),
-      initialDate: DateTime.parse("2024-06-23"),
+      initialDate: DateTime.now(),
       textColor: Colors.black,
       backgroundColor: Colors.white,
       selectedColor: const Color.fromRGBO(70, 149, 184, 1),
       // showMonth: true,
       locale: Localizations.localeOf(context),
       onDateSelected: (date) {
+        isloading = true;
+
         _pickDate(date.toString());
         context.read<test>().custom_sorting(date.toString(), context, doc);
+        isloading = false;
         setState(() {});
       },
     );
@@ -562,8 +574,10 @@ class _HomepageState extends State<Homepage> {
       constraints: BoxConstraints.tightFor(
           width: MediaQuery.of(context).size.width - 50, height: 70),
       child: HorizontalCalendar(
-        date: DateTime.parse("2024-06-23"),
+        date: DateTime.now(),
         initialDate: DateTime.parse("2024-06-23"),
+        lastDate: DateTime.parse("2050-07-23"),
+
         textColor: Colors.black,
         backgroundColor: Colors.white,
         selectedColor: const Color.fromRGBO(70, 149, 184, 1),

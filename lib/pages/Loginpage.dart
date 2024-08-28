@@ -2,16 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herd_service/Local_data_user/doctor_details.dart';
 import 'package:herd_service/blocs/app_bloc.dart';
 import 'package:herd_service/blocs/app_events.dart';
-import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/commonpage.dart';
 import 'package:herd_service/pages/forgetpassword.dart';
 import 'package:herd_service/pages/login_with_password.dart';
 import 'package:herd_service/server/Login_api.dart';
-import 'package:herd_service/server/home_api.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +35,7 @@ class _LoginpageState extends State<Loginpage> {
     // print("+++++++++++++++++++++");
     // Appoimentresquestapi(context,
     //     Provider.of<userprofiledetails>(context, listen: false).doctor_id);
-    // get_internet();
+    get_internet();
     super.initState();
   }
 

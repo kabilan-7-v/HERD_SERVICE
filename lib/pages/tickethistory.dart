@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:herd_service/Local_data_user/doctor_details.dart';
 import 'package:herd_service/models/customercard.dart';
+import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/pages/ticketshow.dart';
+import 'package:herd_service/server/home_api.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +29,11 @@ class _TickethistoryState extends State<Tickethistory> {
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
       body: LiquidPullToRefresh(
         onRefresh: () async {
+          await doctor_details_local_data(context);
+          await Appoimentresquestapi(
+              context,
+              Provider.of<userprofiledetails>(context, listen: false)
+                  .doctor_id);
           await Future.delayed(Duration(seconds: 1));
         },
         showChildOpacityTransition: false,
@@ -66,6 +74,9 @@ class _TickethistoryState extends State<Tickethistory> {
                         context,
                         ind);
                   }),
+              SizedBox(
+                height: 800,
+              )
             ],
           ),
         ),
@@ -135,7 +146,7 @@ class _TickethistoryState extends State<Tickethistory> {
                 width: 30,
               ),
               Image.asset("assets/icons/currency_rupee (1).png"),
-              Text(data.cost),
+              Text(data.cost == "null" ? "0" : data.cost),
             ],
           ),
           const SizedBox(
