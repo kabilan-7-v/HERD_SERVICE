@@ -280,7 +280,7 @@ class _HomepageState extends State<Homepage> {
                                 }),
                           ),
                 SizedBox(
-                  height: 1000,
+                  height: 100,
                 )
               ]),
         ),
@@ -509,6 +509,7 @@ class _HomepageState extends State<Homepage> {
                               Provider.of<test>(context, listen: false)
                                   .current_request_list[index]
                                   .ticketid);
+                          setState(() {});
                         },
                         child: const Text(
                           "DECLINE",
@@ -522,16 +523,17 @@ class _HomepageState extends State<Homepage> {
                             fixedSize: const Size(150, 34),
                             backgroundColor:
                                 const Color.fromRGBO(70, 149, 184, 1)),
-                        onPressed: () {
+                        onPressed: () async {
                           print(Provider.of<test>(context, listen: false)
                               .current_request_list[index]
                               .ticketid);
 
-                          change_current_to_assign(
+                          await change_current_to_assign(
                               context,
                               Provider.of<test>(context, listen: false)
                                   .current_request_list[index]
                                   .ticketid);
+                          setState(() {});
                         },
                         child: const Text(
                           "ACCEPT",

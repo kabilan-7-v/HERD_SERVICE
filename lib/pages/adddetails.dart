@@ -35,7 +35,7 @@ class _AdddetailsState extends State<Adddetails> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // TODO: implement initStated
     Ai_enterdetails_api(context);
     context.read<Med>().close();
     // get_medlist_api();
@@ -1011,6 +1011,7 @@ class _AdddetailsState extends State<Adddetails> {
                       }
                       await Ai_enterdetails_MedicialList_api(
                           context, widget.ticketid, med_res_lst);
+                      await Ai_enterdetails_end_api(context, widget.ticketid);
                       if (selectdate != "Select date") {
                         await Ai_enterdetails_Followup_api(
                             context, widget.ticketid, selectdate);

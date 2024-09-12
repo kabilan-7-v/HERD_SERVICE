@@ -53,7 +53,6 @@ class _EnterdetailsState extends State<Enterdetails> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     strawNumberController.dispose();
     bullTypeController.dispose();
     priceController.dispose();
@@ -396,6 +395,7 @@ class _EnterdetailsState extends State<Enterdetails> {
                       await ticket_update_start_api(
                           widget.ticket_id.toString());
                       await ticket_update_end_api(widget.ticket_id.toString());
+                      setState(() {});
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Otppage()));
                     },

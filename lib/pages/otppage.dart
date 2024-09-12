@@ -249,6 +249,7 @@ class _OtppageState extends State<Otppage> {
                               Provider.of<userprofiledetails>(context,
                                       listen: false)
                                   .doctor_id);
+                          setState(() {});
                           Navigator.popUntil(context, (route) => count++ == 5);
                         },
                         icon: Icon(Icons.close)),

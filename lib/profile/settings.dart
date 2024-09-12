@@ -33,7 +33,7 @@ class Settingspage extends StatelessWidget {
       SizedBox(
         height: 10,
       ),
-      listofprofile("Manage Password", "", "assets/icons/lock.png", () {
+      listofprofile("Manage Password", "password", "assets/icons/lock.png", () {
         Navigator.push(
             context,
             MaterialPageRoute(

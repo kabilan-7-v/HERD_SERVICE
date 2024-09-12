@@ -31,7 +31,6 @@ class _ProfilepageState extends State<Profilepage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
-    // TODO: implement initState
     doctor_details_local_data(context);
 
     // get();
@@ -225,14 +224,15 @@ class _ProfilepageState extends State<Profilepage> {
                   ),
                   Spacer(),
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
                       // print(
                       //     "objectEZTsrxydtcfygvhubjknqzwetrxytcufyvghubwerdtfygu");
-                      Service_on(
+                      await Service_on(
                           context,
                           Provider.of<userprofiledetails>(context,
                                   listen: false)
                               .doctor_id);
+                      setState(() {});
                       Navigator.of(context).pop();
                     },
                     child: Container(
