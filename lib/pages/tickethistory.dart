@@ -75,7 +75,7 @@ class _TickethistoryState extends State<Tickethistory> {
                         ind);
                   }),
               SizedBox(
-                height: 800,
+                height: 400,
               )
             ],
           ),

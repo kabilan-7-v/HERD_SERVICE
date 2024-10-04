@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:herd_service/Local_data_user/doctor_details.dart';
 import 'package:herd_service/customer_utility/customercontainer.dart';
@@ -25,7 +27,7 @@ class _HomepageState extends State<Homepage> {
   final ScrollController _controller = ScrollController();
 
   String finaldata = DateFormat('MMMM d, yyyy').format(DateTime.now());
-  String Date = "25 Jun 2024, 8am";
+  String Date = "un 2024, 8am";
   bool isloading = false;
 
   void initState() {
@@ -48,6 +50,10 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     List<Customercard> customerCard = Provider.of<test>(context).customercard;
+    // Future.delayed(Duration(seconds: 2));
+    // Timer.periodic(Duration(seconds: 2), (Timer timer) {
+    initializeData();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -172,7 +178,7 @@ class _HomepageState extends State<Homepage> {
                       var res = Provider.of<test>(context, listen: false)
                           .current_request_list[ind];
                       return appoinment_Request(
-                          Date,
+                          changedateformat(res.date),
                           res.priroity,
                           res.name,
                           res.vllc,
@@ -280,12 +286,26 @@ class _HomepageState extends State<Homepage> {
                                 }),
                           ),
                 SizedBox(
-                  height: 100,
+                  height: 400,
                 )
               ]),
         ),
       ),
     );
+  }
+
+  changedateformat(date) {
+    // Example date: 25 Jun 2024, 8:00am
+    DateTime dateTime = DateTime.parse(date);
+
+    // Format the date into "25 Jun 2024, 8am" format
+    print(date);
+    String formattedDate =
+        DateFormat('d MMM yyyy, ha').format(dateTime).toLowerCase();
+
+    return formattedDate;
+    // String formattedDate = DateFormat('d MMM yyyy, ha').format(date);
+    // print(formattedDate);
   }
 
   Widget appoinment_Request(date, priority, String name, vllc, street, state,
