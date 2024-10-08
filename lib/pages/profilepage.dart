@@ -225,8 +225,6 @@ class _ProfilepageState extends State<Profilepage> {
                   Spacer(),
                   InkWell(
                     onTap: () async {
-                      // print(
-                      //     "objectEZTsrxydtcfygvhubjknqzwetrxytcufyvghubwerdtfygu");
                       await Service_on(
                           context,
                           Provider.of<userprofiledetails>(context,

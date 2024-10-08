@@ -295,8 +295,6 @@ class _TicketshowState extends State<Ticketshow> {
 
     try {
       await launchUrl(Uri.parse(androidUrl));
-    } on Exception {
-      print("object");
-    }
+    } on Exception {}
   }
 }

@@ -31,10 +31,7 @@ class _LoginpageState extends State<Loginpage> {
   void initState() {
     // TODO: implement initState
     // change_current_to_assign(context, 4);
-    // doctor_details_local_data(context);
-    // print("+++++++++++++++++++++");
-    // Appoimentresquestapi(context,
-    //     Provider.of<userprofiledetails>(context, listen: false).doctor_id);
+
     get_internet();
     super.initState();
   }

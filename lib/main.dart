@@ -57,7 +57,6 @@ class _MyAppState extends State<MyApp> {
   Future<void> initializeData() async {
     await doctor_details_local_data(context);
     Appoimentresquestapi(context, 2);
-    print("lusu");
 
     setState(() {});
   }

@@ -160,8 +160,6 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
         onPressed: () async {
           if (!_key.currentState!.validate()) return;
 
-          print("awerzextrfycgvhkbj lk;lqwrzextrcfgvjhjwzrdxfghg jnsdf");
-
           // Use `listen: false` here to avoid the error
           setState(() {
             isloading = true;

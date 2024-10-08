@@ -20,15 +20,14 @@ class UserRespository {
 
       if (response.statusCode == 200) {
         final List res = await jsonDecode(response.body)["blogs"];
-        // print(res);
-        // print(res.map(((e) => UserModel.fromJson(e))).toList());
+
         return res.map(((e) => UserModel.fromJson(e))).toList();
       } else {
         throw Exception(response.reasonPhrase);
       }
     } catch (e) {
       // Handle any errors that occurred during the request
-      print('Error: $e');
+      ('Error: $e');
     }
   }
 }
@@ -68,7 +67,6 @@ Login_with_email_or_phone(
           .read<service_availability>()
           .change_toogle(res["status"] == 1 ? true : false);
       await Appoimentresquestapi(context, res["Doctor_id"]);
-      print(res["Doctor_id"]);
 
       ////////////////////////////////////// shared preferenec userdata set///////////////////////////////
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -125,7 +123,7 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
       print(response.body);
       print(
           "kabilan q2wasertdcyfgvhjbknlmwaerextrcfgvjhbjwzsdfxgchj ewzwrdxfcghj");
-      print(res);
+      (res);
       await context.read<userprofiledetails>().change_user_profile(
           res["Name"],
           res["type"],
@@ -146,7 +144,6 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
           .read<service_availability>()
           .change_toogle(res["status"] == 1 ? true : false);
       await Appoimentresquestapi(context, res["Doctor_id"]);
-      print(res["Doctor_id"]);
 
       ////////////////////////////////////// shared preferenec userdata set///////////////////////////////
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -174,8 +171,6 @@ Login_with_Uid(BuildContext context, String id, String pass) async {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
     } else if (response.statusCode == 404) {
       await context.read<Login_id>().Loginupdate_id(false, true, false);
-      print(response.body);
-      print("uid not Match");
     } else if (response.statusCode == 401) {
       await context.read<Login_id>().Loginupdate_id(false, false, true);
       print("Password not Match");
@@ -222,7 +217,6 @@ Login_with_phone(BuildContext context, String phone, String pass) async {
           .read<service_availability>()
           .change_toogle(res["status"] == 1 ? true : false);
       await Appoimentresquestapi(context, res["Doctor_id"]);
-      print(res["Doctor_id"]);
 
       ////////////////////////////////////// shared preferenec userdata set///////////////////////////////
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -250,13 +244,12 @@ Login_with_phone(BuildContext context, String phone, String pass) async {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
     } else if (response.statusCode == 404) {
       await context.read<Login_phone>().Loginupdate_phone(false, true, false);
-      print(response.body);
       print("Phone number not match");
     } else if (response.statusCode == 401) {
       await context.read<Login_phone>().Loginupdate_phone(false, false, true);
       print("Password not Match");
     } else {
-      print("Request failed with status: ${response.statusCode}");
+      ("Request failed with status: ${response.statusCode}");
     }
   } catch (e) {
     print("Error: " + e.toString());

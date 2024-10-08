@@ -7,15 +7,11 @@ import 'package:provider/provider.dart';
 
 Notification_api(BuildContext context, doctor_id) async {
   String url = "http://103.120.176.156:8803/doctor/notifications/$doctor_id";
-  final response = await http.get(Uri.parse(url));
-  print(response.body);
   try {
     final response = await http.get(Uri.parse(url));
-    print(response.body);
     var val = jsonDecode(response.body);
 
     await context.read<NotifyModel>().Notification_request(val);
-    print("Kabilan");
   } catch (e) {
     print("Error: " + e.toString());
   }

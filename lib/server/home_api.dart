@@ -12,17 +12,13 @@ Appoimentresquestapi(BuildContext context, doctor_id) async {
 
   try {
     final response = await http.get(Uri.parse(url));
-    print(response.body);
     var val = jsonDecode(response.body);
-    print(doctor_id);
-    print("kabi kabi kabi");
+
     Provider.of<test>(context, listen: false).addvalue_to_current_request(val);
     Provider.of<test>(context, listen: false)
         .addvalue_to_assignment_request(val);
 
     Provider.of<test>(context, listen: false).addvalue_to_ticket_history(val);
-
-    print("object");
   } catch (e) {
     print("Error: " + e.toString());
   }
@@ -33,15 +29,14 @@ change_current_to_assign(BuildContext context, ticket_id) async {
       "http://103.120.176.156:8803/ticket/updateApprovalStatus/$ticket_id";
 
   try {
-    final response = await http.post(
+    await http.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
       },
       body: jsonEncode({"SP_Approval_status": true}),
     );
-    print(2);
-    print(response.body);
+
     Appoimentresquestapi(context,
         Provider.of<userprofiledetails>(context, listen: false).doctor_id);
   } catch (e) {
@@ -54,14 +49,13 @@ change_current_to_decline(BuildContext context, ticket_id) async {
       "http://103.120.176.156:8803/ticket/updateApprovalStatus/$ticket_id";
 
   try {
-    final response = await http.post(
+    await http.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
       },
       body: jsonEncode({"SP_Approval_status": false}),
     );
-    print(response.body);
     Appoimentresquestapi(context,
         Provider.of<userprofiledetails>(context, listen: false).doctor_id);
   } catch (e) {

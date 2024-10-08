@@ -29,9 +29,9 @@ class _HomepageState extends State<Homepage> {
   String finaldata = DateFormat('MMMM d, yyyy').format(DateTime.now());
   String Date = "un 2024, 8am";
   bool isloading = false;
+  Timer? timer;
 
   void initState() {
-    // TODO: implement initState
     // change_current_to_assign(context, 4);
     initializeData();
 
@@ -44,6 +44,22 @@ class _HomepageState extends State<Homepage> {
         Provider.of<userprofiledetails>(context, listen: false).doctor_id);
 
     setState(() {});
+    timer = Timer.periodic(
+      Duration(seconds: 2),
+      (timer) async {
+        if (!mounted) return await doctor_details_local_data(context);
+        await Appoimentresquestapi(context,
+            Provider.of<userprofiledetails>(context, listen: false).doctor_id);
+
+        setState(() {});
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer?.cancel();
   }
 
   @override
@@ -52,7 +68,6 @@ class _HomepageState extends State<Homepage> {
     List<Customercard> customerCard = Provider.of<test>(context).customercard;
     // Future.delayed(Duration(seconds: 2));
     // Timer.periodic(Duration(seconds: 2), (Timer timer) {
-    initializeData();
 
     return Scaffold(
       appBar: AppBar(
@@ -299,13 +314,10 @@ class _HomepageState extends State<Homepage> {
     DateTime dateTime = DateTime.parse(date);
 
     // Format the date into "25 Jun 2024, 8am" format
-    print(date);
     String formattedDate =
         DateFormat('d MMM yyyy, ha').format(dateTime).toLowerCase();
 
     return formattedDate;
-    // String formattedDate = DateFormat('d MMM yyyy, ha').format(date);
-    // print(formattedDate);
   }
 
   Widget appoinment_Request(date, priority, String name, vllc, street, state,
@@ -521,9 +533,6 @@ class _HomepageState extends State<Homepage> {
                             backgroundColor:
                                 const Color.fromRGBO(235, 239, 250, 1)),
                         onPressed: () {
-                          print(Provider.of<test>(context, listen: false)
-                              .current_request_list[index]
-                              .ticketid);
                           change_current_to_assign(
                               context,
                               Provider.of<test>(context, listen: false)
@@ -544,10 +553,6 @@ class _HomepageState extends State<Homepage> {
                             backgroundColor:
                                 const Color.fromRGBO(70, 149, 184, 1)),
                         onPressed: () async {
-                          print(Provider.of<test>(context, listen: false)
-                              .current_request_list[index]
-                              .ticketid);
-
                           await change_current_to_assign(
                               context,
                               Provider.of<test>(context, listen: false)

@@ -13,7 +13,6 @@ Future<void> Ai_enterdetails_api(BuildContext context) async {
   try {
     final request = await http.get(Uri.parse(url));
     if (request.statusCode == 200) {
-      print(request.body);
       var res = jsonDecode(request.body);
       await context.read<Med_list>().Change_medlist(res);
     }
@@ -55,7 +54,6 @@ Future<void> Ai_enterdetails_end_api(BuildContext context, ticket_id) async {
       body: jsonEncode({"Service_End_status": true}),
     );
     if (response.statusCode == 200) {
-      print(response.body);
       Appoimentresquestapi(context,
           Provider.of<userprofiledetails>(context, listen: false).doctor_id);
     }
@@ -77,9 +75,7 @@ Future<void> Ai_enterdetails_Followup_api(
       body: jsonEncode(
           {"treatmentId": int.parse(ticket_id), "nextDate": newdate}),
     );
-    if (response.statusCode == 200) {
-      print(response.body);
-    }
+    if (response.statusCode == 200) {}
   } catch (e) {
     debugPrint("error:" + e.toString());
   }
@@ -105,13 +101,8 @@ Future<void> Ai_enterdetails_Treamentdetails_api(BuildContext context,
         "price": price
       }),
     );
-    print("aretcgvhbjnkm,l.xtfcghvj nkjmtrxfchgvj jkgvhbnm");
-    print(response.body);
 
-    if (response.statusCode == 200) {
-      print(response.body);
-      print("Treament updated");
-    }
+    if (response.statusCode == 200) {}
   } catch (e) {
     debugPrint("error:" + e.toString());
   }
@@ -129,10 +120,7 @@ Future<void> Ai_enterdetails_MedicialList_api(
       },
       body: jsonEncode({"treatmentId": ticket_id, "medList": []}),
     );
-    if (response.statusCode == 200) {
-      print(response.body);
-      print("Medical list updated");
-    }
+    if (response.statusCode == 200) {}
   } catch (e) {
     debugPrint("error:" + e.toString());
   }

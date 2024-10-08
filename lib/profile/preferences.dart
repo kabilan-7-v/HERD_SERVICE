@@ -160,8 +160,6 @@ class _PreferencesState extends State<Preferences> {
                     children: [
                       InkWell(
                         onTap: () {
-                          print("object");
-
                           Preferences_api(
                               context,
                               Provider.of<userprofiledetails>(context,
@@ -197,7 +195,6 @@ class _PreferencesState extends State<Preferences> {
                               true
                           ? InkWell(
                               onTap: () {
-                                print("object");
                                 Preferences_api(
                                     context,
                                     Provider.of<userprofiledetails>(context,

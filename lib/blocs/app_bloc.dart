@@ -9,14 +9,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<LoadUserEvent>(
       (event, emit) async {
         // emit(UserLoadingState());
-        // print("sfdgfhjg");
+
         try {
           final users = await _userrespository.getuser();
-          print("userr sucess");
 
           emit(UserLoadedState(user: users));
         } catch (e) {
-          print("error");
           emit(UserErrorstate(
             error: e.toString(),
           ));

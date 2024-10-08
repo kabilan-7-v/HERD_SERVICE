@@ -214,15 +214,12 @@ class test extends ChangeNotifier {
     List<Customercard> lst = [];
     List temp = [];
 
-    // print(calcendardate.substring(5, 7));
     int whole_date = int.parse(calcendardate.substring(0, 4) +
         calcendardate.substring(5, 6) +
         (int.parse(calcendardate.substring(6, 7))).toString() +
         calcendardate.substring(8, 10));
 
-    print(whole_date);
     for (var i in customercard) {
-      print(i.date_sort);
       if (i.date_sort <= whole_date) {
         temp.add(i.date_sort);
       }

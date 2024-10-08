@@ -25,8 +25,7 @@ Preferences_api(BuildContext context, int doctor_id, emailpro, emailinvoice,
         "pushnotification": pushnotification
       }),
     );
-    print(emailpro);
-    print(emailinvoice);
+
     if (response.statusCode == 200) {
       Provider.of<userprofiledetails>(context, listen: false)
           .change_user_profile(

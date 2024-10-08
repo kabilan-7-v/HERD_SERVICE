@@ -39,7 +39,6 @@ class _AdddetailsState extends State<Adddetails> {
     Ai_enterdetails_api(context);
     context.read<Med>().close();
     // get_medlist_api();
-    print(medical_lst);
     super.initState();
   }
 
@@ -49,15 +48,6 @@ class _AdddetailsState extends State<Adddetails> {
     medicine.dispose();
     super.dispose();
   }
-
-  // get_medlist_api() {
-  //   print(
-  //       "wzrxdtcfgyvh jkmrextcfygvuhb jkzwxdcfgv hjnbjnkzb nndn w m,nknwv cjb ewjnvb c");
-  //   medical_lst = Provider.of<Med_list>(context).medlist;
-  //   print(medical_lst[0].medname);
-  //   print(
-  //       "wzrxdtcfgyvh jkmrextcfygvuhb jkzwxdcfgv hjnbjnkzb nndn w m,nknwv cjb ewjnvb c");
-  // }
 
   List finallist = [];
 
@@ -111,7 +101,6 @@ class _AdddetailsState extends State<Adddetails> {
                               onChanged: (value) {
                                 search_med = value;
                                 setState(() {});
-                                print("xytcgjvhckbjlcewedfdyjhxvbwcn");
                                 context
                                     .read<Med_list>()
                                     .sorting_med(value, context);

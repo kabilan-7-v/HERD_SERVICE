@@ -57,8 +57,6 @@ class Med extends ChangeNotifier {
   change_totprice() {
     num temp = 0;
     for (int i = 0; i < Add_med.length; i++) {
-      print(Add_med[i].price);
-      print("objectwreztxryctugvhbkjlnkmljhchvmnm,bjhxzgfcjhbjkbj");
       temp += (Add_med[i].qty * int.parse(Add_med[i].price));
     }
     tot_price = temp;
@@ -79,21 +77,16 @@ class Med_list extends ChangeNotifier {
     try {
       final request = await http.get(Uri.parse(url));
       if (request.statusCode == 200) {
-        print(request.body);
         var res = jsonDecode(request.body);
         context.read<Med_list>().Change_medlist(res);
       }
-    } catch (e) {
-      debugPrint("error:" + e.toString());
-    }
+    } catch (e) {}
   }
 
   List medlist = [];
   Change_medlist(res) {
-    print(res);
-    print("kabilan kabilan kailan");
     medlist = res;
-    print(medlist);
+
     ChangeNotifier();
   }
 

@@ -180,6 +180,15 @@ class _AlertservicesState extends State<Alertservices> {
                             InkWell(
                               onTap: () async {
                                 if (!_key.currentState!.validate()) return;
+                                if (finaldate == "select date") {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Please enter Avaiable Back On')),
+                                  );
+                                  return;
+                                }
+                                ;
                                 await Service_off(
                                     context,
                                     Provider.of<userprofiledetails>(context,

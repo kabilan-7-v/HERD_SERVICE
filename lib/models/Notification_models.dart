@@ -21,7 +21,5 @@ class NotifyModel extends ChangeNotifier {
     }
 
     notifyListeners();
-
-    print(Notification_lst.length);
   }
 }

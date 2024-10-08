@@ -193,8 +193,6 @@ class _EnterdetailsState extends State<Enterdetails> {
                           )
                         : InkWell(
                             onTap: () {
-                              print(widget.Straw_no);
-                              print(widget.bull_type);
                               if (temp == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(

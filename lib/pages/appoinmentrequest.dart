@@ -56,8 +56,7 @@ class _AppoinmentrequestState extends State<Appoinmentrequest> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    print(height);
-    print("object");
+
     return Scaffold(
       body: height <= 500
           ? custom_size_change(context, height)
@@ -164,9 +163,6 @@ class _AppoinmentrequestState extends State<Appoinmentrequest> {
                   onPanUpdate: (details) {
                     // Swiping in left direction.
                     if (details.delta.dx > 0) {
-                      print(Provider.of<userprofiledetails>(context,
-                              listen: false)
-                          .type_of_user);
                       if (Provider.of<userprofiledetails>(context,
                                   listen: false)
                               .type_of_user ==
@@ -327,9 +323,6 @@ class _AppoinmentrequestState extends State<Appoinmentrequest> {
             onPanUpdate: (details) {
               // Swiping in left direction.
               if (details.delta.dx > 0) {
-                print(Provider.of<userprofiledetails>(
-                  context,
-                ).type_of_user);
                 if (Provider.of<userprofiledetails>(
                       context,
                     ).type_of_user ==

@@ -102,7 +102,6 @@ class _ManagepasswordState extends State<Managepassword> {
             backgroundColor: const Color.fromRGBO(70, 149, 184, 1)),
         onPressed: () {
           if (!_key.currentState!.validate()) return;
-          print(widget.pass);
 
           if (_currentpassword.text != widget.pass) {
             ScaffoldMessenger.of(context).showSnackBar(
