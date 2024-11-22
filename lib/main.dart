@@ -70,6 +70,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Proxima Nova'),
       // initialRoute: '/',
       // routes: {
       //   '/': (context) => const Loginpage(),

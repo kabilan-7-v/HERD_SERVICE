@@ -67,31 +67,17 @@ class _EnterdetailsState extends State<Enterdetails> {
         Opacity(
           opacity: popup == true ? 0.3 : 1,
           child: Scaffold(
+            appBar: AppBar(
+                title: Text(
+              "Enter Details",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            )),
             backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
             body: SingleChildScrollView(
               child: Form(
                 key: _key,
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    const Row(
-                      children: [
-                        BackButton(),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Enter Details",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
                     InkWell(
                       onTap: () {
                         selectFile();

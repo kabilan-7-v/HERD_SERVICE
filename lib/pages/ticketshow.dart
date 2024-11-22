@@ -33,103 +33,322 @@ class _TicketshowState extends State<Ticketshow> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Stack(
-              children: [
-                SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Image.asset(
-                      "assets/img/bluebackground.png",
-                      fit: BoxFit.cover,
-                    )),
-                const Positioned(
-                  left: 10,
-                  top: 50,
-                  child: BackButton(
-                    color: Colors.white,
-                  ),
-                ),
-                const Positioned(
-                  top: 60,
-                  left: 60,
-                  child: Text(
-                    "Ticket",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ),
-                Positioned(
-                  bottom: 120,
-                  left: 100,
-                  child: Text(
-                    widget.date,
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Positioned(
-                  bottom: 90,
-                  left: 100,
-                  child: Text(
-                    widget.time,
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            ),
-            widget.priority == "Mid"
-                ? const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                    child: Text(
-                      "Mid Priority",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: Color.fromRGBO(176, 107, 5, 1)),
-                    ),
-                  )
-                : widget.priority == "Low"
-                    ? const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                        child: Text(
-                          "Low Priority",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                              color: Color.fromRGBO(56, 176, 5, 1)),
-                        ),
-                      )
-                    : widget.priority == "high"
-                        ? const Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 10),
-                            child: Text(
-                              "High Priority",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                  color: Color.fromRGBO(176, 5, 5, 1)),
-                            ),
-                          )
-                        : SizedBox(),
-            custom_container(context),
-            comment_container(context),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+        appBar: AppBar(
+          leading: BackButton(
+            color: Colors.white,
+          ),
+          leadingWidth: 40,
+          title: Text(
+            "Show Ticket",
+            style: TextStyle(
+                fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          backgroundColor: const Color.fromRGBO(70, 149, 184, 1),
         ),
-      ),
-    );
+        backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+        body: SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+              Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Container(
+                        width: MediaQuery.of(context).size.width - 25,
+                        height: 150,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            // ignore: prefer_const_literals_to_create_immutables
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.grey, blurRadius: 3),
+                            ]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 2),
+                              child: Text(
+                                widget.name,
+                                style: const TextStyle(
+                                    fontSize: 26, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                widget.vllc,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  width: 13,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        widget.street,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Image.asset("assets/icons/call.png"),
+                                          const SizedBox(
+                                            width: 3,
+                                          ),
+                                          Text(
+                                            widget.name,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                              width: 15,
+                                              child: Image.asset(
+                                                  "assets/icons/calendar_month.png")),
+                                          const SizedBox(
+                                            width: 3,
+                                          ),
+                                          Text(
+                                            widget.date + "  " + widget.time,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        )),
+                  ),
+                  (widget.priority) == "mid"
+                      ? Positioned(
+                          right: 40,
+                          top: 40,
+                          child: Container(
+                            width: 45,
+                            height: 25,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                border: Border.all(
+                                  width: 2,
+                                  color: const Color.fromRGBO(242, 160, 36, 1),
+                                  style: BorderStyle.solid,
+                                ),
+                                color: Colors.white),
+                            child: const Center(
+                                child: Text(
+                              "Mid",
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Color.fromRGBO(242, 160, 36, 1),
+                                  fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                        )
+                      : widget.priority == "low"
+                          ? Positioned(
+                              right: 40,
+                              top: 40,
+                              child: Container(
+                                width: 65,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5)),
+                                    border: Border.all(
+                                      width: 3,
+                                      color:
+                                          const Color.fromRGBO(0, 105, 61, 1),
+                                      style: BorderStyle.solid,
+                                    ),
+                                    color: Colors.white),
+                                child: const Center(
+                                    child: Text(
+                                  "Low",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Color.fromRGBO(0, 105, 61, 1),
+                                      fontWeight: FontWeight.bold),
+                                )),
+                              ),
+                            )
+                          : widget.priority == "high"
+                              ? Positioned(
+                                  right: 40,
+                                  top: 40,
+                                  child: Container(
+                                    width: 45,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(5)),
+                                        border: Border.all(
+                                          width: 2,
+                                          color: Colors.red,
+                                          style: BorderStyle.solid,
+                                        ),
+                                        color: Colors.white),
+                                    child: const Center(
+                                        child: Text(
+                                      "High",
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                  ),
+                                )
+                              : SizedBox(),
+                ],
+              ),
+              Container(
+                height: 80,
+                width: MediaQuery.of(context).size.width - 30,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                decoration: BoxDecoration(
+                    // ignore: prefer_const_literals_to_create_immutables
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: const [
+                      BoxShadow(color: Colors.grey, blurRadius: 3),
+                    ]),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Date:",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: 3,
+                          ),
+                          Text(
+                            widget.date,
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Time:",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: 3,
+                          ),
+                          Text(
+                            widget.time,
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width - 25,
+                  height: 150,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                      // ignore: prefer_const_literals_to_create_immutables
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: const [
+                        BoxShadow(color: Colors.grey, blurRadius: 3),
+                      ]),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 5),
+                        child: Text(
+                          "Comments:",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 5),
+                        child: Text(
+                          widget.comment,
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: List.generate(
+                    150,
+                    (index) => Expanded(
+                          child: Container(
+                            color: index % 2 == 0
+                                ? Colors.transparent
+                                : Colors.grey,
+                            height: 2,
+                          ),
+                        )),
+              ),
+            ])));
   }
 
   custom_container(BuildContext context) {

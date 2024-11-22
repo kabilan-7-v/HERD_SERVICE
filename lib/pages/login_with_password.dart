@@ -132,7 +132,7 @@ class _LoginWithPasswordState extends State<LoginWithPassword> {
           decoration: InputDecoration(
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-              hintText: "   " + hinttext,
+              hintText: hinttext,
               hintStyle: TextStyle(color: Colors.grey[600], fontSize: 18),
               prefixIcon: icon),
         ),

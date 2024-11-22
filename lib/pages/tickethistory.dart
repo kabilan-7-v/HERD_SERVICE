@@ -1,17 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:herd_service/Local_data_user/doctor_details.dart';
 import 'package:herd_service/models/customercard.dart';
-import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/pages/ticketshow.dart';
-import 'package:herd_service/server/home_api.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:provider/provider.dart';
 
 class Tickethistory extends StatefulWidget {
-  const Tickethistory({
-    super.key,
-  });
-
+  Tickethistory({super.key, required this.backbuttonverify});
+  bool backbuttonverify;
   @override
   State<Tickethistory> createState() => _TickethistoryState();
 }
@@ -26,59 +22,64 @@ class _TickethistoryState extends State<Tickethistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+        leading: widget.backbuttonverify == false ? BackButton() : SizedBox(),
+        leadingWidth: widget.backbuttonverify == false ? 30 : 0,
+        title: Text(
+          "Ticket History",
+          style: TextStyle(
+              fontFamily: "Proxima Nova",
+              fontWeight: FontWeight.bold,
+              fontSize: 22),
+        ),
+      ),
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
-      body: LiquidPullToRefresh(
-        onRefresh: () async {
-          await doctor_details_local_data(context);
-          await Appoimentresquestapi(
-              context,
-              Provider.of<userprofiledetails>(context, listen: false)
-                  .doctor_id);
-          await Future.delayed(Duration(seconds: 1));
-        },
-        showChildOpacityTransition: false,
-        color: const Color.fromRGBO(70, 149, 184, 1),
-        backgroundColor: Colors.white,
-        animSpeedFactor: 10,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 60,
-              ),
-              const Row(
-                children: [
-                  SizedBox(
-                    width: 15,
-                  ),
-                  BackButton(),
-                  Text(
-                    "Ticket History",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // ticketcard(tickethistory[0], context)
+            Provider.of<test>(context, listen: false).tickethistory.length == 0
+                ? Column(
+                    children: [
+                      SizedBox(
+                        height: 250,
+                      ),
+                      Icon(
+                        Icons.airplane_ticket_outlined,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      const Center(
+                        child: Text(
+                          "No Ticket Historys",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: "Proxima Nova",
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   )
-                ],
-              ),
-
-              // ticketcard(tickethistory[0], context)
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: Provider.of<test>(context, listen: false)
-                      .tickethistory
-                      .length,
-                  itemBuilder: (context, ind) {
-                    return ticketcard(
-                        Provider.of<test>(context, listen: false)
-                            .tickethistory[ind],
-                        context,
-                        ind);
-                  }),
-              SizedBox(
-                height: 400,
-              )
-            ],
-          ),
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: Provider.of<test>(context, listen: false)
+                        .tickethistory
+                        .length,
+                    itemBuilder: (context, ind) {
+                      return ticketcard(
+                          Provider.of<test>(context, listen: false)
+                              .tickethistory[ind],
+                          context,
+                          ind);
+                    }),
+          ],
         ),
       ),
     );
@@ -101,67 +102,75 @@ class _TickethistoryState extends State<Tickethistory> {
                       status: data.iscompleted,
                     )));
       },
-      child: Column(
-        children: [
-          Row(
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2),
+          child: Column(
             children: [
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Text(
+                    data.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Text(data.address),
+                  const Spacer(),
+                  Text(
+                    data.iscompleted == 2 ? "Completed" : "Cancel",
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  data.iscompleted == 2
+                      ? SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: Image.asset(
+                              "assets/icons/check_circle_24dp_6BBE4F.png"),
+                        )
+                      // ? Image.asset("assets/icons/complete.png")
+                      : custom_checker(Colors.red),
+                  const SizedBox(
+                    width: 20,
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Image.asset("assets/icons/currency_rupee (1).png"),
+                  Text(data.cost == "null" ? "0" : data.cost),
+                ],
+              ),
               const SizedBox(
-                width: 30,
+                height: 10,
               ),
-              Text(
-                "[" + data.name + "],",
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const SizedBox(
-                width: 30,
-              ),
-              Text(data.address),
-              const Spacer(),
-              Text(
-                data.iscompleted == 2 ? "Completed" : "Cancel",
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              data.iscompleted == 2
-                  ? Icon(
-                      Icons.verified_rounded,
-                      color: Colors.green,
-                    )
-                  // ? Image.asset("assets/icons/complete.png")
-                  : custom_checker(Colors.red),
-              const SizedBox(
-                width: 20,
+              Row(
+                children: List.generate(
+                    150,
+                    (index) => Expanded(
+                          child: Container(
+                            color: Colors.grey,
+                            height: 1,
+                          ),
+                        )),
               )
             ],
           ),
-          Row(
-            children: [
-              const SizedBox(
-                width: 30,
-              ),
-              Image.asset("assets/icons/currency_rupee (1).png"),
-              Text(data.cost == "null" ? "0" : data.cost),
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Image.asset("assets/icons/Line 70.png"),
-          // Container(
-          //   height: 2,
-          //   width: MediaQuery.of(context).size.width - 40,
-          //   color: ,
-          // )
-          const SizedBox(
-            height: 16,
-          )
-        ],
+        ),
       ),
     );
   }

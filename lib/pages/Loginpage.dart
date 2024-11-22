@@ -112,7 +112,7 @@ class _LoginpageState extends State<Loginpage> {
                       SizedBox(
                         height: 10,
                       ),
-                      click_text("Instead sign in using email/Phone Number",
+                      click_text("Instead sign in using Email/Phone Number",
                           () {
                         Navigator.pushReplacement(
                             context,
@@ -165,7 +165,7 @@ class _LoginpageState extends State<Loginpage> {
           decoration: InputDecoration(
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-              hintText: "   " + hinttext,
+              hintText: hinttext,
               hintStyle: TextStyle(color: Colors.grey[600], fontSize: 18),
               prefixIcon: icon),
         ),

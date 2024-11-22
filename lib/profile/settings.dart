@@ -13,45 +13,39 @@ class Settingspage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(children: [
-      SizedBox(
-        height: 50,
-      ),
-      Row(
-        children: [
-          BackButton(),
-          SizedBox(
-            width: 10,
-          ),
-          Text(
+        appBar: AppBar(
+          leadingWidth: 40,
+          backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+          scrolledUnderElevation: 0,
+          title: Text(
             "Settings",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          )
-        ],
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      listofprofile("Manage Password", "password", "assets/icons/lock.png", () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Managepassword(
-                      pass: pass,
-                    )));
-      }),
-      line(context),
-      listofprofile(
-          "Preferences", "Manage Preferences", "assets/icons/person_2.png", () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Preferences()));
-      }),
-      line(context),
-      listofprofile("Logout", "", "assets/icons/logout.png", () {
-        showlogout(context);
-      }),
-      line(context),
-    ]));
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+        ),
+        backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+        body: Column(children: [
+          listofprofile("Manage Password", "password", "assets/icons/lock.png",
+              () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Managepassword(
+                          pass: pass,
+                        )));
+          }),
+          line(context),
+          listofprofile(
+              "Preferences", "Manage Preferences", "assets/icons/person_2.png",
+              () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Preferences()));
+          }),
+          line(context),
+          listofprofile("Logout", "", "assets/icons/logout.png", () {
+            showlogout(context);
+          }),
+          line(context),
+        ]));
   }
 
   showlogout(BuildContext context) {
@@ -60,41 +54,25 @@ class Settingspage extends StatelessWidget {
         builder: (BuildContext context) {
           return Dialog(
             child: Container(
-              height: 200,
+              height: 180,
               width: 450,
               padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Icon(
-                          Icons.close,
-                          size: 18,
-                        ),
-                      )
-                    ],
+                  const Text(
+                    'You are attempting to logout',
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   const Text(
-                    'You are attempting to logout',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  const Text(
                     'Are you Sure?',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -151,7 +129,7 @@ class Settingspage extends StatelessWidget {
     return InkWell(
       onTap: ontap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -168,12 +146,14 @@ class Settingspage extends StatelessWidget {
               children: [
                 Text(
                   text,
-                  style: TextStyle(fontWeight: FontWeight.w500),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
-                Text(
-                  subtext,
-                  style: TextStyle(height: 0),
-                ),
+                text == "Logout"
+                    ? SizedBox()
+                    : Text(
+                        subtext,
+                        style: TextStyle(height: 0),
+                      ),
               ],
             ),
             const Spacer(),
@@ -190,7 +170,7 @@ class Settingspage extends StatelessWidget {
   Widget line(BuildContext context) {
     return Container(
       height: 0.5,
-      width: MediaQuery.of(context).size.width - 60,
+      width: MediaQuery.of(context).size.width - 30,
       color: Colors.black,
     );
   }

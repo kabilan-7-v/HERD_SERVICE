@@ -58,6 +58,15 @@ class _AdddetailsState extends State<Adddetails> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+          appBar: AppBar(
+            leadingWidth: 40,
+            scrolledUnderElevation: 0,
+            backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+            title: Text(
+              "Enter Details",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+          ),
           backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
           body: SingleChildScrollView(
             child: GestureDetector(
@@ -67,29 +76,6 @@ class _AdddetailsState extends State<Adddetails> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Row(
-                      children: [
-                        BackButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Enter Details",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
                     Row(
                       children: [
                         Padding(

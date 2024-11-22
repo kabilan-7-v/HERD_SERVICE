@@ -10,34 +10,17 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leadingWidth: 40,
+          backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+          scrolledUnderElevation: 0,
+          title: Text(
+            "Profile",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+        ),
         backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
         body: Column(children: [
-          const SizedBox(
-            height: 50,
-          ),
-          const Row(
-            children: [
-              BackButton(),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "Profile",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const Text(
-            "25DCOMI",
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            (context.watch<userprofiledetails>().username),
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
           listofprofile("Name", context.watch<userprofiledetails>().username,
               Icons.person_2_outlined, () {}),
           line(context),
@@ -53,15 +36,52 @@ class Profile extends StatelessWidget {
           listofprofile(
               "Member Since", "Octomber 2023", Bootstrap.trophy, () {}),
           line(context),
-          listofprofile(
+          listofprofile1(
               "Request Change", "Request Change", Bootstrap.activity, () {}),
           line(context),
         ]));
   }
 
   Widget listofprofile(String text, String subtext, IconData icon, ontap) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(
+            width: 20,
+          ),
+          Icon(icon),
+          const SizedBox(
+            width: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                text,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              Text(
+                subtext,
+                style: const TextStyle(height: 0),
+              ),
+            ],
+          ),
+          const Spacer(),
+          const SizedBox(
+            width: 30,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget listofprofile1(String text, String subtext, IconData icon, ontap) {
     return InkWell(
-      onTap: ontap,
+      onTap: () {},
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
         child: Row(
@@ -80,7 +100,8 @@ class Profile extends StatelessWidget {
               children: [
                 Text(
                   text,
-                  style: const TextStyle(fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 Text(
                   subtext,
@@ -102,7 +123,7 @@ class Profile extends StatelessWidget {
   Widget line(BuildContext context) {
     return Container(
       height: 0.5,
-      width: MediaQuery.of(context).size.width - 60,
+      width: MediaQuery.of(context).size.width - 30,
       color: Colors.black,
     );
   }

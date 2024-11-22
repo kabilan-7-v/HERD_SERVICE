@@ -16,28 +16,18 @@ class _PreferencesState extends State<Preferences> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leadingWidth: 40,
+        backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+        title: Text(
+          "Preferences",
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+      ),
       backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 50,
-            ),
-            const Row(
-              children: [
-                BackButton(),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "Preferences",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
             linetext("assets/icons/mail.png", "EMAIL"),
             const SizedBox(
               height: 10,

@@ -38,7 +38,6 @@ dependencies:
   blinking_text: ^1.0.4
   cupertino_icons: ^1.0.6
   cached_network_image: ^3.4.0
- 
   equatable: ^2.0.5
   flutter_otp_text_field: ^1.1.0+2
   flutter_native_splash: ^2.4.1
@@ -56,10 +55,8 @@ dependencies:
   swipeable_page_route: ^0.4.3
 
   provider:
-  
   flutter_calendar_week:
   shared_preferences: ^2.3.2
-  liquid_pull_to_refresh: ^3.0.1
    
    
     
@@ -108,13 +105,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
+  fonts:
+    - family: Proxima Nova
+      fonts:
+        - asset: assets/fonts/Proxima Nova Font.otf
+          style: italic
+    
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
