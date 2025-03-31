@@ -58,35 +58,70 @@ class _ProfilepageState extends State<Profilepage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Profile()));
                 },
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 30,
-                  height: 160,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: const [
-                        BoxShadow(color: Colors.grey, blurRadius: 4)
-                      ]),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        context.watch<userprofiledetails>().username,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text("DOCOO54"),
-                      Text("Pollachi")
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width - 30,
+                          height: 110,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: const [
+                                BoxShadow(color: Colors.grey, blurRadius: 4)
+                              ]),
+                        ),
+                        Positioned(
+                          top: 16,
+                          left: 135,
+                          child: Text(
+                            context.watch<userprofiledetails>().username,
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Positioned(
+                          left: 1,
+                          child: SizedBox(
+                              height: 110,
+                              width: 140,
+                              child: Image.asset("assets/icons/profile.png")),
+                        ),
+                        Positioned(
+                          top: 49,
+                          left: 135,
+                          child: Text(
+                            context.watch<userprofiledetails>().email,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                        Positioned(
+                          top: 69,
+                          left: 135,
+                          child: Text(
+                            context.watch<userprofiledetails>().phoneno,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                        Positioned(
+                            top: 32,
+                            right: 10,
+                            child: Icon(
+                              Icons.keyboard_arrow_right_outlined,
+                              size: 40,
+                            )),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               child: Row(
                 children: [
                   SizedBox(
@@ -113,7 +148,9 @@ class _ProfilepageState extends State<Profilepage> {
                     thumbColor: Colors.white,
                     // trackColor: Colors.black,
                     activeColor: const Color.fromRGBO(70, 149, 184, 1),
-                    value: Provider.of<service_availability>(context).toogle,
+                    value: Provider.of<service_availability>(
+                      context,
+                    ).toogle,
                     onChanged: (value) async {
                       if (value == true) {
                         confirmation_popup(_scaffoldKey);
@@ -122,6 +159,7 @@ class _ProfilepageState extends State<Profilepage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Alertservices()));
+                     
                       }
                     },
                   ),

@@ -2,7 +2,7 @@
 
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+// import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/pages/adddetails.dart';
@@ -265,41 +265,43 @@ class _AppoinmentrequestState extends State<Appoinmentrequest> {
           const SizedBox(
             height: 10,
           ),
-          Container(
-            width: MediaQuery.of(context).size.width - 25,
-            height: 150,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-                // ignore: prefer_const_literals_to_create_immutables
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(color: Colors.grey, blurRadius: 3),
-                ]),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                  child: Text(
-                    "Comments:",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          widget.comment.isNotEmpty
+              ? Container(
+                  width: MediaQuery.of(context).size.width - 25,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                      // ignore: prefer_const_literals_to_create_immutables
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: const [
+                        BoxShadow(color: Colors.grey, blurRadius: 3),
+                      ]),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 5),
+                        child: Text(
+                          "Comments:",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Text(
+                          widget.comment,
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  child: Text(
-                    widget.comment,
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+                )
+              : SizedBox(),
           const SizedBox(
             height: 15,
           ),
@@ -334,7 +336,7 @@ class _AppoinmentrequestState extends State<Appoinmentrequest> {
             height: 20,
           ),
           const Center(
-            child: BlinkText('Slide to Complete',
+            child: BlinkText('Slide to Proceed',
                 style: TextStyle(fontSize: 14.0, color: Colors.black),
                 endColor: Colors.grey,
                 duration: Duration(seconds: 1)),
@@ -380,9 +382,14 @@ class _AppoinmentrequestState extends State<Appoinmentrequest> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "SERVICE COMPLETED",
+                      "PROCEED",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white70),
+                    ),
+                    SizedBox(
+                      width: 8,
                     ),
                     Image.asset("assets/img/swipe_up.png")
                   ],
@@ -452,8 +459,8 @@ class _AppoinmentrequestState extends State<Appoinmentrequest> {
   }
 
   _callNumber(String phoneNumber) async {
-    String number = phoneNumber;
-    await FlutterPhoneDirectCaller.callNumber(number);
+    // String number = phoneNumber;
+    // await FlutterPhoneDirectCaller.callNumber(number);
   }
 
   whatsapp(val) async {

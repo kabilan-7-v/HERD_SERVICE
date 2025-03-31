@@ -144,7 +144,6 @@ class _AlertservicesState extends State<Alertservices> {
                           );
                           return;
                         }
-                        ;
                         await Service_off(
                             context,
                             Provider.of<userprofiledetails>(context,
@@ -152,7 +151,7 @@ class _AlertservicesState extends State<Alertservices> {
                                 .doctor_id,
                             _reason.text,
                             finaldate);
-
+                        setState(() {});
                         Navigator.pop(context, false);
                       },
                       child: Container(

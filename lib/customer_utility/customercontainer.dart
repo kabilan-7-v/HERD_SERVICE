@@ -78,7 +78,7 @@ class _CustomercontainerState extends State<Customercontainer> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(
-                              width: 13,
+                              width: 16,
                             ),
                             Expanded(
                               child: Column(
@@ -98,10 +98,13 @@ class _CustomercontainerState extends State<Customercontainer> {
                                       Text(widget.card.phonenumber),
                                     ],
                                   ),
+                                  SizedBox(
+                                    height: 1,
+                                  ),
                                   Row(
                                     children: [
                                       SizedBox(
-                                          width: 15,
+                                          width: 16,
                                           child: Image.asset(
                                               "assets/icons/calendar_month.png")),
                                       const SizedBox(

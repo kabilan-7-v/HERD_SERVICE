@@ -42,16 +42,16 @@ class _HomepageState extends State<Homepage> {
         Provider.of<userprofiledetails>(context, listen: false).doctor_id);
 
     setState(() {});
-    timer = Timer.periodic(
-      Duration(seconds: 2),
-      (timer) async {
-        if (!mounted) return await doctor_details_local_data(context);
-        await Appoimentresquestapi(context,
-            Provider.of<userprofiledetails>(context, listen: false).doctor_id);
+    // timer = Timer.periodic(
+    //   Duration(seconds: 2),
+    //   (timer) async {
+    //     if (!mounted) return await doctor_details_local_data(context);
+    //     await Appoimentresquestapi(context,
+    //         Provider.of<userprofiledetails>(context, listen: false).doctor_id);
 
-        setState(() {});
-      },
-    );
+    //     setState(() {});
+    //   },
+    // );
   }
 
   @override
@@ -400,12 +400,18 @@ class _HomepageState extends State<Homepage> {
                                 fixedSize: const Size(150, 34),
                                 backgroundColor:
                                     const Color.fromRGBO(235, 239, 250, 1)),
-                            onPressed: () {
+                            onPressed: () async {
                               change_current_to_assign(
                                   context,
                                   Provider.of<test>(context, listen: false)
                                       .current_request_list[index]
                                       .ticketid);
+                              await doctor_details_local_data(context);
+                              await Appoimentresquestapi(
+                                  context,
+                                  Provider.of<userprofiledetails>(context,
+                                          listen: false)
+                                      .doctor_id);
                               setState(() {});
                             },
                             child: const Text(

@@ -42,8 +42,8 @@ dependencies:
   flutter_otp_text_field: ^1.1.0+2
   flutter_native_splash: ^2.4.1
   flutter_bloc: ^8.1.6
-  flutter_phone_direct_caller: 
   motion_tab_bar: ^2.0.4
+  # flutter_phone_direct_caller: ^2.1.1
   http: ^1.2.2
   url_launcher: ^6.3.0
   horizontal_calendar: ^1.1.2
@@ -58,9 +58,6 @@ dependencies:
   flutter_calendar_week:
   shared_preferences: ^2.3.2
    
-   
-    
-  
   
  
 
@@ -123,14 +120,6 @@ flutter_launcher_icons:
   image_path: "assets/img/doctor.png"
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/img/doctor.jpeg
-  android: true
-  ios: true
-  android_gravity: center
-  android_12:
-    image: assets/img/doctor.jpeg
-    color: "#ffffff"
+  
 
-    icon_background_color: "#ffffff"
-    image_dark: assets/img/doctor.jpeg
-    icon_background_color_dark: "#ffffff"
+  

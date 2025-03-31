@@ -93,7 +93,7 @@ class Settingspage extends StatelessWidget {
                             ////////////////////////////////////// shared preferenec userdata set///////////////////////////////
                             SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
-                            prefs.setBool("isLoggedIn", true);
+                            prefs.setBool("isLoggedIn", false);
                             await context
                                 .read<Login_id>()
                                 .Loginupdate_id(false, false, false);

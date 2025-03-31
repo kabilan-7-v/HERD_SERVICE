@@ -44,7 +44,7 @@ class Profile extends StatelessWidget {
 
   Widget listofprofile(String text, String subtext, IconData icon, ontap) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

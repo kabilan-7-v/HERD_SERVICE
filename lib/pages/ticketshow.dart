@@ -1,6 +1,5 @@
 // import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 // import 'package:herd_service/pages/enterdetails.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -104,10 +103,13 @@ class _TicketshowState extends State<Ticketshow> {
                                         CrossAxisAlignment.start,
                                     // mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        widget.street,
-                                        style: TextStyle(
-                                          fontSize: 18,
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 3),
+                                        child: Text(
+                                          widget.street,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),
                                         ),
                                       ),
                                       Row(
@@ -116,6 +118,9 @@ class _TicketshowState extends State<Ticketshow> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
+                                          const SizedBox(
+                                            width: 3,
+                                          ),
                                           Image.asset("assets/icons/call.png"),
                                           const SizedBox(
                                             width: 3,
@@ -128,8 +133,14 @@ class _TicketshowState extends State<Ticketshow> {
                                           ),
                                         ],
                                       ),
+                                      SizedBox(
+                                        height: 3,
+                                      ),
                                       Row(
                                         children: [
+                                          const SizedBox(
+                                            width: 1,
+                                          ),
                                           SizedBox(
                                               width: 15,
                                               child: Image.asset(
@@ -138,7 +149,7 @@ class _TicketshowState extends State<Ticketshow> {
                                             width: 3,
                                           ),
                                           Text(
-                                            widget.date + "  " + widget.time,
+                                            widget.date + ",  " + widget.time,
                                             style: TextStyle(
                                               fontSize: 18,
                                             ),
@@ -249,6 +260,9 @@ class _TicketshowState extends State<Ticketshow> {
                     ]),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 1,
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
@@ -294,45 +308,46 @@ class _TicketshowState extends State<Ticketshow> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 25,
-                  height: 150,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                      // ignore: prefer_const_literals_to_create_immutables
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(color: Colors.grey, blurRadius: 3),
-                      ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 5),
-                        child: Text(
-                          "Comments:",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+              widget.comment.isEmpty
+                  ? SizedBox()
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 25,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            // ignore: prefer_const_literals_to_create_immutables
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.grey, blurRadius: 3),
+                            ]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 5),
+                              child: Text(
+                                "Comments:",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 5),
+                              child: Text(
+                                widget.comment,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        child: Text(
-                          widget.comment,
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
               const SizedBox(
                 height: 20,
               ),
@@ -501,9 +516,9 @@ class _TicketshowState extends State<Ticketshow> {
     );
   }
 
-  _callNumber(String phoneNumber) async {
+  callNumber(String phoneNumber) async {
     String number = phoneNumber;
-    await FlutterPhoneDirectCaller.callNumber(number);
+    // await FlutterPhoneDirectCaller.callNumber(number);
   }
 
   whatsapp() async {

@@ -58,15 +58,15 @@ class _AdddetailsState extends State<Adddetails> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-          appBar: AppBar(
-            leadingWidth: 40,
-            scrolledUnderElevation: 0,
-            backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
-            title: Text(
-              "Enter Details",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-          ),
+          // appBar: AppBar(
+          //   leadingWidth: 40,
+          //   scrolledUnderElevation: 0,
+          //   backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+          //   title: Text(
+          //     "Enter Details",
+          //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          //   ),
+          // ),
           backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
           body: SingleChildScrollView(
             child: GestureDetector(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:herd_service/models/customercard.dart';
@@ -13,6 +14,7 @@ Appoimentresquestapi(BuildContext context, doctor_id) async {
   try {
     final response = await http.get(Uri.parse(url));
     var val = jsonDecode(response.body);
+    log(val.toString());
 
     Provider.of<test>(context, listen: false).addvalue_to_current_request(val);
     Provider.of<test>(context, listen: false)
@@ -37,7 +39,7 @@ change_current_to_assign(BuildContext context, ticket_id) async {
       body: jsonEncode({"SP_Approval_status": true}),
     );
 
-    Appoimentresquestapi(context,
+    await Appoimentresquestapi(context,
         Provider.of<userprofiledetails>(context, listen: false).doctor_id);
   } catch (e) {
     print(e);

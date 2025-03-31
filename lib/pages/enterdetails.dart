@@ -9,7 +9,9 @@ import 'package:herd_service/pages/adddetails.dart';
 import 'package:herd_service/pages/otppage.dart';
 import 'package:herd_service/server/enterdetails_api.dart';
 import 'package:herd_service/server/ticket_status_api.dart';
+import 'package:herd_service/widget/bottomsheet..dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Enterdetails extends StatefulWidget {
@@ -30,15 +32,46 @@ class _EnterdetailsState extends State<Enterdetails> {
   final TextEditingController strawNumberController = TextEditingController();
   final TextEditingController bullTypeController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
+  final TextEditingController heatController = TextEditingController();
+
   final GlobalKey<FormState> _key = GlobalKey();
   bool aitecnician = false;
   bool popup = false;
   XFile? temp;
   File? imageFile;
-
+  bool ischeckbox = false;
+  String selectdate = "Select Date";
   // Store the Base64-encoded string
 
   // Method to select and encode file to Base64
+  @override
+  void initState() {
+    // TODO: implement initState
+    setdate();
+    super.initState();
+  }
+
+  void _showAnimatedBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent, // Transparent background for effect
+      builder: (context) {
+        return AnimatedBottomSheetContent();
+      },
+    );
+  }
+
+  void setdate() {
+    DateTime today = DateTime.now();
+    DateTime futureDate = today.add(Duration(days: 18));
+
+    String formattedDate = DateFormat('yyyy-MM-dd').format(futureDate);
+    setState(() {
+      selectdate = formattedDate;
+    });
+  }
+
   selectFile() async {
     XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -56,186 +89,286 @@ class _EnterdetailsState extends State<Enterdetails> {
     strawNumberController.dispose();
     bullTypeController.dispose();
     priceController.dispose();
+    heatController.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // double screenHeight = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         Opacity(
           opacity: popup == true ? 0.3 : 1,
-          child: Scaffold(
-            appBar: AppBar(
-                title: Text(
-              "Enter Details",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            )),
-            backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
-            body: SingleChildScrollView(
-              child: Form(
-                key: _key,
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        selectFile();
-                      },
-                      child: Container(
-                        height: 220,
-                        width: MediaQuery.of(context).size.width - 40,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            imageFile == null ? SizedBox() : SizedBox(),
-                            imageFile == null
-                                ? Image.asset(
-                                    "assets/img/add_photo_alternate.png")
-                                : SizedBox(
-                                    height: 185,
-                                    width:
-                                        MediaQuery.of(context).size.width - 40,
-                                    child: Image.file(
-                                      imageFile!,
-                                      fit: BoxFit.fill,
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                  scrolledUnderElevation: 0,
+                  backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+                  title: Text(
+                    "Enter Details",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  )),
+              backgroundColor: const Color.fromRGBO(242, 240, 240, 1),
+              // bottomSheet: isRaised
+              //     ? AnimatedPositioned(
+              //         duration: Duration(milliseconds: 500),
+              //         curve: Curves.easeInOut,
+              //         // left: 50,
+              //         // right: 50,
+              //         bottom: isRaised ? screenHeight / 2 - 100 : 20,
+              //         child: Container(
+              //           height: 350,
+              //           width: double.infinity,
+              //           alignment: Alignment.center,
+              //           child: Text(
+              //             "Animated Card",
+              //             style: TextStyle(
+              //                 fontSize: 18, fontWeight: FontWeight.bold),
+              //           ),
+              //         ),
+              //       )
+              //     : SizedBox(),
+              // bottomNavigationBar: (aitecnician
+              //     ? GestureDetector(
+              //         onTap: () {
+              //           Navigator.push(
+              //               context,
+              //               MaterialPageRoute(
+              //                   builder: (context) => Adddetails()));
+              //         },
+              //         child: Container(
+              //           height: 60,
+              //           width: MediaQuery.of(context).size.width / 1.8,
+              //           decoration: BoxDecoration(
+              //             color: const Color.fromRGBO(70, 149, 184, 1),
+              //           ),
+              //           child: Row(
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             children: [
+              //               const Center(
+              //                   child: Text(
+              //                 "Add Details",
+              //                 style: TextStyle(
+              //                     fontSize: 24,
+              //                     color: Colors.white,
+              //                     fontWeight: FontWeight.bold),
+              //               )),
+              //               SizedBox(
+              //                 width: 8,
+              //               ),
+              //               Image.asset("assets/img/upload_2.png")
+              //             ],
+              //           ),
+              //         ),
+              //       )
+              //     : GestureDetector(
+              //         onTap: () {
+              //           _showAnimatedBottomSheet(context);
+              //           // if (temp == null) {
+              //           //   ScaffoldMessenger.of(context).showSnackBar(
+              //           //       SnackBar(content: Text('Please add image')));
+              //           //   return;
+              //           // }
+
+              //           // if (!_key.currentState!.validate()) return;
+
+              //           // setState(() {
+              //           //   popup = true;
+              //           // });
+              //         },
+              //         child: Container(
+              //           height: 60,
+              //           width: MediaQuery.of(context).size.width / 1.8,
+              //           decoration: BoxDecoration(
+              //             color: const Color.fromRGBO(70, 149, 184, 1),
+              //           ),
+              //           child: Row(
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             children: [
+              //               const Center(
+              //                   child: Text(
+              //                 "Upload Details",
+              //                 style: TextStyle(
+              //                     fontSize: 24,
+              //                     color: Colors.white,
+              //                     fontWeight: FontWeight.bold),
+              //               )),
+              //               SizedBox(
+              //                 width: 8,
+              //               ),
+              //               Image.asset("assets/img/upload_2.png")
+              //             ],
+              //           ),
+              //         ),
+              //       )),
+              body: SingleChildScrollView(
+                child: Form(
+                  key: _key,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          selectFile();
+                        },
+                        child: Center(
+                          child: Container(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width - 20,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                imageFile == null ? SizedBox() : SizedBox(),
+                                imageFile == null
+                                    ? Image.asset(
+                                        "assets/img/add_photo_alternate.png")
+                                    : SizedBox(
+                                        height: 165,
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                40,
+                                        child: Image.file(
+                                          imageFile!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                Container(
+                                  height: 35,
+                                  width: MediaQuery.of(context).size.width - 20,
+                                  decoration: const BoxDecoration(
+                                      color: Color.fromRGBO(70, 149, 184, 1),
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(9),
+                                          bottomRight: Radius.circular(9))),
+                                  child: const Center(
+                                    child: Text(
+                                      "Capture & Upload a Straw Photo",
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                   ),
-                            Container(
-                              height: 35,
-                              decoration: const BoxDecoration(
-                                  color: Color.fromRGBO(70, 149, 184, 1),
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(9),
-                                      bottomRight: Radius.circular(9))),
-                              width: MediaQuery.of(context).size.width - 40,
-                              child: const Center(
-                                child: Text(
-                                  "Capture & Upload a Straw Photo",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            )
-                          ],
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    buildTextField(
-                      label: 'Straw Number',
-                      hintText: 'Enter a Number',
-                      controller: strawNumberController,
-                      icon: Icons.edit,
-                    ),
-                    // const SizedBox(height: 16),
-                    buildTextField(
-                      label: 'Bull Type',
-                      hintText: 'Enter a type',
-                      controller: bullTypeController,
-                      icon: Icons.category,
-                    ),
-                    // const SizedBox(height: 16),
-                    buildTextField(
-                      label: 'Price',
-                      hintText: 'Enter a Price',
-                      controller: priceController,
-                      icon: Icons.currency_rupee,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    aitecnician
-                        ? InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Adddetails()));
-                            },
-                            child: Container(
-                              height: 60,
-                              width: MediaQuery.of(context).size.width / 1.8,
-                              decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(70, 149, 184, 1),
-                                  borderRadius: BorderRadius.circular(10)),
+                      buildTextField(
+                        label: 'Straw Number',
+                        hintText: 'Enter a Number',
+                        controller: strawNumberController,
+                        icon: Icons.edit,
+                      ),
+                      // const SizedBox(height: 16),
+                      buildTextField(
+                        label: 'Bull Type',
+                        hintText: 'Enter a type',
+                        controller: bullTypeController,
+                        icon: Icons.category,
+                      ),
+                      // const SizedBox(height: 16),
+                      buildTextField(
+                        label: 'Price',
+                        hintText: 'Enter a Price',
+                        controller: priceController,
+                        icon: Icons.currency_rupee,
+                      ),
+                      buildTextField(
+                        label: 'Heat Of The Animal',
+                        hintText: 'Enter a Heat Of The Animal',
+                        controller: heatController,
+                        icon: Icons.add_box_outlined,
+                      ),
+
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text("Follow Up",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Center(
-                                      child: Text(
-                                    "Add Details",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                                  Image.asset("assets/img/upload_2.png")
-                                ],
-                              ),
-                            ),
-                          )
-                        : InkWell(
-                            onTap: () {
-                              if (temp == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Please add image')));
-                                return;
-                              }
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 13),
+                                child: Text(selectdate),
+                              )),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                    onTap: () {
+                                      showDatePicker(
+                                        context: context,
+                                        firstDate: DateTime.now(),
+                                        lastDate: DateTime(2101),
+                                      ).then((onValue) {
+                                        selectdate = (onValue.toString())
+                                            .substring(0, 10);
+                                        setState(() {});
+                                      });
+                                    },
+                                    child: const Icon(
+                                        Icons.calendar_month_outlined)),
+                              )
+                            ],
+                          )),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Cross Breading Verification",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                          Spacer(),
+                          Checkbox(
+                              value: ischeckbox,
+                              onChanged: (onChanged) {
+                                setState(() {
+                                  ischeckbox = onChanged!;
+                                });
+                              }),
+                        ],
+                      ),
 
-                              // if (strawNumberController.text !=
-                              //     widget.Straw_no.toString()) {
-                              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              //       content: Text(
-                              //           'Please enter correct cowid or strawnumber')));
-                              //   return;
-                              // } else if (bullTypeController.text !=
-                              //     widget.bull_type.toString()) {
-                              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              //       content: Text(
-                              //           'Please enter correct Formerid or bulltype')));
-                              //   return;
-                              // }
-
-                              // if (temp == null) {
-                              //   ScaffoldMessenger.of(context).showSnackBar(
-                              //       SnackBar(
-                              //           content: Text('Please add image')));
-                              //   return;
-                              // }
-
-                              if (!_key.currentState!.validate()) return;
-
-                              setState(() {
-                                popup = true;
-                              });
-                            },
-                            child: Container(
-                              height: 60,
-                              width: MediaQuery.of(context).size.width / 1.8,
-                              decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(70, 149, 184, 1),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Center(
-                                      child: Text(
-                                    "Upload Details",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                                  Image.asset("assets/img/upload_2.png")
-                                ],
-                              ),
-                            ),
-                          )
-                  ],
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -253,14 +386,14 @@ class _EnterdetailsState extends State<Enterdetails> {
     required IconData icon,
   }) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             label,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),

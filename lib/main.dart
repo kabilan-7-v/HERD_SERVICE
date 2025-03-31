@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:herd_service/Local_data_user/doctor_details.dart';
 import 'package:herd_service/models/Ai_enter_details.dart';
@@ -6,6 +8,7 @@ import 'package:herd_service/models/customercard.dart';
 import 'package:herd_service/models/homemodel.dart';
 import 'package:herd_service/models/loginmodels.dart';
 import 'package:herd_service/pages/Loginpage.dart';
+import 'package:herd_service/pages/addmorecows.dart';
 import 'package:herd_service/pages/commonpage.dart';
 import 'package:herd_service/server/home_api.dart';
 
@@ -38,6 +41,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool? isLoggedIn;
   bool isLoading = true;
+  bool canpop = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -70,30 +74,30 @@ class _MyAppState extends State<MyApp> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'Proxima Nova'),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => const Loginpage(),
-      //   // '/common': (context) => const Commonpage(),
-      // },
-      builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context)
-              .copyWith(textScaler: const TextScaler.linear(0.9)),
-          child: child!,
-        );
-      },
-      debugShowCheckedModeBanner: false,
-      // home: const Commonpage(),
-      home: isLoading
-          ? Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          : isLoggedIn == true
-              ? Commonpage()
-              : Loginpage(),
-    );
+        theme: ThemeData(fontFamily: 'Proxima Nova'),
+        // initialRoute: '/',
+        // routes: {
+        //   '/': (context) => const Loginpage(),
+        //   // '/common': (context) => const Commonpage(),
+        // },
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context)
+                .copyWith(textScaler: const TextScaler.linear(0.9)),
+            child: child!,
+          );
+        },
+        debugShowCheckedModeBanner: false,
+        home: const Addmorecows(),
+        // home: isLoading
+        //     ? Scaffold(
+        //         body: Center(
+        //           child: CircularProgressIndicator(),
+        //         ),
+        //       )
+        //     : isLoggedIn == true
+        //         ? Commonpage()
+        //         : Loginpage()
+                );
   }
 }
